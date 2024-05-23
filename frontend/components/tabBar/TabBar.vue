@@ -5,7 +5,7 @@
 <template>
   <ul class="tabbar">
     <li class="tabbar__item">
-      <NuxtLink class="tabbar__link tabbar__link--active">
+      <NuxtLink class="tabbar__link" activeClass="tabbar__link--active" :to="{ name: 'exercices' }">
         <span class="tabbar__label">Exercices</span>
         <div class="tabbar__icon">
           <UIcon name="i-solar-dumbbell-large-minimalistic-linear" />
@@ -13,7 +13,7 @@
       </NuxtLink>
     </li>
     <li class="tabbar__item">
-      <NuxtLink class="tabbar__link">
+      <NuxtLink class="tabbar__link" activeClass="tabbar__link--active" :to="{ name: 'trainings' }">
         <span class="tabbar__label">Trainings</span>
         <div class="tabbar__icon">
           <UIcon name="i-solar-calendar-mark-linear" />
@@ -21,7 +21,7 @@
       </NuxtLink>
     </li>
     <li class="tabbar__item">
-      <NuxtLink class="tabbar__link">
+      <NuxtLink class="tabbar__link" activeClass="tabbar__link--active" :to="{ name: 'settings' }">
         <span class="tabbar__label">Settings</span>
         <div class="tabbar__icon">
           <UIcon name="i-solar-settings-outline" />
