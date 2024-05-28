@@ -21,8 +21,8 @@
       </NuxtLink>
     </li>
     <li class="tabbar__item">
-      <NuxtLink class="tabbar__link" activeClass="tabbar__link--active" :to="{ name: 'settings' }">
-        <span class="tabbar__label">Settings</span>
+      <NuxtLink class="tabbar__link" activeClass="tabbar__link--active" :to="{ name: 'program' }">
+        <span class="tabbar__label">Program</span>
         <div class="tabbar__icon">
           <UIcon name="i-solar-settings-outline" />
         </div>
@@ -42,6 +42,7 @@
   padding: 5px;
   justify-content: center;
   box-shadow: 1px 4px 20px rgba(0, 0, 0, 0.2);
+  background-color: white;
 }
 
 .tabbar__item {

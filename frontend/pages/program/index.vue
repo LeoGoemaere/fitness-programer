@@ -4,6 +4,6 @@
 
 <template>
   <div>
-    <h1>Settings</h1>
+    <h1>Program</h1>
   </div>
 </template>
