@@ -90,9 +90,6 @@ function check(item, index, open) {
 
 .setlist__button--check {
   background-color: rgb(var(--color-primary-50)) !important;
-  .setlist__heading {
-    text-decoration: line-through;
-  }
 }
 
 .setlist__heading {
