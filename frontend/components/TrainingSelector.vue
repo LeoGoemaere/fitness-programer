@@ -72,21 +72,22 @@ onMounted(() => {
           :color="selectedItem.checked ? 'primary' : 'gray'"
           variant="outline"
           class="training-selector__label"
+          :ui="{ rounded: 'rounded-full' }"
         >
-        <div class="flex items-center">
-          <UIcon v-if="selectedItem.checked" class="mr-1" name="i-solar-check-circle-outline" />
-          <UIcon v-else class="mr-1" name="i-solar-dumbbell-large-minimalistic-linear" />
-          {{ selectedItem.label }}
-        </div>
-        <div class="flex items-center">
-          <template v-if="selectedItem.checked">
-            <span class="mr-3">Done</span>
-          </template>
-          <template v-else>
-            <span class="mr-3">En cours</span>
-          </template>
-          <UIcon name="i-heroicons-chevron-down-20-solid" />
-        </div>
+          <div class="flex items-center">
+            <UIcon v-if="selectedItem.checked" class="mr-1" name="i-solar-check-circle-outline" />
+            <UIcon v-else class="mr-1" name="i-solar-dumbbell-large-minimalistic-linear" />
+            {{ selectedItem.label }}
+          </div>
+          <div class="flex items-center">
+            <template v-if="selectedItem.checked">
+              <span class="mr-3">Done</span>
+            </template>
+            <template v-else>
+              <span class="mr-3">En cours</span>
+            </template>
+            <UIcon name="i-heroicons-chevron-down-20-solid" />
+          </div>
         </UButton>
       </template>
       <template #label>
