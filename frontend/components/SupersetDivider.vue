@@ -1,8 +1,8 @@
 <script setup lang="ts">
 interface Props {
-  modelValue: boolean
+  modelValue: boolean,
+  color: string
 }
-
 
 interface Emit {
   (e: 'update:modelValue', active: boolean): void
@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<Props>(), {
     <span class="superset-divider__border"></span>
     <UButton
       @click="emit('update:modelValue', !props.modelValue)"
-      :color="props.modelValue ? 'primary' : 'gray'"
+      :color="props.modelValue ? color : 'gray'"
       size="2xs"
       variant="soft"
       label="superset"
@@ -46,13 +46,13 @@ const props = withDefaults(defineProps<Props>(), {
   &::before {
     content: '';
     position: absolute;
-    width: 1px;
+    width: 3px;
     height: 0;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
-    background-color: rgb(var(--color-primary-500));
+    background-color: v-bind(color);
     transition: height .1s ease-out;
   }
   .superset-divider--active & {
