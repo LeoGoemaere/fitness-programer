@@ -38,6 +38,7 @@
   bottom: 0;
   width: 100%;
   z-index: 100;
+  height: var(--tab-bar-height);
 
   display: flex;
   padding: 5px;
@@ -48,7 +49,7 @@
 
 .tabbar__item {
   width: 100px;
-  height: 70px;
+  height: 100%;
 }
 
 .tabbar__link {

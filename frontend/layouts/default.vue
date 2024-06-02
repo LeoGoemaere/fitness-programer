@@ -13,6 +13,7 @@ import TabBar from '~/components/tabBar/TabBar.vue';
 
 <style lang="scss">
 .layout__page {
-  padding: 0 20px;
+  --space-bottom: 10px;
+  padding: 0 20px calc(var(--tab-bar-height) + var(--space-bottom)); 
 }
 </style>
