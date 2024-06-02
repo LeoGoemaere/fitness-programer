@@ -8,10 +8,11 @@ const items = ref([{
 }])
 
 interface Props {
-  supersetUp: boolean
-  supersetDown: boolean
+  supersetUp?: boolean
+  supersetDown?: boolean
 }
 
+const isPopinOpen = ref(false)
 // Declarations des props
 const props = withDefaults(defineProps<Props>(), {
   supersetUp: false,
@@ -61,6 +62,7 @@ function check(item, index, open) {
         <set-item></set-item>
         <set-item></set-item>
         <UButton
+          @click="isPopinOpen = true"
           icon="i-heroicons-pencil-square"
           size="sm"
           color="primary"
@@ -72,6 +74,7 @@ function check(item, index, open) {
       </template>
     </UAccordion>
 
+    <edition-set-popin v-model="isPopinOpen"></edition-set-popin>
   </div>
 </template>
 

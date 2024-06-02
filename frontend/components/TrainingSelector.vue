@@ -72,20 +72,21 @@ onMounted(() => {
           :color="selectedItem.checked ? 'primary' : 'gray'"
           variant="outline"
           class="training-selector__label"
+          size="lg"
           :ui="{ rounded: 'rounded-full' }"
         >
-          <div class="flex items-center">
+          <div class="flex items-center mx-auto">
             <UIcon v-if="selectedItem.checked" class="mr-1" name="i-solar-check-circle-outline" />
             <UIcon v-else class="mr-1" name="i-solar-dumbbell-large-minimalistic-linear" />
             {{ selectedItem.label }}
           </div>
           <div class="flex items-center">
-            <template v-if="selectedItem.checked">
+            <!-- <template v-if="selectedItem.checked">
               <span class="mr-3">Done</span>
             </template>
             <template v-else>
               <span class="mr-3">En cours</span>
-            </template>
+            </template> -->
             <UIcon name="i-heroicons-chevron-down-20-solid" />
           </div>
         </UButton>
@@ -108,6 +109,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .training-selector {
+  max-width: 200px;
 }
 .training-selector__option {
   width: 100%;
@@ -134,7 +136,7 @@ onMounted(() => {
 
 .training-selector__label {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
 }
