@@ -23,13 +23,13 @@ const isSuperset3 = ref(false)
         v-model="currentTraining"
       ></training-selector>
 
-      <training-exercice :is-superset="isSuperset" :color1="isSuperset ? 'orange' : null"></training-exercice>
+      <training-exercice :superset-down="isSuperset"></training-exercice>
       <superset-divider v-model="isSuperset" color="orange"></superset-divider>
-      <training-exercice :is-superset="isSuperset || isSuperset2" :color1="isSuperset ? 'orange' : null" :color2="isSuperset2 ? 'blue' : null"></training-exercice>
+      <training-exercice :superset-up="isSuperset" :superset-down="isSuperset2"></training-exercice>
       <superset-divider v-model="isSuperset2" color="blue"></superset-divider>
-      <training-exercice :is-superset="isSuperset2 || isSuperset3" :color1="isSuperset2 ? 'blue' : null" :color2="isSuperset3 ? 'green' : null"></training-exercice>
+      <training-exercice :superset-up="isSuperset2" :superset-down="isSuperset3"></training-exercice>
       <superset-divider v-model="isSuperset3" color="green"></superset-divider>
-      <training-exercice :is-superset="isSuperset3" color1="green"></training-exercice>
+      <training-exercice :superset-up="isSuperset3"></training-exercice>
     </div>
   </div>
 </template>
