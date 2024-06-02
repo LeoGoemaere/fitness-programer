@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<Props>(), {
         <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
           Edition d'une série
         </h3>
-        <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="emit('update:modelValue', false)" />
+        <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" @click="emit('update:modelValue', false)" />
       </div>
       <p class="text-base leading-6 text-gray-900 dark:text-white">Développé couché, série n°4</p>
     </template>

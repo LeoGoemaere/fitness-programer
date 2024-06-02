@@ -7,6 +7,30 @@ interface Props {
 withDefaults(defineProps<Props>(), {
   check: false
 });
+
+const items = [
+  [
+    {
+      label: 'Edit',
+      icon: 'i-heroicons-pencil-square',
+      click: () => {
+        console.log('Edit')
+        isEditionPopinOpen.value = true
+      }
+    },
+    {
+      label: 'Delete',
+      icon: 'i-heroicons-trash',
+      labelClass: 'text-red-500',
+      iconClass: 'text-red-500',
+      click: () => {
+        console.log('Delete')
+      }
+    }
+  ]
+]
+
+const isEditionPopinOpen = ref(false)
 </script>
 
 <template>
@@ -17,19 +41,22 @@ withDefaults(defineProps<Props>(), {
     </div>
     <div class="setitem__right">
       <div class="setitem__label">Un label</div>
-      <UButton
-        class="setitem__options mx-2"
-        icon="i-solar-menu-dots-bold"
-        size="2xs"
-        color="gray"
-        variant="soft">
-      </UButton>
+      <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
+        <UButton
+          class="setitem__options mx-2"
+          icon="i-solar-menu-dots-bold"
+          size="2xs"
+          color="gray"
+          variant="soft">
+        </UButton>
+      </UDropdown>
       <UIcon
         v-if="check"
         class="setitem__check"
         name="i-solar-check-read-outline"
       />
     </div>
+    <edition-set-popin v-model="isEditionPopinOpen"></edition-set-popin>
   </div>
 </template>
 
