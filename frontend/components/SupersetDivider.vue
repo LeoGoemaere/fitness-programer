@@ -1,7 +1,6 @@
 <script setup lang="ts">
 interface Props {
   modelValue: boolean
-  // color: string
 }
 
 interface Emit {
@@ -18,14 +17,14 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <div class="superset-divider" :class="{ 'superset-divider--active': props.modelValue }">
-    <span class="superset-divider__border"></span>
     <UButton
       @click="emit('update:modelValue', !props.modelValue)"
+      class="superset-divider__button"
       :color="props.modelValue ? 'primary' : 'gray'"
       size="2xs"
       variant="soft"
       label="superset"
-      iscon="i-solar-arrow-up-bold"
+      :icon="props.modelValue ? 'i-solar-check-circle-linear' : 'i-solar-close-circle-linear'"
     ></UButton>
     <span class="superset-divider__border superset-divider__border--bottom"></span>
   </div>
@@ -38,34 +37,17 @@ const props = withDefaults(defineProps<Props>(), {
   position: relative;
   flex-direction: column;
   height: 50px;
+  z-index: 1;
+  transition: height .3s ease-out;
 }
 
-.superset-divider__border {
-  flex: 1;
-  position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    width: 3px;
-    height: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    background-color: rgb(var(--color-primary-500));
-    transition: height .1s ease-out;
-  }
-  .superset-divider--active & {
-    &::before {
-      height: 100%;
-    }
-  }
+.superset-divider--active {
+  height: 0;
 }
 
-.superset-divider__border--bottom {
-  &::before {
-    top: 0;
-    bottom: auto;
-  }
+.superset-divider__button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 </style>
