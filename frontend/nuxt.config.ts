@@ -2,6 +2,12 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr: false,
+  components: {
+    dirs: [
+      '~/components/exercices',
+      '~/components/trainings'
+    ]
+  },
   ui: {
     icons: ['solar'] // Collection font name
   },

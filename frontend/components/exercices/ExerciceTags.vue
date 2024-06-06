@@ -39,12 +39,12 @@ const props = withDefaults(defineProps<Props>(), {
 .c-tags__title {
   font-size: 14px;
   color: rgb(var(--color-gray-500));
+  margin-bottom: 5px;
 }
 
 .c-tags__list {
   margin-left: -5px;
   margin-right: -5px;
-  margin-top: 5px;
 }
 
 .c-tags__item {

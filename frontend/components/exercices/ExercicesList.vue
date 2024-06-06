@@ -37,25 +37,13 @@ const items = ref([
   },
 ])
 
-const tags = ['531', 'GZCL']
-const selectedTags = ref([])
 </script>
 
 <template>
   <div>
-    <h1>Pectoraux</h1>
+    <ExercicesSearch></ExercicesSearch>
 
-    <div class="flex">
-      <UInput
-        icon="i-heroicons-magnifying-glass-20-solid"
-        size="sm"
-        color="white"
-        :trailing="false"
-        placeholder="Search..."
-      />
-      <USelectMenu class="ml-2" icon="i-heroicons-adjustments-horizontal" v-model="selectedTags" :options="tags" multiple placeholder="Tags" />
-    </div>
-    <exercice-tags :items="[{label: 'test', color: 'orange'}, {label: 'test', color: 'orange'}]"></exercice-tags>
+    <p class="exo-list__title">Exercices</p>
 
     <div class="c-accordion">
       <UAccordion :items="items" :ui="{ container: 'c-accordion__container mb-3', item: { padding: 'p-2', size: '' } }">
@@ -102,6 +90,10 @@ const selectedTags = ref([])
   width: 50px;
   height: 100%;
   background-color:rgb(137, 143, 161);
+}
+
+.exo-list__title {
+  margin-bottom: 10px;
 }
 
 </style>
