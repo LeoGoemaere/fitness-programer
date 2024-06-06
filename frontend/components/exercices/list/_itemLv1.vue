@@ -93,7 +93,7 @@ function toggleItem () {
 }
 
 .headinglv1 {
-  padding: 10px 0;
+  padding: 5px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -110,6 +110,10 @@ function toggleItem () {
 
 .layerlv1__heading {
   display: flex;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
 }
 
 .layerlv1__title {
