@@ -30,7 +30,7 @@ function toggleLayer({ lv1Index }: { lv1Index: number }) {
   <div class="muscles-list">
     <h1 class="mb-3">Exercices</h1>
     <nav class="muscle-list__nav">
-      <ul class="list">
+      <ul class="muscles-list__list">
         <ListItemLv1
           v-for="(muscle, lv1Index) in musclesList"
           :key="lv1Index"
@@ -38,6 +38,16 @@ function toggleLayer({ lv1Index }: { lv1Index: number }) {
           :selected="activeLv1Index === lv1Index"
           @change="toggleLayer({ lv1Index })"
         >
+          <template #action>
+            <UButton
+              @click=""
+              icon="i-heroicons-plus-circle"
+              size="xl"
+              color="primary"
+              variant="link"
+              :trailing="false"
+            />
+          </template>
           <ExercicesList></ExercicesList>
         </ListItemLv1>
       </ul>
@@ -51,22 +61,7 @@ function toggleLayer({ lv1Index }: { lv1Index: number }) {
 }
 
 .muscles-list {
-}
-
-
-.list__trailing {
-  display: flex;
-  align-items: center;
-}
-
-.list__content {
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-}
-
-.list__label {
-  padding-right: 10px;
+  font-size: 14px;
 }
 
 </style>

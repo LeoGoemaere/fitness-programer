@@ -18,6 +18,13 @@ const props = withDefaults(defineProps<Props>(), {
 // Declarations des emits
 const emit = defineEmits<Emit>();
 
+// Declarations des slots
+const slots = useSlots();
+
+const hasActionSlot = computed(() => {
+  return !!slots.action;
+});
+
 function toggleItem () {
   emit('change', !props.selected)
 }
@@ -40,7 +47,8 @@ function toggleItem () {
     <div class="itemlv1__layer">
       <div class="layerlv1">
         <div class="layerlv1__heading">
-          <UButton
+          <div class="layerlv1__back">
+            <UButton
               @click="toggleItem"
               icon="i-heroicons-chevron-left-20-solid"
               size="xl"
@@ -48,15 +56,11 @@ function toggleItem () {
               variant="link"
               :trailing="false"
             />
-            <div class="layerlv1__title">{{ label }}</div>
-            <UButton
-                @click="toggleItem"
-                icon="i-heroicons-plus-circle"
-                size="xl"
-                color="primary"
-                variant="link"
-                :trailing="false"
-              />
+          </div>
+          <div class="layerlv1__title">{{ label }}</div>
+          <div v-if="hasActionSlot" class="layerlv1__action">
+            <slot name="action" />
+          </div>
         </div>
 
         <!-- On met un v-if car il peut y avoir beaucoup d'elements dans le DOM,
@@ -70,6 +74,7 @@ function toggleItem () {
 </template>
 
 <style lang="scss" scoped>
+// TODO: Fix sticky heading
 .itemlv1 {
   + .itemlv1 {
     border-top: 1px solid rgba(0, 0, 0, 0.07);
@@ -128,7 +133,6 @@ function toggleItem () {
   position: sticky;
   top: 0;
   padding: 20px;
-  z-index: 10;
   background-color: white;
   cursor: pointer;
   &::before {
@@ -136,6 +140,24 @@ function toggleItem () {
     margin-right: 8px;
     font-size: 16px;
   }
+}
+
+.layerlv1__action,
+.layerlv1__back {
+  display: flex;
+  justify-content: center;
+  width: 60px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.layerlv1__back {
+  left: 0;
+}
+.layerlv1__action {
+  right: 0;
 }
 
 .itemlv1__layer {
