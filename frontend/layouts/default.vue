@@ -15,7 +15,9 @@ import TabBar from '~/components/tabBar/TabBar.vue';
 .layout {
   --space-bottom: 50px;
   padding: 20px;
-  margin-bottom: var(--tab-bar-height);
-  min-height: 100vh;
+  margin-bottom: var(--tabbar-height);
+  margin-top: var(--header-height);
+  min-height: calc(100dvh - var(--tabbar-height) - var(--header-height));
+  position: relative;
 }
 </style>

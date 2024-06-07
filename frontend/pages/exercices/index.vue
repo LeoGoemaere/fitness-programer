@@ -4,6 +4,9 @@
 
 <template>
   <div class="exercices-page">
+    <app-header
+      title="Exercices"
+    ></app-header>
     <ExercicesMusclesList></ExercicesMusclesList>
   </div>
 </template>
@@ -14,7 +17,7 @@
   top: 0;
   left: 0;
   right: 0;
-  bottom: var(--tab-bar-height);
+  bottom: 0;
   padding: 20px;
 }
 </style>

@@ -74,7 +74,7 @@ function toggleItem () {
 </template>
 
 <style lang="scss" scoped>
-// TODO: Fix sticky heading
+// TODO: Lock scroll quand layer ouvert
 .itemlv1 {
   + .itemlv1 {
     border-top: 1px solid rgba(0, 0, 0, 0.07);

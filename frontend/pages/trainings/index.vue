@@ -16,7 +16,10 @@ const isSuperset3 = ref(false)
 
 <template>
   <div>
-    <h1>Training</h1>
+    <app-header
+      title="Trainings"
+      context-label="Mercredi (pecs)"
+    ></app-header>
     <div>
       <training-selector
         :items="trainings"

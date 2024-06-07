@@ -28,7 +28,6 @@ function toggleLayer({ lv1Index }: { lv1Index: number }) {
 <template>
   <!-- Utiliser un id ou code muscle pour la key -->
   <div class="muscles-list">
-    <h1 class="mb-3">Exercices</h1>
     <nav class="muscle-list__nav">
       <ul class="muscles-list__list">
         <ListItemLv1

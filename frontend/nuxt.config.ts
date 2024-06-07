@@ -5,7 +5,8 @@ export default defineNuxtConfig({
   components: {
     dirs: [
       '~/components/exercices',
-      '~/components/trainings'
+      '~/components/trainings',
+      '~/components/header',
     ]
   },
   ui: {

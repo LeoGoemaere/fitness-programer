@@ -3,6 +3,7 @@
 </script>
 
 <template>
+  <div class="teleport-header" id="header-teleport-target" />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
@@ -12,5 +13,12 @@
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.teleport-header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
 </style>

@@ -40,7 +40,7 @@
   bottom: 0;
   width: 100%;
   z-index: 100;
-  height: var(--tab-bar-height);
+  height: var(--tabbar-height);
 
   display: flex;
   padding: 5px;
