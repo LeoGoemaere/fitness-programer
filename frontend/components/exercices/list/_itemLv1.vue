@@ -55,6 +55,7 @@ function toggleItem () {
               color="primary"
               variant="link"
               :trailing="false"
+              :padded="false"
             />
           </div>
           <div class="layerlv1__title">{{ label }}</div>
@@ -132,7 +133,7 @@ function toggleItem () {
   width: 100%;
   position: sticky;
   top: 0;
-  padding: 20px;
+  padding: var(--page-spacing-y) var(--page-spacing-x);
   background-color: white;
   cursor: pointer;
   &::before {
@@ -146,7 +147,6 @@ function toggleItem () {
 .layerlv1__back {
   display: flex;
   justify-content: center;
-  width: 60px;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -154,20 +154,22 @@ function toggleItem () {
 }
 
 .layerlv1__back {
-  left: 0;
+  left: var(--page-spacing-x);
 }
 .layerlv1__action {
-  right: 0;
+  right: var(--page-spacing-x);
 }
 
 .itemlv1__layer {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
-  top: 0;
+  top: var(--header-height);
+  bottom: 0;
   transform: translateX(-100%);
   background-color: #fff;
   height: 100%;
+  max-height: calc(100dvh - var(--tabbar-height) - var(--header-height));
   overflow: auto;
   overscroll-behavior: contain;
   transition: transform .3s ease-out;
@@ -175,6 +177,6 @@ function toggleItem () {
 }
 
 .itemlv1__inner {
-  padding: 5px 20px 0;
+  padding: 5px var(--page-spacing-x) 0;
 }
 </style>

@@ -16,6 +16,51 @@ const musclesList = ref([
   {
     label: 'Triceps',
   },
+  {
+    label: 'Dos',
+  },
+  {
+    label: 'Biceps',
+  },
+  {
+    label: 'Triceps',
+  },
+  {
+    label: 'Dos',
+  },
+  {
+    label: 'Biceps',
+  },
+  {
+    label: 'Triceps',
+  },
+  {
+    label: 'Dos',
+  },
+  {
+    label: 'Biceps',
+  },
+  {
+    label: 'Triceps',
+  },
+  {
+    label: 'Dos',
+  },
+  {
+    label: 'Biceps',
+  },
+  {
+    label: 'Triceps',
+  },
+  {
+    label: 'Dos',
+  },
+  {
+    label: 'Biceps',
+  },
+  {
+    label: 'Triceps',
+  },
 ])
 
 const activeLv1Index = ref(-1)
@@ -28,6 +73,18 @@ function toggleLayer({ lv1Index }: { lv1Index: number }) {
 <template>
   <!-- Utiliser un id ou code muscle pour la key -->
   <div class="muscles-list">
+    <div class="muscles-list__heading">
+      <UButton
+        class="muscle-list__create"
+        @click=""
+        size="xl"
+        color="primary"
+        variant="link"
+        label="Create"
+        :trailing="false"
+        :padded="false"
+      />
+    </div>
     <nav class="muscle-list__nav">
       <ul class="muscles-list__list">
         <ListItemLv1
@@ -40,11 +97,12 @@ function toggleLayer({ lv1Index }: { lv1Index: number }) {
           <template #action>
             <UButton
               @click=""
-              icon="i-heroicons-plus-circle"
               size="xl"
               color="primary"
               variant="link"
+              label="Create"
               :trailing="false"
+              :padded="false"
             />
           </template>
           <ExercicesList></ExercicesList>
@@ -61,6 +119,15 @@ function toggleLayer({ lv1Index }: { lv1Index: number }) {
 
 .muscles-list {
   font-size: 14px;
+}
+
+.muscle-list__create {
+}
+
+.muscles-list__heading {
+  display: flex;
+  justify-content: end;
+  margin-bottom: var(--page-spacing-y);
 }
 
 </style>
