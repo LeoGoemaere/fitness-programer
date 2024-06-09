@@ -5,8 +5,8 @@ import corePrograms from '~/datas/programs/corePrograms'
 export const useProgramsStore = defineStore('programsStore', () => {
   const programs: Ref<Program[]> = ref(corePrograms);
 
-  const selectedProgramId = ref('program_531')
-  const selectedVariationId = ref('variation_triumvirate')
+  const selectedProgramId = ref(corePrograms[0].id)
+  const selectedVariationId = ref(null)
   const selectedTemplateId = ref(null)
 
   const currentProgram = computed(() => {
