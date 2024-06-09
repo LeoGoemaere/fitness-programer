@@ -1,51 +1,114 @@
 <script setup lang="ts">
+const programsStore = useProgramsStore();
 
+function updateProgram(programId: string) {
+  programsStore.setSelectedProgramId(programId)
+  updateVariation(null)
+  updateTemplate(null)
+}
+function updateVariation(variationId: string | null) {
+  programsStore.setSelectedVariationId(variationId)
+  updateTemplate(null)
+}
+function updateTemplate(templateId: string | null) {
+  programsStore.setSelectedTemplateId(templateId)
+}
+
+const programDescription = computed(() => programsStore.currentProgram?.description)
+const variationDescription = computed(() => programsStore.currentVariation?.description)
+const templateDescription = computed(() => programsStore.currentTemplate?.description)
+// TODO: Add tm percentage input
 </script>
 
 <template>
-  <div>
+  <div class="program">
     <app-header
       title="Program"
     ></app-header>
-    <div class="container-el">
-      <UFormGroup color="primary" class="flex-1" label="My program" :ui="{ label: { base: 'text-primary-500' } }">
+
+    <div class="program__form">
+      <UFormGroup class="program__form-row" label="My program" :ui="{ label: { base: 'text-primary-500' } }">
         <USelect
           color="primary"
           size="lg"
-          :options="['531', 'GZCL', 'Natural Hypertrophie']"
-        ></USelect>
-      </UFormGroup>
-      <UFormGroup class="mt-2 flex-1" label="Program variation">
-        <USelect
-          :options="['Novice', 'Intermediaire', 'Advanced']"
+          :options="programsStore.programs"
+          option-attribute="name"
+          value-attribute="id"
+          @update:modelValue="updateProgram"
+          :modelValue="programsStore.currentProgram?.id"
+          ></USelect>
+        </UFormGroup>
+        <UFormGroup v-if="programsStore.currentProgram" class="program__form-row" label="Variation">
+          <USelect
+          :options="programsStore.currentProgram.variations"
+          option-attribute="name"
+          value-attribute="id"
+          @update:modelValue="updateVariation"
+          :modelValue="programsStore.currentVariation?.id"
+          ></USelect>
+        </UFormGroup>
+        <UFormGroup v-if="programsStore.currentVariation" class="program__form-row" label="Template">
+          <USelect
+          :options="programsStore.currentVariation.templates"
+          option-attribute="name"
+          value-attribute="id"
+          @update:modelValue="updateTemplate"
+          :modelValue="programsStore.currentTemplate?.id"
         ></USelect>
       </UFormGroup>
     </div>
-    <div class="mt-5 text-sm">
-      <p class="font-semibold mb-2">Program description</p>
-      <div></div>
-      <div class="description">
-        <div class="image"></div>
-        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius tincidunt diam quis venenatis. Mauris ultricies mauris nec dolor viverra vehicula in sed orci. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi luctus augue sit amet hendrerit pretium. Nam aliquet metus egestas, efficitur justo sit amet, suscipit ipsum. Duis lacus lectus, facilisis ullamcorper purus sed, pharetra sagittis sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin sagittis mi at fermentum maximus. Ut vestibulum gravida dui, non tincidunt leo auctor in. Ut sed mauris a est ornare porttitor. Nullam venenatis, mauris sit amet aliquam aliquet, est tortor tincidunt metus, in ullamcorper nisl nibh nec justo. Donec bibendum accumsan sapien, sed sodales mi aliquam ut. Duis aliquet convallis dui, vitae rutrum elit ullamcorper sit amet. Sed hendrerit iaculis ante, quis venenatis enim vehicula et. Fusce lobortis ultrices posuere. Duis vulputate pharetra tempor.</div>
-      </div>
-    </div>
+
+    <UAlert v-if="programDescription || variationDescription || templateDescription" class="program__description">
+      <template #description>
+        <div v-if="programDescription" class="description__row">
+          <p>
+            <span class="font-bold">Program:</span> {{ programDescription }}
+          </p>
+        </div>
+        <div v-if="variationDescription" class="description__row">
+          <p>
+            <span class="font-bold">Variation:</span> {{ variationDescription }}
+          </p>
+        </div>
+        <div v-if="templateDescription" class="description__row">
+          <p>
+            <span class="font-bold">Template:</span> {{ templateDescription }}
+          </p>
+        </div>
+      </template>
+    </UAlert>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.container-el {
-  max-width: 250px;
-  margin: auto;
-}
-.description {
-  position: relative;
+.program__form {
+   margin: auto;
 }
 
-.image {
-  width: 100px;
-  height: 100px;
-  background-color: red;
-  float: left;
-  margin-right: 5px;
+.program__form-row {
+  + .program__form-row {
+    margin-top: 10px;
+  }
+}
+
+.program__infos {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: normal;
+}
+
+.program__description-title {
+  font-weight: 600;
+  margin-bottom: 10px
+}
+
+.program__description {
+  margin-top: 20px;
+}
+
+.description__row {
+  + .description__row {
+    margin-top: 10px;
+  }
 }
 </style>

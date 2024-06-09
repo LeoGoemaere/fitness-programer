@@ -28,7 +28,7 @@ const programsStore = useProgramsStore();
     <div>
     <!-- current program: {{ programsStore.currentProgram }} -->
     <!-- current variation: {{ programsStore.currentVariation }} -->
-    current template: {{ programsStore.currentTemplate }}
+    <!-- current template: {{ programsStore.currentTemplate }} -->
       <training-selector
         :items="trainings"
         v-model="currentTraining"
