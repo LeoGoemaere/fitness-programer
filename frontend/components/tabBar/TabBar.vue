@@ -13,8 +13,8 @@
       </NuxtLink>
     </li>
     <li class="tabbar__item">
-      <NuxtLink class="tabbar__link" activeClass="tabbar__link--active" :to="{ name: 'trainings' }">
-        <span class="tabbar__label">Trainings</span>
+      <NuxtLink class="tabbar__link" activeClass="tabbar__link--active" :to="{ name: 'training' }">
+        <span class="tabbar__label">Training</span>
         <div class="tabbar__icon">
           <UIcon name="i-solar-calendar-mark-linear" />
         </div>

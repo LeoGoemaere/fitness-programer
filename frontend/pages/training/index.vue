@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { program_response_531 } from '~/datas/programs'
 // Id obligatoire pour chaque training
 const trainings = ref([
   { id: 1, label: 'Lundi', checked: true },
@@ -12,12 +13,13 @@ const currentTraining = ref(trainings.value[0])
 const isSuperset = ref(false)
 const isSuperset2 = ref(false)
 const isSuperset3 = ref(false)
+
 </script>
 
 <template>
   <div>
     <app-header
-      title="Trainings"
+      title="Training"
       context-label="Mercredi (pecs)"
     ></app-header>
     <div>

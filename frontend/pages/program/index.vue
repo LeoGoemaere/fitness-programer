@@ -4,7 +4,9 @@
 
 <template>
   <div>
-    <h1>Program</h1>
+    <app-header
+      title="Program"
+    ></app-header>
     <div class="container-el">
       <UFormGroup color="primary" class="flex-1" label="My program" :ui="{ label: { base: 'text-primary-500' } }">
         <USelect
