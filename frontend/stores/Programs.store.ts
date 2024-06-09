@@ -1,10 +1,9 @@
 import { defineStore } from 'pinia';
-import { program_response_531 } from '~/datas/programs'
+// import { program_response_531 } from '~/datas/programs'
+import corePrograms from '~/datas/programs/corePrograms'
 
 export const useProgramsStore = defineStore('programsStore', () => {
-  const programs: Ref<any> = ref([
-    program_response_531
-  ]);
+  const programs: Ref<Program[]> = ref(corePrograms);
 
   const selectedProgramId = ref('program_531')
   const selectedVariationId = ref('variation_triumvirate')

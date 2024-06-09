@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { program_response_531 } from '~/datas/programs'
+// import { program_response_531 } from '~/datas/programs'
 // Id obligatoire pour chaque training
 const trainings = ref([
   { id: 1, label: 'Lundi', checked: true },
@@ -14,6 +14,9 @@ const isSuperset = ref(false)
 const isSuperset2 = ref(false)
 const isSuperset3 = ref(false)
 
+const programsStore = useProgramsStore();
+
+
 </script>
 
 <template>
@@ -23,6 +26,9 @@ const isSuperset3 = ref(false)
       context-label="Mercredi (pecs)"
     ></app-header>
     <div>
+    <!-- current program: {{ programsStore.currentProgram }} -->
+    <!-- current variation: {{ programsStore.currentVariation }} -->
+    current template: {{ programsStore.currentTemplate }}
       <training-selector
         :items="trainings"
         v-model="currentTraining"
