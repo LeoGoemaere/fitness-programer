@@ -23,7 +23,14 @@ const hasMultipleTemplates = computed(() => {
   const templates = programsStore?.currentVariation?.templates
   return templates && templates.length > 1
 })
-// TODO: Add tm percentage input
+
+const tmPercentageValue = computed(() => {
+  const program = programsStore.currentProgram
+  if (program) {
+    return program.tm_percentage * 100
+  }
+  return null
+})
 </script>
 
 <template>
@@ -33,27 +40,44 @@ const hasMultipleTemplates = computed(() => {
     ></app-header>
 
     <div class="program__form">
-      <UFormGroup class="program__form-row" label="My program" :ui="{ label: { base: 'text-primary-500' } }">
+        <UButtonGroup class="program__form-row" size="sm" orientation="horizontal">
+          <UFormGroup class="flex-1" label="My program" :ui="{ label: { base: 'text-primary-500' } }">
+            <USelect
+              color="primary"
+              size="lg"
+              :options="programsStore.programs"
+              option-attribute="name"
+              value-attribute="id"
+              @update:modelValue="updateProgram"
+              :modelValue="programsStore.currentProgram?.id"
+              ></USelect>
+          </UFormGroup>
+          <UFormGroup
+            class="program__tm"
+            label="Training Max %"
+            :ui="{ label: { base: 'text-primary-500' } }">
+              <UInput
+                color="primary"
+                disabled
+                readonly="readonly"
+                :modelValue="tmPercentageValue"
+              >
+                <template #trailing>
+                  <span class="tm__hint">% of 1 RM</span>
+                </template>
+              </UInput>
+          </UFormGroup>
+        </UButtonGroup>
+      <!-- Only display if there is more than 1 variation -->
+      <UFormGroup v-if="programsStore.currentProgram && hasMultipleVariations" class="program__form-row" label="Variation">
         <USelect
-          color="primary"
-          size="lg"
-          :options="programsStore.programs"
-          option-attribute="name"
-          value-attribute="id"
-          @update:modelValue="updateProgram"
-          :modelValue="programsStore.currentProgram?.id"
-          ></USelect>
-        </UFormGroup>
-        <!-- Only display if there is more than 1 variation -->
-        <UFormGroup v-if="programsStore.currentProgram && hasMultipleVariations" class="program__form-row" label="Variation">
-          <USelect
-          :options="programsStore.currentProgram.variations"
-          option-attribute="name"
-          value-attribute="id"
-          @update:modelValue="updateVariation"
-          :modelValue="programsStore.currentVariation?.id"
-          ></USelect>
-        </UFormGroup>
+        :options="programsStore.currentProgram.variations"
+        option-attribute="name"
+        value-attribute="id"
+        @update:modelValue="updateVariation"
+        :modelValue="programsStore.currentVariation?.id"
+        ></USelect>
+      </UFormGroup>
         <!-- Only display if there is more than 1 template -->
         <UFormGroup v-if="programsStore.currentVariation && hasMultipleTemplates" class="program__form-row" label="Template">
           <USelect
@@ -94,9 +118,19 @@ const hasMultipleTemplates = computed(() => {
 }
 
 .program__form-row {
+  width: 100%;
   + .program__form-row {
     margin-top: 10px;
   }
+}
+
+.program__tm {
+  max-width: 100px;
+}
+
+.tm__hint {
+  font-size: 12px;
+  color: rgb(var(--color-gray-500));
 }
 
 .program__infos {
