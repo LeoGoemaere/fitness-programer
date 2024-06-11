@@ -166,13 +166,13 @@ function toggleItem () {
   right: 0;
   top: var(--header-height);
   bottom: 0;
-  transform: translateX(-100%);
+  transform: translateX(100%);
   background-color: #fff;
   height: 100%;
   max-height: calc(100dvh - var(--tabbar-height) - var(--header-height));
   overflow: auto;
   overscroll-behavior: contain;
-  transition: transform .3s ease-out;
+  transition: transform .2s ease-out;
   z-index: 10;
 }
 

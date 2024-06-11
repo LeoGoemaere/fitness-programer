@@ -1,67 +1,8 @@
 <script setup lang="ts">
+import coreMuscles from '~/datas/muscles/coreMuscles'
 
-const musclesList = ref([
-  {
-    label: 'All',
-  },
-  {
-    label: 'Pectoraux',
-  },
-  {
-    label: 'Dos',
-  },
-  {
-    label: 'Biceps',
-  },
-  {
-    label: 'Triceps',
-  },
-  {
-    label: 'Dos',
-  },
-  {
-    label: 'Biceps',
-  },
-  {
-    label: 'Triceps',
-  },
-  {
-    label: 'Dos',
-  },
-  {
-    label: 'Biceps',
-  },
-  {
-    label: 'Triceps',
-  },
-  {
-    label: 'Dos',
-  },
-  {
-    label: 'Biceps',
-  },
-  {
-    label: 'Triceps',
-  },
-  {
-    label: 'Dos',
-  },
-  {
-    label: 'Biceps',
-  },
-  {
-    label: 'Triceps',
-  },
-  {
-    label: 'Dos',
-  },
-  {
-    label: 'Biceps',
-  },
-  {
-    label: 'Triceps',
-  },
-])
+// TODO: Localization
+const muscleListSorts = computed(() => coreMuscles.sort((a, b) => a.localeCompare(b)))
 
 const activeLv1Index = ref(-1)
 
@@ -88,9 +29,9 @@ function toggleLayer({ lv1Index }: { lv1Index: number }) {
     <nav class="muscle-list__nav">
       <ul class="muscles-list__list">
         <ListItemLv1
-          v-for="(muscle, lv1Index) in musclesList"
+          v-for="(muscle, lv1Index) in muscleListSorts"
           :key="lv1Index"
-          :label="muscle.label"
+          :label="muscle"
           :selected="activeLv1Index === lv1Index"
           @change="toggleLayer({ lv1Index })"
         >

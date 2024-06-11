@@ -13,6 +13,8 @@ export enum MusclesEnum {
   Quads = "Quads",
   Trapezius = "Trapezius",
   Triceps = "Triceps",
+  Neck = "Neck",
+  Lumbars = "Lumbars",
   
   // Lats = "Lats", // dos
   // Obliques = "Obliques"
