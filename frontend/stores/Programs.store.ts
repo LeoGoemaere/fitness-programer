@@ -5,18 +5,35 @@ import corePrograms from '~/datas/programs/corePrograms'
 export const useProgramsStore = defineStore('programsStore', () => {
   const programs: Ref<Program[]> = ref(corePrograms);
 
-  const selectedProgramId: Ref<string | null> = ref(corePrograms[0].id)
-  const selectedVariationId: Ref<string | null> = ref(null)
-  const selectedTemplateId: Ref<string | null> = ref(null)
+  const firstProgramId = corePrograms[0]?.id
+  const firstVariationId = corePrograms[0]?.variations[0]?.id
+  const firstTemplateId = corePrograms[0]?.variations[0]?.templates[0]?.id
 
-  function setSelectedProgramId(programId: string | null) {
+  const selectedProgramId: Ref<string | null | undefined> = ref(firstProgramId || null)
+  const selectedVariationId: Ref<string | null | undefined> = ref(firstVariationId || null)
+  const selectedTemplateId: Ref<string | null | undefined> = ref(firstTemplateId || null)
+
+  function setSelectedProgramId(programId?: string | null) {
     selectedProgramId.value = programId
+    resetVariation()
+    resetTemplate()
   }
-  function setSelectedVariationId(variationId: string | null) {
-    selectedVariationId.value = variationId
+  function setSelectedVariationId(variationId?: string | null) {
+    selectedVariationId.value = variationId ? variationId : firstVariationId
+    resetTemplate()
   }
-  function setSelectedTemplateId(templateId: string | null) {
-    selectedTemplateId.value = templateId
+  function setSelectedTemplateId(templateId?: string | null) {
+    selectedTemplateId.value = templateId ? templateId : firstTemplateId
+  }
+
+  // TODO: Make a composable
+  function resetVariation() {
+    const variation = currentProgram.value?.variations[0]
+    selectedVariationId.value = variation ? variation.id : null
+  }
+  function resetTemplate() {
+    const template = currentVariation.value?.templates[0]
+    selectedTemplateId.value = template ? template.id : null
   }
 
   const currentProgram = computed(() => {
@@ -48,6 +65,8 @@ export const useProgramsStore = defineStore('programsStore', () => {
     setSelectedProgramId,
     setSelectedVariationId,
     setSelectedTemplateId,
+    resetTemplate,
+    resetVariation,
     currentProgram,
     currentVariation,
     currentTemplate

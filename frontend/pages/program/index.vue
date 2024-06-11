@@ -3,12 +3,9 @@ const programsStore = useProgramsStore();
 
 function updateProgram(programId: string) {
   programsStore.setSelectedProgramId(programId)
-  updateVariation(null)
-  updateTemplate(null)
 }
 function updateVariation(variationId: string | null) {
   programsStore.setSelectedVariationId(variationId)
-  updateTemplate(null)
 }
 function updateTemplate(templateId: string | null) {
   programsStore.setSelectedTemplateId(templateId)
@@ -17,6 +14,15 @@ function updateTemplate(templateId: string | null) {
 const programDescription = computed(() => programsStore.currentProgram?.description)
 const variationDescription = computed(() => programsStore.currentVariation?.description)
 const templateDescription = computed(() => programsStore.currentTemplate?.description)
+
+const hasMultipleVariations = computed(() => {
+  const variations = programsStore?.currentProgram?.variations
+  return variations && variations.length > 1
+})
+const hasMultipleTemplates = computed(() => {
+  const templates = programsStore?.currentVariation?.templates
+  return templates && templates.length > 1
+})
 // TODO: Add tm percentage input
 </script>
 
@@ -38,7 +44,8 @@ const templateDescription = computed(() => programsStore.currentTemplate?.descri
           :modelValue="programsStore.currentProgram?.id"
           ></USelect>
         </UFormGroup>
-        <UFormGroup v-if="programsStore.currentProgram" class="program__form-row" label="Variation">
+        <!-- Only display if there is more than 1 variation -->
+        <UFormGroup v-if="programsStore.currentProgram && hasMultipleVariations" class="program__form-row" label="Variation">
           <USelect
           :options="programsStore.currentProgram.variations"
           option-attribute="name"
@@ -47,7 +54,8 @@ const templateDescription = computed(() => programsStore.currentTemplate?.descri
           :modelValue="programsStore.currentVariation?.id"
           ></USelect>
         </UFormGroup>
-        <UFormGroup v-if="programsStore.currentVariation" class="program__form-row" label="Template">
+        <!-- Only display if there is more than 1 template -->
+        <UFormGroup v-if="programsStore.currentVariation && hasMultipleTemplates" class="program__form-row" label="Template">
           <USelect
           :options="programsStore.currentVariation.templates"
           option-attribute="name"
@@ -67,12 +75,12 @@ const templateDescription = computed(() => programsStore.currentTemplate?.descri
         </div>
         <div v-if="variationDescription" class="description__row">
           <p>
-            <span class="font-bold">Variation:</span> {{ variationDescription }}
+            <span v-if="hasMultipleVariations" class="font-bold">Variation:</span> {{ variationDescription }}
           </p>
         </div>
         <div v-if="templateDescription" class="description__row">
           <p>
-            <span class="font-bold">Template:</span> {{ templateDescription }}
+            <span v-if="hasMultipleTemplates" class="font-bold">Template:</span> {{ templateDescription }}
           </p>
         </div>
       </template>

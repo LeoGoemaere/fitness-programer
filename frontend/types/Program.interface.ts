@@ -2,7 +2,7 @@ interface Program {
   id: string
   tm_percentage: number
   name: string
-  description: string,
+  description?: string | null
   variations: ProgramVariation[]
 }
 
@@ -10,14 +10,14 @@ interface ProgramVariation {
   id: string
   // program_id: string
   name: string
-  description: string,
+  description?: string | null
   templates: ProgramTemplate[]
 }
 
 interface ProgramTemplate {
   id: string
   name: string
-  description: string
+  description?: string | null
   weeks: ProgramWeek[]
 }
 
