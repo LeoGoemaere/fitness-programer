@@ -19,6 +19,7 @@ import adductors from '~/assets/images/muscles/adductors.png'
 import lumbars from '~/assets/images/muscles/lumbars.png'
 
 const muscleListSorts = computed(() => coreMuscles.sort((a, b) => a.localeCompare(b)))
+const listItems = computed(() => [ 'All', ...muscleListSorts.value ])
 
 const activeLv1Index = ref(-1)
 
@@ -80,15 +81,17 @@ function getMuscleImage(muscleName: string) {
         :padded="false"
       />
     </div>
-    <nav class="muscle-list__nav">
+    <nav class="muscles-list__nav">
       <ul class="muscles-list__list">
         <ListItemLv1
-          v-for="(muscle, lv1Index) in muscleListSorts"
+          v-for="(muscle, lv1Index) in listItems"
           :key="lv1Index"
           :label="$t(`muscles.${muscle}`)"
           :img-url="getMuscleImage(muscle)"
           :selected="activeLv1Index === lv1Index"
           @change="toggleLayer({ lv1Index })"
+          class="muscles-list__item"
+          :class="{ 'muscles-list__item--all': muscle === 'All' }"
         >
           <template #action>
             <UButton
@@ -124,6 +127,10 @@ function getMuscleImage(muscleName: string) {
   display: flex;
   justify-content: end;
   margin-bottom: var(--page-spacing-y);
+}
+
+.muscles-list__item--all {
+  padding: 15px 0;
 }
 
 </style>

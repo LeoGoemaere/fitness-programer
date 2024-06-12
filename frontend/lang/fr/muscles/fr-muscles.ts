@@ -1,4 +1,5 @@
 export default {
+  All: 'Tous',
   Abs: "Abdominaux",
   Abductors: "Abducteurs",
   Adductors: "Adducteurs",
