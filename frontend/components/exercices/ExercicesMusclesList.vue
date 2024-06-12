@@ -1,13 +1,67 @@
 <script setup lang="ts">
 import coreMuscles from '~/datas/muscles/coreMuscles'
 
-// TODO: Localization
+import abs from '~/assets/images/muscles/abs.png'
+import back from '~/assets/images/muscles/back.png'
+import calves from '~/assets/images/muscles/calves.png'
+import chest from '~/assets/images/muscles/chest.png'
+import forearms from '~/assets/images/muscles/forearms.png'
+import glutes from '~/assets/images/muscles/glutes.png'
+import shoulders from '~/assets/images/muscles/shoulders.png'
+import triceps from '~/assets/images/muscles/triceps.png'
+import biceps from '~/assets/images/muscles/biceps.png'
+import quads from '~/assets/images/muscles/quads.png'
+import trapezius from '~/assets/images/muscles/trapezius.png'
+import neck from '~/assets/images/muscles/neck.png'
+import hamstrings from '~/assets/images/muscles/hamstrings.png'
+import abductors from '~/assets/images/muscles/abductors.png'
+import adductors from '~/assets/images/muscles/adductors.png'
+import lumbars from '~/assets/images/muscles/lumbars.png'
+
 const muscleListSorts = computed(() => coreMuscles.sort((a, b) => a.localeCompare(b)))
 
 const activeLv1Index = ref(-1)
 
 function toggleLayer({ lv1Index }: { lv1Index: number }) {
   activeLv1Index.value = activeLv1Index.value === lv1Index ? -1 : lv1Index
+}
+
+// TODO: Optimize images + lazyload ?
+function getMuscleImage(muscleName: string) {
+  switch (muscleName.toLocaleLowerCase()) {
+    case 'abs':
+      return abs
+    case 'back':
+      return back
+    case 'calves':
+      return calves
+    case 'chest':
+      return chest
+    case 'forearms':
+      return forearms
+    case 'glutes':
+      return glutes
+    case 'lumbars':
+      return lumbars
+    case 'shoulders':
+      return shoulders
+    case 'triceps':
+      return triceps
+    case 'biceps':
+      return biceps
+    case 'quads':
+      return quads
+    case 'trapezius':
+      return trapezius
+    case 'neck':
+      return neck
+    case 'adductors':
+      return adductors
+    case 'abductors':
+      return abductors
+    case 'hamstrings':
+      return hamstrings
+  }
 }
 </script>
 
@@ -31,7 +85,8 @@ function toggleLayer({ lv1Index }: { lv1Index: number }) {
         <ListItemLv1
           v-for="(muscle, lv1Index) in muscleListSorts"
           :key="lv1Index"
-          :label="muscle"
+          :label="$t(`muscles.${muscle}`)"
+          :img-url="getMuscleImage(muscle)"
           :selected="activeLv1Index === lv1Index"
           @change="toggleLayer({ lv1Index })"
         >

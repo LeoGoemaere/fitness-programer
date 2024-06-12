@@ -3,6 +3,7 @@ interface Props {
   active?: boolean
   selected?: boolean
   label: string
+  imgUrl?: string
 }
 
 interface Emit {
@@ -38,7 +39,11 @@ function toggleItem () {
       'itemlv1--selected': props.selected,
     }">
     <div @click="toggleItem" class="headinglv1">
-      <ListItemLv1Content :label="props.label"></ListItemLv1Content>
+      <ListItemLv1Content
+        :label="props.label"
+        :imgUrl="props.imgUrl"
+      >
+      </ListItemLv1Content>
       <UIcon
         class="itemlv1__icon"
         name="i-heroicons-chevron-right-20-solid"

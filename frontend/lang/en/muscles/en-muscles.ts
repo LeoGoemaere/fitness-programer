@@ -1,3 +1,3 @@
 export default {
-  'abs': 'abs'
+  'Abs': 'abs'
 }
