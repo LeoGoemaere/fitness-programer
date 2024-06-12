@@ -2,9 +2,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr: false,
-  i18n: {
-    vueI18n: './i18n.config.ts'
-  },
   components: {
     dirs: [
       '~/components/exercices',

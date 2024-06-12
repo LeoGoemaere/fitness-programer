@@ -1,41 +1,5 @@
 <script setup lang="ts">
-const rm = ref(0)
-const tm = ref(0)
-const rmAdd = ref(0)
-const test = null
-
-const items = ref([
-  {
-    label: 'Soulevé de Terre de la mort qui tue',
-    icon: 'i-heroicons-information-circle',
-    defaultOpen: false,
-  },
-  {
-    label: 'Soulevé de terre',
-    icon: 'i-heroicons-information-circle',
-    defaultOpen: false,
-  },
-  {
-    label: 'Press',
-    icon: 'i-heroicons-information-circle',
-    defaultOpen: false,
-  },
-  {
-    label: 'Ecarté haltères',
-    icon: 'i-heroicons-information-circle',
-    defaultOpen: false,
-  },
-  {
-    label: 'Spider curl',
-    icon: 'i-heroicons-information-circle',
-    defaultOpen: false,
-  },
-  {
-    label: 'Crunch',
-    icon: 'i-heroicons-information-circle',
-    defaultOpen: false,
-  },
-])
+const exercicesStore = useExercicesStore();
 
 </script>
 
@@ -46,7 +10,7 @@ const items = ref([
     <p class="exo-list__title">Exercices</p>
 
     <div class="c-accordion">
-      <UAccordion :items="items" :ui="{ container: 'c-accordion__container mb-3', item: { padding: 'p-2', size: '' } }">
+      <UAccordion :items="exercicesStore.exercices" :ui="{ container: 'c-accordion__container mb-3', item: { padding: 'p-2', size: '' } }">
         <template #default="{ item, index, open }">
           <UButton color="gray" variant="ghost" class="c-accordion-heading" :class="{ 'c-accordion-heading--active': open }" :ui="{}">
             <template #leading>
@@ -56,12 +20,12 @@ const items = ref([
             </template>
             <div class="c-accordion-heading__content truncate p-3">
               <div class="c-accordion-heading__left">
-                <span>{{ item.label }}</span>
+                <span>{{ item.name }}</span>
               </div>
               <div class="c-accordion-heading__trailing">
-                <UChip position="top-left" size="xl" text="RM" color="primary">
+                <UChip position="top-left" size="xl" :text="item.reference_max_progression" color="primary">
                   <UButton color="primary" size="2xs" variant="soft" icon="i-heroicons-plus-circle">
-                    5kg
+                    {{ item.weight_progression }}kg
                   </UButton>
                 </UChip>
                 <UButton class="ml-2" size="2xs" color="gray" icon="i-solar-menu-dots-bold" variant="soft" />
@@ -75,7 +39,7 @@ const items = ref([
         </template>
         <template #item="{ item }">
 
-          <exercice-max></exercice-max>
+          <exercice-max :exercice="item"></exercice-max>
 
           <exercice-tags class="my-5" title="Tags" :items="[{label: 'test', color: 'orange'}, {label: 'test', color: 'orange'}]"></exercice-tags>
         </template>

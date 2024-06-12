@@ -1,6 +1,8 @@
 import { program531 } from './531/program531'
+import { programGZCL } from './gzcl/programGZCL'
 export default [
-  program531
+  program531,
+  programGZCL
 ]
 
 // // Program

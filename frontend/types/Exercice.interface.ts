@@ -6,6 +6,6 @@ export interface Exercice {
   rm: number
   tm: number
   weight_progression: number
-  reference_weight_progression: 'rm' | 'tm'
+  reference_max_progression: 'rm' | 'tm'
   tag_ids: string[]
 }

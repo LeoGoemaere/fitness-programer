@@ -7,8 +7,8 @@ export const bench: Exercice = {
   primary_muscle: MusclesEnum.Chest,
   rm: 0,
   tm: 0,
-  weight_progression: 0,
-  reference_weight_progression: 'tm',
+  weight_progression: 10,
+  reference_max_progression: 'tm',
   tag_ids: []
 }
 
@@ -19,7 +19,7 @@ export const deadlift: Exercice = {
   rm: 0,
   tm: 0,
   weight_progression: 0,
-  reference_weight_progression: 'tm',
+  reference_max_progression: 'tm',
   tag_ids: []
 }
 

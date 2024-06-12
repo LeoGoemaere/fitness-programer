@@ -1,13 +1,73 @@
 <script lang="ts" setup>
-const rm = ref(0)
-const tm = ref(0)
+import { blockInvalidChar } from '~/utils/utils'
+import type { Exercice } from '~/types/Exercice.interface';
+
+const exercicesStore = useExercicesStore();
+const programsStore = useProgramsStore();
+
+interface Props {
+  exercice: Exercice
+}
+
+// Declarations des props
+const props = withDefaults(defineProps<Props>(), {
+});
+
+async function updateMax(maxType: 'rm' | 'tm', value: unknown) {
+  const newExercice: Exercice = JSON.parse(JSON.stringify(props.exercice))
+  const maxTypeValue = isNaN(value as number) ? 0 : Number(value) // Can be Nan but TS want a number as param...
+  newExercice[maxType] = maxTypeValue
+
+  if (maxType === 'rm') {
+    newExercice.tm = tmFromRm(maxTypeValue)
+  } else if (maxType === 'tm') {
+    newExercice.rm = rmFromTm(maxTypeValue)
+  }
+  exercicesStore.updateExercice(newExercice)
+}
+
+function tmFromRm(rm: number) {
+  const tmPercentage = programsStore.currentProgram?.tm_percentage
+  if (typeof tmPercentage !== 'undefined') {
+    const newTm = rm * tmPercentage
+    return roundValue(newTm)
+  }
+  return 0
+}
+
+function rmFromTm(tm: number) {
+  const tmPercentage = programsStore.currentProgram?.tm_percentage
+  if (typeof tmPercentage !== 'undefined') {
+    const newRm = tm / tmPercentage
+    return roundValue(newRm)
+  }
+  return 0
+}
+
+function roundValue(value: unknown) {
+  if (typeof value === 'number') {
+    return Math.ceil(value * 10) / 10;
+  }
+  return 0;
+}
+
+onMounted(() => {
+  const currentMaxValue = props.exercice.rm
+  updateMax('rm', currentMaxValue)
+})
 </script>
 
 <template>
   <div class="max">
     <div class="max__item">
       <span class="max__label">Répetition max</span>
-      <UInput v-model="rm" :ui="{ rounded: 'rounded-s-none' }">
+      <UInput
+        :modelValue="exercice.rm"
+        @keydown="blockInvalidChar"
+        @change="updateMax('rm', $event)"
+        :ui="{ rounded: 'rounded-s-none' }"
+        type="number"
+      >
         <template #trailing>
           <span class="max__unit">Kg</span>
         </template>
@@ -18,7 +78,13 @@ const tm = ref(0)
     </div>
     <div class="max__item">
       <span class="max__label max__label--tm">Training max</span>
-      <UInput v-model="tm" :ui="{ rounded: 'rounded-s-none' }">
+      <UInput
+        :modelValue="exercice.tm"
+        @keydown="blockInvalidChar"
+        @change="updateMax('tm', $event)"
+        :ui="{ rounded: 'rounded-s-none' }"
+        type="number"
+      >
         <template #trailing>
           <span class="max__unit">Kg</span>
         </template>
