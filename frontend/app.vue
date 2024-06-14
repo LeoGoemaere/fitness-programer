@@ -19,6 +19,6 @@
   left: 0;
   top: 0;
   right: 0;
-  z-index: 20;
+  z-index: 30;
 }
 </style>

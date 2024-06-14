@@ -9,9 +9,16 @@ interface Props {
   exercice: Exercice
 }
 
+interface Emit {
+  (e: 'updated', exercice: Exercice): void
+}
+
 // Declarations des props
 const props = withDefaults(defineProps<Props>(), {
 });
+
+// Declarations des emits
+const emit = defineEmits<Emit>();
 
 async function updateMax(maxType: 'rm' | 'tm', value: unknown) {
   const newExercice: Exercice = JSON.parse(JSON.stringify(props.exercice))
@@ -23,7 +30,7 @@ async function updateMax(maxType: 'rm' | 'tm', value: unknown) {
   } else if (maxType === 'tm') {
     newExercice.rm = rmFromTm(maxTypeValue)
   }
-  exercicesStore.updateExercice(newExercice)
+  emit('updated', newExercice)
 }
 
 function tmFromRm(rm: number) {

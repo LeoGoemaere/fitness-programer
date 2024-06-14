@@ -18,8 +18,10 @@ import abductors from '~/assets/images/muscles/abductors.png'
 import adductors from '~/assets/images/muscles/adductors.png'
 import lumbars from '~/assets/images/muscles/lumbars.png'
 
-const muscleListSorts = computed(() => coreMuscles.sort((a, b) => a.localeCompare(b)))
-const listItems = computed(() => [ 'All', ...muscleListSorts.value ])
+const { t } = useI18n()
+
+const muscleListSorts = coreMuscles.sort((a, b) => t(`muscles.${a}`).localeCompare(t(`muscles.${b}`)))
+const listItems = computed(() => [ 'All', ...muscleListSorts ])
 
 const activeLv1Index = ref(-1)
 
@@ -64,28 +66,51 @@ function getMuscleImage(muscleName: string) {
       return hamstrings
   }
 }
+
+const isPopinOpen = ref(false)
+
+const createOptions = [
+  [
+    {
+      label: 'Create Exercice',
+      icon: 'i-solar-dumbbell-large-minimalistic-linear',
+      click: () => {
+        console.log('Edit')
+        isPopinOpen.value = true
+      }
+    },
+    {
+      label: 'Create Tag',
+      icon: 'i-heroicons-tag',
+      click: () => {
+        console.log('Edit')
+        isPopinOpen.value = true
+      }
+    },
+  ]
+]
 </script>
 
 <template>
-  <!-- Utiliser un id ou code muscle pour la key -->
   <div class="muscles-list">
     <div class="muscles-list__heading">
-      <UButton
-        class="muscle-list__create"
-        @click=""
-        size="xl"
-        color="primary"
-        variant="link"
-        label="Create"
-        :trailing="false"
-        :padded="false"
-      />
+      <UDropdown :items="createOptions" :popper="{ placement: 'bottom-start' }">
+        <UButton
+          icon="i-heroicons-plus-circle"
+          color="primary"
+          :ui="{ rounded: 'rounded-full' }"
+          size="xl"
+          variant="ghost"
+          :padded="false"
+        >
+        </UButton>
+      </UDropdown>
     </div>
     <nav class="muscles-list__nav">
       <ul class="muscles-list__list">
         <ListItemLv1
           v-for="(muscle, lv1Index) in listItems"
-          :key="lv1Index"
+          :key="muscle"
           :label="$t(`muscles.${muscle}`)"
           :img-url="getMuscleImage(muscle)"
           :selected="activeLv1Index === lv1Index"
@@ -104,10 +129,11 @@ function getMuscleImage(muscleName: string) {
               :padded="false"
             />
           </template>
-          <ExercicesList></ExercicesList>
+          <ExercicesList :muscle="muscle"></ExercicesList>
         </ListItemLv1>
       </ul>
     </nav>
+    <EditionExercicePopin v-model="isPopinOpen"></EditionExercicePopin>
   </div>
 </template>
 

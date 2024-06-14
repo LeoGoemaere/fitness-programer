@@ -1,6 +1,22 @@
 <script setup lang="ts">
+import type { MusclesEnum } from '~/types/MusclesEnum';
+
 const exercicesStore = useExercicesStore();
 
+interface Props {
+  muscle: string
+}
+
+// Declarations des props
+const props = withDefaults(defineProps<Props>(), {
+});
+
+const exercicesListByMuscle = computed(() => {
+  if (props.muscle === 'All') {
+    return exercicesStore.exercices
+  }
+  return exercicesStore.exercices.filter(exercice => exercice.primary_muscle === props.muscle)
+})
 </script>
 
 <template>
@@ -10,7 +26,7 @@ const exercicesStore = useExercicesStore();
     <p class="exo-list__title">Exercices</p>
 
     <div class="c-accordion">
-      <UAccordion :items="exercicesStore.exercices" :ui="{ container: 'c-accordion__container mb-3', item: { padding: 'p-2', size: '' } }">
+      <UAccordion :items="exercicesListByMuscle" :ui="{ container: 'c-accordion__container mb-3', item: { padding: 'p-2', size: '' } }">
         <template #default="{ item, index, open }">
           <UButton color="gray" variant="ghost" class="c-accordion-heading" :class="{ 'c-accordion-heading--active': open }" :ui="{}">
             <template #leading>
@@ -39,7 +55,7 @@ const exercicesStore = useExercicesStore();
         </template>
         <template #item="{ item }">
 
-          <exercice-max :exercice="item"></exercice-max>
+          <exercice-max :exercice="item" @updated="exercicesStore.updateExercice"></exercice-max>
 
           <exercice-tags class="my-5" title="Tags" :items="[{label: 'test', color: 'orange'}, {label: 'test', color: 'orange'}]"></exercice-tags>
         </template>
