@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { blockInvalidChar } from '~/utils/utils'
 import type { Exercice } from '~/types/Exercice.interface';
+import { updateExerciceMax } from '~/composables/exerciceComposable';
 
 const exercicesStore = useExercicesStore();
 const programsStore = useProgramsStore();
@@ -20,42 +21,10 @@ const props = withDefaults(defineProps<Props>(), {
 // Declarations des emits
 const emit = defineEmits<Emit>();
 
-async function updateMax(maxType: 'rm' | 'tm', value: unknown) {
-  const newExercice: Exercice = JSON.parse(JSON.stringify(props.exercice))
-  const maxTypeValue = isNaN(value as number) ? 0 : Number(value) // Can be Nan but TS want a number as param...
-  newExercice[maxType] = maxTypeValue
-
-  if (maxType === 'rm') {
-    newExercice.tm = tmFromRm(maxTypeValue)
-  } else if (maxType === 'tm') {
-    newExercice.rm = rmFromTm(maxTypeValue)
-  }
+function updateMax(maxType: 'rm' | 'tm', value: unknown) {
+  const tmPercentage = programsStore.currentProgram?.tm_percentage
+  const newExercice = updateExerciceMax(maxType, value, props.exercice, tmPercentage)
   emit('updated', newExercice)
-}
-
-function tmFromRm(rm: number) {
-  const tmPercentage = programsStore.currentProgram?.tm_percentage
-  if (typeof tmPercentage !== 'undefined') {
-    const newTm = rm * tmPercentage
-    return roundValue(newTm)
-  }
-  return 0
-}
-
-function rmFromTm(tm: number) {
-  const tmPercentage = programsStore.currentProgram?.tm_percentage
-  if (typeof tmPercentage !== 'undefined') {
-    const newRm = tm / tmPercentage
-    return roundValue(newRm)
-  }
-  return 0
-}
-
-function roundValue(value: unknown) {
-  if (typeof value === 'number') {
-    return Math.ceil(value * 10) / 10;
-  }
-  return 0;
 }
 
 onMounted(() => {

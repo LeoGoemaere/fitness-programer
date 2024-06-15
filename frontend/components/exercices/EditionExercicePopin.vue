@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { Exercice } from '~/types/Exercice.interface';
 import coreMuscles from '~/datas/muscles/coreMuscles'
+import { blockInvalidChar } from '~/utils/utils';
+import { updateExerciceMax } from '~/composables/exerciceComposable';
 
 /**
  * TODO:
@@ -10,6 +12,7 @@ import coreMuscles from '~/datas/muscles/coreMuscles'
  */
 const { t } = useI18n()
 const exercicesStore = useExercicesStore();
+const programsStore = useProgramsStore();
 
 interface Props {
   modelValue: boolean
@@ -45,12 +48,12 @@ const selectedTags = computed({
 const selectedTagsLabel = computed(() => {
   if (selectedTags.value?.length && selectedTags.value?.length > 0) {
     if (selectedTags.value.length > 1) {
-      return `${selectedTags.value.length} selected`
+      return `${selectedTags.value.length} tags selectionnés`
     } else {
       return `${selectedTags.value[0].name}`
     }
   }
-  return 'Select tags'
+  return 'Sélectionner des tags'
 })
 
 // const selectedTags = computed({
@@ -83,8 +86,10 @@ function validate() {
   emit('update:modelValue', false)
 }
 
-function updatedMax(exercice: Exercice) {
-  exerciceItem.value = exercice
+function updateRmMax(value: number) {
+  const tmPercentage = programsStore.currentProgram?.tm_percentage
+  const newExercice = updateExerciceMax('rm', value, exerciceItem.value, tmPercentage)
+  exerciceItem.value = newExercice
 }
 
 onMounted(() => {
@@ -114,7 +119,18 @@ onMounted(() => {
       </UFormGroup>
     </div>
     <div class="edition__row">
-      <exercice-max :exercice="exerciceItem" @updated="updatedMax"></exercice-max>
+      <UFormGroup label="Répetition max">
+        <UInput
+          placeholder="Répetition max"
+          @keydown="blockInvalidChar"
+          @change="updateRmMax"
+          type="number"
+        >
+          <template #trailing>
+            <span class="text-gray-500 dark:text-gray-400 text-xs">Kg</span>
+          </template>
+        </UInput>
+      </UFormGroup>
     </div>
     <div class="edition__row">
       <UFormGroup label="Muscle principal">

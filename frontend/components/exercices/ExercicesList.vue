@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { MusclesEnum } from '~/types/MusclesEnum';
-
 const exercicesStore = useExercicesStore();
 
 interface Props {
