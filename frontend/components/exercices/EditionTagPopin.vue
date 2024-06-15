@@ -1,22 +1,19 @@
 <script setup lang="ts">
 import type { FormError } from '#ui/types'
-import type { Exercice } from '~/types/Exercice.interface';
-import coreMuscles from '~/datas/muscles/coreMuscles'
-import { blockInvalidChar } from '~/utils/utils';
-import { updateExerciceMax } from '~/composables/exerciceComposable';
-import type { MusclesEnum } from '~/types/MusclesEnum';
+
+import { getEmptyTagExercice } from '~/composables/tagExerciceComposable';
 import type { TagExercice } from '~/types/TagExercice.interface';
 
 const exercicesStore = useExercicesStore();
+const toast = useToast()
 
 interface Props {
   modelValue: boolean
-  exercice?: Exercice
+  tagExercice?: TagExercice | null
 }
 
 interface Emit {
   (e: 'update:modelValue', active: boolean): void
-  (e: 'exerciceCreated', muscle: MusclesEnum | string): void
 }
 
 // Declarations des emits
@@ -27,27 +24,45 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: false
 });
 
-const selectedTags = ref([])
-const isCreationTagPopinOpen = ref(false)
+const tagExerciceItem = ref(getEmptyTagExercice())
 
-function deleteTagExercice(tagExercice: TagExercice) {
-  exercicesStore.removeExerciceTag(tagExercice)
+const popinLabel = computed(() => {
+  if (props.tagExercice) {
+    return `Editer le tag ${props.tagExercice.name}`
+  }
+  return 'Créer un tag'
+})
+
+function formValidation(state: any): FormError[] {
+  const errors = []
+  if (!state.name) errors.push({ path: 'general', message: 'Le nom est obligatoire' })
+  console.log(errors)
+  return errors
 }
 
-function deleteTagOptions(tagExercice: TagExercice) {
-  return [
-    [
-      {
-        label: 'Supprimer',
-        icon: 'i-heroicons-trash',
-        click: () => {
-          deleteTagExercice(tagExercice)
-        }
-      },
-    ]
-  ]
+function onSubmit() {
+  if (props.tagExercice) {
+    exercicesStore.updateExerciceTag(tagExerciceItem.value)
+  } else {
+    exercicesStore.addExerciceTag(tagExerciceItem.value)
+  }
+  toast.add({
+    title: `Le tag ${tagExerciceItem.value.name} à été ${props.tagExercice ? 'modifié' : 'créé'}`,
+    timeout: 3000
+  })
+  onClose()
 }
 
+function onClose() {
+  tagExerciceItem.value = getEmptyTagExercice()
+  emit('update:modelValue', false)
+}
+
+watch(() => props.tagExercice, (value) => {
+  if (props.tagExercice) {
+    tagExerciceItem.value = { ...props.tagExercice }
+  }
+})
 </script>
 
 <template>
@@ -56,63 +71,54 @@ function deleteTagOptions(tagExercice: TagExercice) {
     <template #header>
       <div class="flex items-center justify-between">
         <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-          <span>Gestion des tags</span>
+          {{ popinLabel }}
         </h3>
-        <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" @click="emit('update:modelValue', false)" />
+        <UButton
+          color="gray"
+          variant="ghost"
+          icon="i-heroicons-x-mark-20-solid"
+          @click="onClose"
+        />
       </div>
     </template>
 
-    <UForm class="space-y-4">
-      <UButton type="submit" variant="solid" @click="isCreationTagPopinOpen = true">Créer un tag</UButton>
-      <UFormGroup name="tags">
-        <USelectMenu
-          :uiMenu="{ option: { container: 'w-full' } }"
-          :modelValue="selectedTags"
-          :options="exercicesStore.exerciceTags"
-          multiple
-          placeholder="Mes tags"
-          option-attribute="name"
-          by="id"
-          searchable
-        >
-          <template #option="{ option: tagExercice }">
-            <div class="flex items-center justify-between w-full">
-              <ExerciceTag :tag-exercice="tagExercice"></ExerciceTag>
-              <div class="flex items-center">
-                <UButton
-                  size="xs"
-                  class="setitem__options mx-2"
-                  icon="i-heroicons-pencil-square"
-                  color="gray"
-                  variant="soft"
-                />
-                <UDropdown
-                  :items="deleteTagOptions(tagExercice)"
-                  :popper="{ placement: 'bottom-start' }"
-                  :ui="{ item: { label: 'text-red-400', icon: { inactive: 'text-red-400', active: 'text-red-400' } } }"
-                >
-                  <UButton
-                    size="xs"
-                    color="red"
-                    variant="soft"
-                    icon="i-heroicons-trash"
-                  />
-                </UDropdown>
-              </div>
-            </div>
-          </template>
-        </USelectMenu>
+    <UForm
+      class="space-y-4"
+      :validate="formValidation"
+      :state="tagExerciceItem"
+      @submit="onSubmit"
+    >
+      <UFormGroup name="general">
+        <UButtonGroup class="w-full" orientation="horizontal">
+          <UInput
+            class="flex-1"
+            placeholder="Nom du tag"
+            v-model="tagExerciceItem.name"
+          >
+          </UInput>
+          <UInput
+            name="color"
+            :ui="{ wrapper: 'color-input', base: 'h-full' }"
+            class="flex-1"
+            placeholder="Couleur du tag"
+            type="color"
+            v-model="tagExerciceItem.color"
+          >
+          </UInput>
+        </UButtonGroup>
       </UFormGroup>
       <div class="flex justify-center">
-        <UButton @click="emit('update:modelValue', false)" variant="soft">Fermer</UButton>
+        <UButton type="submit">Créer</UButton>
       </div>
     </UForm>
 
   </UCard>
-  <CreateTagPopin v-model="isCreationTagPopinOpen"></CreateTagPopin>
 </UModal>
 </template>
 
 <style lang="scss" scoped>
+.color-input {
+  max-width: 100px;
+}
 </style>
 

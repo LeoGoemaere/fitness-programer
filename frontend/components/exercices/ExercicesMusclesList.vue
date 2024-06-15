@@ -24,7 +24,7 @@ const { t } = useI18n()
 const muscleListSorts = coreMuscles.sort((a, b) => t(`muscles.${a}`).localeCompare(t(`muscles.${b}`)))
 const activeLv1Index = ref(-1)
 const isEditionExercicePopinOpen = ref(false)
-const isEditionTagPopinOpen = ref(false)
+const isTagPopinOpen = ref(false)
 
 const listItems = computed(() => [ 'All', ...muscleListSorts ])
 
@@ -87,7 +87,7 @@ const createOptions = [
       label: 'Gestion des tags',
       icon: 'i-heroicons-tag',
       click: () => {
-        isEditionTagPopinOpen.value = true
+        isTagPopinOpen.value = true
       }
     },
   ]
@@ -137,7 +137,7 @@ const createOptions = [
       </ul>
     </nav>
     <EditionExercicePopin v-model="isEditionExercicePopinOpen" @exercice-created="updateLv1IndexFromMuscle"></EditionExercicePopin>
-    <EditionTagPopin v-model="isEditionTagPopinOpen" @exercice-created="updateLv1IndexFromMuscle"></EditionTagPopin>
+    <TagPopin v-model="isTagPopinOpen" @exercice-created="updateLv1IndexFromMuscle"></TagPopin>
   </div>
 </template>
 

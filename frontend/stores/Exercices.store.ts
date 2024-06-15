@@ -29,6 +29,13 @@ export const useExercicesStore = defineStore('exercicesStore', () => {
     }
   }
   
+  function updateExerciceTag(tag: TagExercice) {
+    const exerciceTagIndex = exerciceTags.value.findIndex(element => element.id === tag.id)
+    if (exerciceTagIndex >= 0) {
+      exerciceTags.value[exerciceTagIndex] = tag
+    }
+  }
+  
   function removeExerciceTag(tag: TagExercice) {
     exerciceTags.value = exerciceTags.value.filter(element => element.id !== tag.id)
   }
@@ -39,6 +46,7 @@ export const useExercicesStore = defineStore('exercicesStore', () => {
     updateExercice,
     addExercice,
     addExerciceTag,
+    updateExerciceTag,
     removeExerciceTag
   };
 });
