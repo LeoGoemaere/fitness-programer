@@ -17,6 +17,7 @@ import hamstrings from '~/assets/images/muscles/hamstrings.png'
 import abductors from '~/assets/images/muscles/abductors.png'
 import adductors from '~/assets/images/muscles/adductors.png'
 import lumbars from '~/assets/images/muscles/lumbars.png'
+import type { MusclesEnum } from '~/types/MusclesEnum'
 
 const { t } = useI18n()
 
@@ -27,6 +28,10 @@ const activeLv1Index = ref(-1)
 
 function toggleLayer({ lv1Index }: { lv1Index: number }) {
   activeLv1Index.value = activeLv1Index.value === lv1Index ? -1 : lv1Index
+}
+
+function updateLv1IndexFromMuscle(muscle: MusclesEnum | string) {
+  activeLv1Index.value = listItems.value.findIndex(item => item === muscle)
 }
 
 // TODO: Optimize images + lazyload ?
@@ -67,24 +72,23 @@ function getMuscleImage(muscleName: string) {
   }
 }
 
-const isPopinOpen = ref(false)
+const isEditionExercicePopinOpen = ref(false)
 
 const createOptions = [
   [
     {
-      label: 'Create Exercice',
+      label: 'Créer un Exercice',
       icon: 'i-solar-dumbbell-large-minimalistic-linear',
       click: () => {
         console.log('Edit')
-        isPopinOpen.value = true
+        isEditionExercicePopinOpen.value = true
       }
     },
     {
-      label: 'Create Tag',
+      label: 'Gestion des tags',
       icon: 'i-heroicons-tag',
       click: () => {
         console.log('Edit')
-        isPopinOpen.value = true
       }
     },
   ]
@@ -96,7 +100,7 @@ const createOptions = [
     <div class="muscles-list__heading">
       <UDropdown :items="createOptions" :popper="{ placement: 'bottom-start' }">
         <UButton
-          icon="i-heroicons-plus-circle"
+          icon="i-heroicons-ellipsis-horizontal-circle"
           color="primary"
           :ui="{ rounded: 'rounded-full' }"
           size="xl"
@@ -133,7 +137,7 @@ const createOptions = [
         </ListItemLv1>
       </ul>
     </nav>
-    <EditionExercicePopin v-model="isPopinOpen"></EditionExercicePopin>
+    <EditionExercicePopin v-model="isEditionExercicePopinOpen" @exercice-created="updateLv1IndexFromMuscle"></EditionExercicePopin>
   </div>
 </template>
 

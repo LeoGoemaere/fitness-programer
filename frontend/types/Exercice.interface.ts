@@ -3,7 +3,7 @@ import type { TagExercice } from './TagExercice.interface'
 export interface Exercice {
   id: string
   name: string
-  primary_muscle: MusclesEnum
+  primary_muscle: MusclesEnum | string
   rm: number
   tm: number
   weight_progression: number

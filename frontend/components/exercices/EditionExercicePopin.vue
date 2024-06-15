@@ -4,13 +4,8 @@ import type { Exercice } from '~/types/Exercice.interface';
 import coreMuscles from '~/datas/muscles/coreMuscles'
 import { blockInvalidChar } from '~/utils/utils';
 import { updateExerciceMax } from '~/composables/exerciceComposable';
+import type { MusclesEnum } from '~/types/MusclesEnum';
 
-/**
- * TODO:
- * - Redirect on exercice after creation
- * - Fix TS errors
- * - Form validation
- */
 const { t } = useI18n()
 const exercicesStore = useExercicesStore();
 const programsStore = useProgramsStore();
@@ -22,6 +17,7 @@ interface Props {
 
 interface Emit {
   (e: 'update:modelValue', active: boolean): void
+  (e: 'exerciceCreated', muscle: MusclesEnum | string): void
 }
 
 // Declarations des emits
@@ -90,8 +86,9 @@ function onSubmit() {
     } else {
     exercicesStore.addExercice(exerciceItem.value)
   }
-  exerciceItem.value = getEmptyExercice()
   emit('update:modelValue', false)
+  emit('exerciceCreated', exerciceItem.value.primary_muscle)
+  exerciceItem.value = getEmptyExercice()
 }
 
 function updateRmMax(value: number) {
@@ -133,6 +130,7 @@ onMounted(() => {
       <UFormGroup label="Répetition max" name="repetition_max">
         <UInput
           placeholder="Répetition max"
+          :modelValue="exerciceItem.rm"
           @keydown="blockInvalidChar"
           @change="updateRmMax"
           type="number"

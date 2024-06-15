@@ -1,12 +1,11 @@
 import type { Exercice } from "~/types/Exercice.interface"
-import type { TagExercice } from "~/types/TagExercice.interface"
 import { roundValue } from "~/utils/utils"
 
-function getEmptyExercice(): Partial<Exercice> {
+function getEmptyExercice(): Exercice {
   return {
     id: crypto.randomUUID(),
     name: '',
-    primary_muscle: undefined,
+    primary_muscle: '',
     rm: 0,
     tm: 0,
     weight_progression: 0,
