@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { FormError } from '#ui/types'
 import type { Exercice } from '~/types/Exercice.interface';
 import coreMuscles from '~/datas/muscles/coreMuscles'
 import { blockInvalidChar } from '~/utils/utils';
@@ -75,7 +76,14 @@ const selectedTagsLabel = computed(() => {
 //   }
 // })
 
-function validate() {
+function formValidation(state: any): FormError[] {
+  const errors = []
+  if (!state.name) errors.push({ path: 'name', message: 'Le nom est obligatoire' })
+  if (!state.primary_muscle) errors.push({ path: 'primary_muscle', message: 'Le muscle est obligatoire' })
+  return errors
+}
+
+function onSubmit() {
   // Exercice is editing
   if (props.exercice) {
     exercicesStore.updateExercice(exerciceItem.value)
@@ -90,6 +98,11 @@ function updateRmMax(value: number) {
   const tmPercentage = programsStore.currentProgram?.tm_percentage
   const newExercice = updateExerciceMax('rm', value, exerciceItem.value, tmPercentage)
   exerciceItem.value = newExercice
+}
+
+function onClose() {
+  exerciceItem.value = getEmptyExercice()
+  emit('update:modelValue', false)
 }
 
 onMounted(() => {
@@ -109,17 +122,15 @@ onMounted(() => {
           <span v-if="props.exercice">Editer un exercice</span>
           <span v-else>Créer un exercice</span>
         </h3>
-        <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" @click="emit('update:modelValue', false)" />
+        <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" @click="onClose" />
       </div>
     </template>
 
-    <div class="edition__row">
-      <UFormGroup label="Nom">
+    <UForm :validate="formValidation" :state="exerciceItem" class="space-y-4" @submit="onSubmit">
+      <UFormGroup label="name" name="name">
         <UInput placeholder="Nom de l'exercice" v-model="exerciceItem.name" />
       </UFormGroup>
-    </div>
-    <div class="edition__row">
-      <UFormGroup label="Répetition max">
+      <UFormGroup label="Répetition max" name="repetition_max">
         <UInput
           placeholder="Répetition max"
           @keydown="blockInvalidChar"
@@ -131,9 +142,7 @@ onMounted(() => {
           </template>
         </UInput>
       </UFormGroup>
-    </div>
-    <div class="edition__row">
-      <UFormGroup label="Muscle principal">
+      <UFormGroup label="Muscle principal" name="primary_muscle">
         <USelectMenu
           searchable
           searchable-placeholder="Rechercher un muscle..."
@@ -145,10 +154,7 @@ onMounted(() => {
           v-model="exerciceItem.primary_muscle"
         />
       </UFormGroup>
-    </div>
-
-    <div class="edition__row">
-      <UFormGroup label="Tags">
+      <UFormGroup label="Tags" name="tags">
         <USelectMenu
           :uiMenu="{ option: { container: 'w-full' } }"
           v-model="selectedTags"
@@ -165,11 +171,11 @@ onMounted(() => {
           </template>
         </USelectMenu>
       </UFormGroup>
-    </div>
+      <div class="flex justify-center">
+        <UButton type="submit">Valider</UButton>
+      </div>
+    </UForm>
 
-    <div class="flex justify-center mt-5">
-      <UButton @click="validate">Valider</UButton>
-    </div>
   </UCard>
 </UModal>
 </template>

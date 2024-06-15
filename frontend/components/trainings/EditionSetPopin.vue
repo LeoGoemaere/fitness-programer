@@ -93,7 +93,7 @@ const props = withDefaults(defineProps<Props>(), {
 </UModal>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .edition__row {
   + .edition__row {
     margin-top: 20px;
