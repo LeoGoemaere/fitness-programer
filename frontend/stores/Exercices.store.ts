@@ -5,18 +5,8 @@ import { type TagExercice } from '~/types/TagExercice.interface'
 import coreExercices from '~/datas/exercices/coreExercices'
 
 export const useExercicesStore = defineStore('exercicesStore', () => {
-  const fakeTags = [
-    {
-      id: 'id-531',
-      name: '531'
-    },
-    {
-      id: 'id-gzcl',
-      name: 'GZCL'
-    },
-  ]
   const exercices: Ref<Exercice[]> = ref(coreExercices);
-  const exerciceTags: Ref<TagExercice[]> = ref([...fakeTags]);
+  const exerciceTags: Ref<TagExercice[]> = ref([]);
 
   function updateExercice(exercice: Exercice) {
     const exerciceIndex = exercices.value.findIndex(exerciceElement => exerciceElement.id === exercice.id)

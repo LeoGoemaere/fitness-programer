@@ -22,9 +22,11 @@ import type { MusclesEnum } from '~/types/MusclesEnum'
 const { t } = useI18n()
 
 const muscleListSorts = coreMuscles.sort((a, b) => t(`muscles.${a}`).localeCompare(t(`muscles.${b}`)))
-const listItems = computed(() => [ 'All', ...muscleListSorts ])
-
 const activeLv1Index = ref(-1)
+const isEditionExercicePopinOpen = ref(false)
+const isEditionTagPopinOpen = ref(false)
+
+const listItems = computed(() => [ 'All', ...muscleListSorts ])
 
 function toggleLayer({ lv1Index }: { lv1Index: number }) {
   activeLv1Index.value = activeLv1Index.value === lv1Index ? -1 : lv1Index
@@ -72,15 +74,12 @@ function getMuscleImage(muscleName: string) {
   }
 }
 
-const isEditionExercicePopinOpen = ref(false)
-
 const createOptions = [
   [
     {
       label: 'Créer un Exercice',
       icon: 'i-solar-dumbbell-large-minimalistic-linear',
       click: () => {
-        console.log('Edit')
         isEditionExercicePopinOpen.value = true
       }
     },
@@ -88,7 +87,7 @@ const createOptions = [
       label: 'Gestion des tags',
       icon: 'i-heroicons-tag',
       click: () => {
-        console.log('Edit')
+        isEditionTagPopinOpen.value = true
       }
     },
   ]
@@ -138,6 +137,7 @@ const createOptions = [
       </ul>
     </nav>
     <EditionExercicePopin v-model="isEditionExercicePopinOpen" @exercice-created="updateLv1IndexFromMuscle"></EditionExercicePopin>
+    <EditionTagPopin v-model="isEditionTagPopinOpen" @exercice-created="updateLv1IndexFromMuscle"></EditionTagPopin>
   </div>
 </template>
 

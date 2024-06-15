@@ -124,7 +124,7 @@ onMounted(() => {
     </template>
 
     <UForm :validate="formValidation" :state="exerciceItem" class="space-y-4" @submit="onSubmit">
-      <UFormGroup label="name" name="name">
+      <UFormGroup label="Nom" name="name">
         <UInput placeholder="Nom de l'exercice" v-model="exerciceItem.name" />
       </UFormGroup>
       <UFormGroup label="Répetition max" name="repetition_max">
@@ -166,6 +166,9 @@ onMounted(() => {
         >
           <template #label>
             <span>{{ selectedTagsLabel }}</span>
+          </template>
+          <template #option="{ option: tagExercice }">
+            <ExerciceTag :tag-exercice="tagExercice"></ExerciceTag>
           </template>
         </USelectMenu>
       </UFormGroup>
