@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import type { FormError } from '#ui/types'
 
-import { getEmptyTagExercice } from '~/composables/tagExerciceComposable';
-import type { TagExercice } from '~/types/TagExercice.interface';
+import { getEmptyTag } from '~/composables/tagComposable';
+import type { Tag } from '~/types/Tag.interface';
 
 const exercicesStore = useExercicesStore();
 const toast = useToast()
 
 interface Props {
   modelValue: boolean
-  tagExercice?: TagExercice | null
+  tag?: Tag | null
 }
 
 interface Emit {
@@ -24,11 +24,11 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: false
 });
 
-const tagExerciceItem = ref(getEmptyTagExercice())
+const tagItem = ref(getEmptyTag())
 
 const popinLabel = computed(() => {
-  if (props.tagExercice) {
-    return `Editer le tag ${props.tagExercice.name}`
+  if (props.tag) {
+    return `Editer le tag ${props.tag.name}`
   }
   return 'Créer un tag'
 })
@@ -41,26 +41,26 @@ function formValidation(state: any): FormError[] {
 }
 
 function onSubmit() {
-  if (props.tagExercice) {
-    exercicesStore.updateExerciceTag(tagExerciceItem.value)
+  if (props.tag) {
+    exercicesStore.updateExerciceTag(tagItem.value)
   } else {
-    exercicesStore.addExerciceTag(tagExerciceItem.value)
+    exercicesStore.addExerciceTag(tagItem.value)
   }
   toast.add({
-    title: `Le tag ${tagExerciceItem.value.name} à été ${props.tagExercice ? 'modifié' : 'créé'}`,
+    title: `Le tag ${tagItem.value.name} à été ${props.tag ? 'modifié' : 'créé'}`,
     timeout: 3000
   })
   onClose()
 }
 
 function onClose() {
-  tagExerciceItem.value = getEmptyTagExercice()
+  tagItem.value = getEmptyTag()
   emit('update:modelValue', false)
 }
 
-watch(() => props.tagExercice, (value) => {
-  if (props.tagExercice) {
-    tagExerciceItem.value = { ...props.tagExercice }
+watch(() => props.tag, (value) => {
+  if (props.tag) {
+    tagItem.value = { ...props.tag }
   }
 })
 </script>
@@ -85,7 +85,7 @@ watch(() => props.tagExercice, (value) => {
     <UForm
       class="space-y-4"
       :validate="formValidation"
-      :state="tagExerciceItem"
+      :state="tagItem"
       @submit="onSubmit"
     >
       <UFormGroup name="general">
@@ -93,7 +93,7 @@ watch(() => props.tagExercice, (value) => {
           <UInput
             class="flex-1"
             placeholder="Nom du tag"
-            v-model="tagExerciceItem.name"
+            v-model="tagItem.name"
           >
           </UInput>
           <UInput
@@ -102,7 +102,7 @@ watch(() => props.tagExercice, (value) => {
             class="flex-1"
             placeholder="Couleur du tag"
             type="color"
-            v-model="tagExerciceItem.color"
+            v-model="tagItem.color"
           >
           </UInput>
         </UButtonGroup>

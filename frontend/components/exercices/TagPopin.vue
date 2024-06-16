@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Exercice } from '~/types/Exercice.interface';
 import type { MusclesEnum } from '~/types/MusclesEnum';
-import type { TagExercice } from '~/types/TagExercice.interface';
+import type { Tag } from '~/types/Tag.interface';
 
 const exercicesStore = useExercicesStore();
 
@@ -25,37 +25,37 @@ const props = withDefaults(defineProps<Props>(), {
 
 const selectedTags = ref([])
 const isCreationTagPopinOpen = ref(false)
-const editingTagExercice: Ref<TagExercice | null> = ref(null)
+const editingTag: Ref<Tag | null> = ref(null)
 // The UForm state's prop is required, so he doesn't grumble at us
 const state = ref({})
 
-function deleteTagExercice(tagExercice: TagExercice) {
-  exercicesStore.removeExerciceTag(tagExercice)
+function deleteTag(tag: Tag) {
+  exercicesStore.removeExerciceTag(tag)
 }
 
-function deleteTagOptions(tagExercice: TagExercice) {
+function deleteTagOptions(tag: Tag) {
   return [
     [
       {
-        label: 'Supprimer',
+        label: `Supprimer ${tag.name}`,
         icon: 'i-heroicons-trash',
         click: () => {
-          deleteTagExercice(tagExercice)
+          deleteTag(tag)
         }
       },
     ]
   ]
 }
 
-function editTagExercice(tagExercice: TagExercice) {
-  editingTagExercice.value = tagExercice
+function editTagExercice(tag: Tag) {
+  editingTag.value = tag
   isCreationTagPopinOpen.value = true
 }
 
 watch(() => isCreationTagPopinOpen.value, (value) => {
   // If the popin is closed, then reset the editing flag
   if (!value) {
-    editingTagExercice.value = null
+    editingTag.value = null
   }
 })
 
@@ -86,9 +86,9 @@ watch(() => isCreationTagPopinOpen.value, (value) => {
           by="id"
           searchable
         >
-          <template #option="{ option: tagExercice }">
+          <template #option="{ option: tag }">
             <div class="flex items-center justify-between w-full">
-              <ExerciceTag :tag-exercice="tagExercice"></ExerciceTag>
+              <ExerciceTag :tag="tag"></ExerciceTag>
               <div class="flex items-center">
                 <UButton
                   size="xs"
@@ -96,10 +96,10 @@ watch(() => isCreationTagPopinOpen.value, (value) => {
                   icon="i-heroicons-pencil-square"
                   color="gray"
                   variant="soft"
-                  @click="editTagExercice(tagExercice)"
+                  @click="editTagExercice(tag)"
                 />
                 <UDropdown
-                  :items="deleteTagOptions(tagExercice)"
+                  :items="deleteTagOptions(tag)"
                   :popper="{ placement: 'bottom-start' }"
                   :ui="{ item: { label: 'text-red-400', icon: { inactive: 'text-red-400', active: 'text-red-400' } } }"
                 >
@@ -121,7 +121,7 @@ watch(() => isCreationTagPopinOpen.value, (value) => {
     </UForm>
 
   </UCard>
-  <EditionTagPopin v-model="isCreationTagPopinOpen" :tag-exercice="editingTagExercice"></EditionTagPopin>
+  <EditionTagPopin v-model="isCreationTagPopinOpen" :tag-exercice="editingTag"></EditionTagPopin>
 </UModal>
 </template>
 

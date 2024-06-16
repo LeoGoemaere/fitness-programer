@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { TagExercice } from '~/types/TagExercice.interface';
+import type { Tag } from '~/types/Tag.interface';
 import { getBrightness } from '~/utils/colorUtils';
 
 
 interface Props {
-  tagExercice: TagExercice
+  tag: Tag
 }
 
 // Declarations des props
@@ -12,14 +12,14 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const colorContrast = computed(() => {
-  const brightness = getBrightness(props.tagExercice.color)
+  const brightness = getBrightness(props.tag.color)
   return brightness > 125 ? 'black' : 'white'
 })
 
 </script>
 
 <template>
-  <span class="c-tag" :style="{ 'background-color': props.tagExercice.color, 'color': colorContrast }">{{ props.tagExercice.name }}</span>
+  <span class="c-tag" :style="{ 'background-color': props.tag.color, 'color': colorContrast }">{{ props.tag.name }}</span>
 </template>
 
 <style lang="scss" scoped>
