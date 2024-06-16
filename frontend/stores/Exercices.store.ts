@@ -46,6 +46,14 @@ export const useExercicesStore = defineStore('exercicesStore', () => {
   
   function removeExerciceTag(tag: Tag) {
     exerciceTags.value = exerciceTags.value.filter(element => element.id !== tag.id)
+
+    // Delete ids from exercice using the tag
+    const exercicesUsingTag = exercices.value.filter(exercice => exercice.tag_ids.includes(tag.id))
+    exercicesUsingTag.forEach(exercice => {
+      const newExercice: Exercice = JSON.parse(JSON.stringify(exercice))
+      newExercice.tag_ids = newExercice.tag_ids.filter(tagId => tagId !== tag.id)
+      updateExercice(newExercice)
+    });
   }
 
   return {

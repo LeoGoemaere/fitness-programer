@@ -121,7 +121,7 @@ watch(() => isCreationTagPopinOpen.value, (value) => {
     </UForm>
 
   </UCard>
-  <EditionTagPopin v-model="isCreationTagPopinOpen" :tag-exercice="editingTag"></EditionTagPopin>
+  <EditionTagPopin v-model="isCreationTagPopinOpen" :tag="editingTag"></EditionTagPopin>
 </UModal>
 </template>
 

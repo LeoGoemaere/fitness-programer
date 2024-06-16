@@ -35,10 +35,10 @@ const muscleListSorts = coreMuscles
   .sort((a, b) => a.libelle.localeCompare(b.libelle))
 
 const selectedTags = computed({
-  get: () => exerciceItem.value.tag_ids,
+  get: () => exercicesStore.exerciceTags.filter(tag => exerciceItem.value.tag_ids.includes(tag.id)),
   set: (tags) => {
     tagQuery.value = ''
-    exerciceItem.value.tag_ids = tags
+    exerciceItem.value.tag_ids = tags.map(tag => tag.id)
   }
 })
 
@@ -52,25 +52,6 @@ const selectedTagsLabel = computed(() => {
   }
   return 'Sélectionner des tags'
 })
-
-// const selectedTags = computed({
-//   get: () => exerciceItem.value.tag_ids,
-//   set: (tags) => {
-//     // TODO: API 
-//     const tagResults = tags.map(tag => {
-//       if (tag.id) {
-//         return tag
-//       }
-
-//       const newTag = createTag(tag.name)
-
-//       exercicesStore.addExerciceTag(newTag)
-//       return newTag
-//     })
-//     tagQuery.value = ''
-//     exerciceItem.value.tag_ids = tagResults
-//   }
-// })
 
 function formValidation(state: any): FormError[] {
   const errors = []
@@ -167,8 +148,8 @@ onMounted(() => {
           <template #label>
             <span>{{ selectedTagsLabel }}</span>
           </template>
-          <template #option="{ option: tagExercice }">
-            <ExerciceTag :tag-exercice="tagExercice"></ExerciceTag>
+          <template #option="{ option: tag }">
+            <ExerciceTag :tag="tag"></ExerciceTag>
           </template>
         </USelectMenu>
       </UFormGroup>

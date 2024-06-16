@@ -26,11 +26,18 @@ const props = withDefaults(defineProps<Props>(), {
 
 const tagItem = ref(getEmptyTag())
 
-const popinLabel = computed(() => {
+const popinTitleLabel = computed(() => {
   if (props.tag) {
     return `Editer le tag ${props.tag.name}`
   }
   return 'Créer un tag'
+})
+
+const popinValidateLabel = computed(() => {
+  if (props.tag) {
+    return 'Modifier'
+  }
+  return 'Créer'
 })
 
 function formValidation(state: any): FormError[] {
@@ -71,7 +78,7 @@ watch(() => props.tag, (value) => {
     <template #header>
       <div class="flex items-center justify-between">
         <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-          {{ popinLabel }}
+          {{ popinTitleLabel }}
         </h3>
         <UButton
           color="gray"
@@ -108,7 +115,7 @@ watch(() => props.tag, (value) => {
         </UButtonGroup>
       </UFormGroup>
       <div class="flex justify-center">
-        <UButton type="submit">Créer</UButton>
+        <UButton type="submit">{{ popinValidateLabel }}</UButton>
       </div>
     </UForm>
 
