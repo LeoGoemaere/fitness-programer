@@ -33,14 +33,42 @@ function deleteTag(tag: Tag) {
   exercicesStore.removeExerciceTag(tag)
 }
 
-function deleteTagOptions(tag: Tag) {
+
+const openIndex = ref(-1)
+const confirmDelete = ref(false)
+
+function handleDropdownOpen(isOpen: boolean, index: number) {
+  if (isOpen) {
+    openIndex.value = index
+    confirmDelete.value = false
+  }
+}
+
+function tagOptions(tag: Tag, index: number) {
+  const isDeleting = confirmDelete.value && (openIndex.value === index)
   return [
     [
       {
-        label: `Supprimer ${tag.name}`,
-        icon: 'i-heroicons-trash',
+        label: 'Editer',
+        icon: 'i-heroicons-pencil-square',
         click: () => {
-          deleteTag(tag)
+          editTagExercice(tag)
+        }
+      }
+    ],
+    [
+      {
+        label: isDeleting ? 'Confirmer' : `Supprimer ${tag.name}`,
+        icon: 'i-heroicons-trash',
+        iconClass: isDeleting ? 'text-red-400' : null,
+        labelClass: isDeleting ? 'text-red-400' : null,
+        click: (event) => {
+          event.preventDefault()
+          if (confirmDelete.value) {
+            deleteTag(tag)
+            return
+          }
+          confirmDelete.value = true
         }
       },
     ]
@@ -86,29 +114,16 @@ watch(() => isCreationTagPopinOpen.value, (value) => {
           by="id"
           searchable
         >
-          <template #option="{ option: tag }">
+          <template #option="{ option: tag, index }">
             <div class="flex items-center justify-between w-full">
               <ExerciceTag :tag="tag"></ExerciceTag>
               <div class="flex items-center">
-                <UButton
-                  size="xs"
-                  class="setitem__options mx-2"
-                  icon="i-heroicons-pencil-square"
-                  color="gray"
-                  variant="soft"
-                  @click="editTagExercice(tag)"
-                />
                 <UDropdown
-                  :items="deleteTagOptions(tag)"
+                  @update:open="handleDropdownOpen"
+                  :items="tagOptions(tag, index)"
                   :popper="{ placement: 'bottom-start' }"
-                  :ui="{ item: { label: 'text-red-400', icon: { inactive: 'text-red-400', active: 'text-red-400' } } }"
                 >
-                  <UButton
-                    size="xs"
-                    color="red"
-                    variant="soft"
-                    icon="i-heroicons-trash"
-                  />
+                  <UButton class="ml-2" size="2xs" color="gray" icon="i-solar-menu-dots-bold" variant="soft" />
                 </UDropdown>
               </div>
             </div>

@@ -56,6 +56,10 @@ export const useExercicesStore = defineStore('exercicesStore', () => {
     });
   }
 
+  function getTagFromExercice(exercice: Exercice) {
+    return exerciceTags.value.filter(tag => exercice.tag_ids.includes(tag.id))
+  }
+
   return {
     exercices,
     exerciceTags,
@@ -63,6 +67,7 @@ export const useExercicesStore = defineStore('exercicesStore', () => {
     addExercice,
     addExerciceTag,
     updateExerciceTag,
-    removeExerciceTag
+    removeExerciceTag,
+    getTagFromExercice
   };
 });

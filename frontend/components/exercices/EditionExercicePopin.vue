@@ -35,7 +35,7 @@ const muscleListSorts = coreMuscles
   .sort((a, b) => a.libelle.localeCompare(b.libelle))
 
 const selectedTags = computed({
-  get: () => exercicesStore.exerciceTags.filter(tag => exerciceItem.value.tag_ids.includes(tag.id)),
+  get: () => exercicesStore.getTagFromExercice(exerciceItem.value),
   set: (tags) => {
     tagQuery.value = ''
     exerciceItem.value.tag_ids = tags.map(tag => tag.id)

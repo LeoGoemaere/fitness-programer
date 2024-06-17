@@ -1,31 +1,28 @@
 <script setup lang="ts">
-interface Item {
-  label: string
-  color: string
-}
+import type { Tag } from '~/types/Tag.interface';
 
 interface Props {
   title?: string,
-  items: Item[]
+  tags: Tag[]
 }
 
 // Declarations des props
 const props = withDefaults(defineProps<Props>(), {
-  items: () => ([])
+  tags: () => ([])
 });
 
 </script>
 
 <template>
-  <div class="c-tags">
-    <div v-if="props.title" class="c-tags__title">{{ props.title }}</div>
+  <div class="c-tags" v-if="props.tags.length">
+    <div v-if="props.title" class="c-tags__title mb-1">{{ props.title }}</div>
     <div class="c-tags__list">
       <div
         class="c-tags__item"
-        v-for="item in props.items"
-        :key="item.label"
+        v-for="tag in props.tags"
+        :key="tag.name"
       >
-        <UBadge :ui="{ rounded: 'rounded-full' }" :label="item.label" :color="item.color" />
+        <ExerciceTag :tag="tag"></ExerciceTag>
       </div>
     </div>
   </div>
@@ -39,7 +36,6 @@ const props = withDefaults(defineProps<Props>(), {
 .c-tags__title {
   font-size: 14px;
   color: rgb(var(--color-gray-500));
-  margin-bottom: 5px;
 }
 
 .c-tags__list {
