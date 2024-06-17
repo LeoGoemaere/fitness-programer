@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { blockInvalidChar } from '~/utils/utils'
-import type { Exercice } from '~/types/Exercice.interface';
+import { MaxType, type Exercice } from '~/types/Exercice.interface';
 import { updateExerciceMax } from '~/composables/exerciceComposable';
 
 const exercicesStore = useExercicesStore();
@@ -21,15 +21,15 @@ const props = withDefaults(defineProps<Props>(), {
 // Declarations des emits
 const emit = defineEmits<Emit>();
 
-function updateMax(maxType: 'rm' | 'tm', value: unknown) {
+function updateMax(maxType: MaxType, value: unknown) {
   const tmPercentage = programsStore.currentProgram?.tm_percentage
   const newExercice = updateExerciceMax(maxType, value, props.exercice, tmPercentage)
   emit('updated', newExercice)
 }
 
 onMounted(() => {
-  const currentMaxValue = props.exercice.rm
-  updateMax('rm', currentMaxValue)
+  const currentMaxValue = props.exercice.RM
+  updateMax(MaxType.rm, currentMaxValue)
 })
 </script>
 
@@ -38,9 +38,9 @@ onMounted(() => {
     <div class="max__item">
       <span class="max__label">Répetition max</span>
       <UInput
-        :modelValue="exercice.rm"
+        :modelValue="exercice.RM"
         @keydown="blockInvalidChar"
-        @change="updateMax('rm', $event)"
+        @change="updateMax(MaxType.rm, $event)"
         :ui="{ rounded: 'rounded-s-none' }"
         type="number"
       >
@@ -55,9 +55,9 @@ onMounted(() => {
     <div class="max__item">
       <span class="max__label max__label--tm">Training max</span>
       <UInput
-        :modelValue="exercice.tm"
+        :modelValue="exercice.TM"
         @keydown="blockInvalidChar"
-        @change="updateMax('tm', $event)"
+        @change="updateMax(MaxType.tm, $event)"
         :ui="{ rounded: 'rounded-s-none' }"
         type="number"
       >
@@ -89,7 +89,7 @@ onMounted(() => {
 }
 
 .max__label--tm {
-  background-color: rgb(var(--color-gray-400));
+  background-color: rgb(249 115 22); // TODO: Creer palette secondaire
 }
 
 .max__icon {

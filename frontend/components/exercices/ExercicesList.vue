@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import type { Exercice } from '~/types/Exercice.interface';
+import { type Exercice, MaxType } from '~/types/Exercice.interface';
+import { getMaxColor, updateExerciceMax } from '~/composables/exerciceComposable';
+import { roundValue } from '~/utils/utils';
 
 const exercicesStore = useExercicesStore();
-
+const programsStore = useProgramsStore();
 interface Props {
   muscle: string
 }
@@ -11,15 +13,17 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
 });
 
+const isCreationExercicePopinOpen = ref(false)
+const editingExercice: Ref<Exercice | null> = ref(null)
+const openIndex = ref(-1)
+const confirmDelete = ref(false)
+
 const exercicesListByMuscle = computed(() => {
   if (props.muscle === 'All') {
     return exercicesStore.exercices
   }
   return exercicesStore.exercices.filter(exercice => exercice.primary_muscle === props.muscle)
 })
-
-const openIndex = ref(-1)
-const confirmDelete = ref(false)
 
 function handleDropdownOpen(isOpen: boolean, index: number) {
   if (isOpen) {
@@ -28,9 +32,23 @@ function handleDropdownOpen(isOpen: boolean, index: number) {
   }
 }
 
+function editExercice(exercice: Exercice) {
+  editingExercice.value = exercice
+  isCreationExercicePopinOpen.value = true
+}
+
 function exerciceOptions(exercice: Exercice, index: number) {
   const isDeleting = confirmDelete.value && (openIndex.value === index)
   return [
+    [
+      {
+        label: 'Editer',
+        icon: 'i-heroicons-pencil-square',
+        click: () => {
+          editExercice(exercice)
+        }
+      }
+    ],
     [
       {
         label: isDeleting ? 'Confirmer' : 'Supprimer',
@@ -38,17 +56,46 @@ function exerciceOptions(exercice: Exercice, index: number) {
         iconClass: isDeleting ? 'text-red-400' : null,
         labelClass: isDeleting ? 'text-red-400' : null,
         click: (event: Event) => {
-          event.preventDefault()
           if (confirmDelete.value) {
             exercicesStore.removeExercice(exercice)
             return
           }
+          event.preventDefault()
           confirmDelete.value = true
         }
       }
     ]
   ]
 }
+
+watch(() => isCreationExercicePopinOpen.value, (value) => {
+  // If the popin is closed, then reset the editing exercice
+  if (!value) {
+    editingExercice.value = null
+  }
+})
+
+function shouldDisplayMaxProgression(exercice: Exercice) {
+  return !!exercice.weight_progression
+}
+
+function incrementMax(exercice: Exercice) {
+  switch (exercice.reference_max_progression) {
+    case MaxType.tm: {
+      const newTm = roundValue(exercice.TM + exercice.weight_progression)
+      const newExercice = updateExerciceMax(MaxType.tm, newTm, exercice, programsStore.currentProgram?.tm_percentage)
+      exercicesStore.updateExercice(newExercice)
+      break;
+    }
+    case MaxType.rm: {
+      const newRm = roundValue(exercice.RM + exercice.weight_progression)
+      const newExercice = updateExerciceMax(MaxType.rm, newRm, exercice, programsStore.currentProgram?.tm_percentage)
+      exercicesStore.updateExercice(newExercice)
+      break;
+    }
+  }
+}
+
 </script>
 
 <template>
@@ -71,12 +118,14 @@ function exerciceOptions(exercice: Exercice, index: number) {
                 <span>{{ item.name }}</span>
               </div>
               <div class="c-accordion-heading__trailing">
-                <UChip position="top-left" size="xl" :text="item.reference_max_progression" color="primary">
-                  <UButton color="primary" size="2xs" variant="soft" icon="i-heroicons-plus-circle">
+                <UChip v-if="shouldDisplayMaxProgression(item)" position="top-left" size="xl" :text="item.reference_max_progression" :color="getMaxColor(item)">
+                  <UButton @click.prevent.stop="incrementMax(item)" size="2xs" variant="soft" icon="i-heroicons-plus-circle" :color="getMaxColor(item)">
                     {{ item.weight_progression }}kg
                   </UButton>
                 </UChip>
                 <UDropdown
+                  @click.prevent.stop
+                  :ui="{  padding: 'border-solid', item: { base: 'border-solid' } }"
                   @update:open="handleDropdownOpen($event, index)"
                   :items="exerciceOptions(item, index)"
                 >
@@ -103,6 +152,7 @@ function exerciceOptions(exercice: Exercice, index: number) {
         </template>
       </UAccordion>
     </div>
+    <EditionExercicePopin v-model="isCreationExercicePopinOpen" :exercice="editingExercice"></EditionExercicePopin>
   </div>
 </template>
 

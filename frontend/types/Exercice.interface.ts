@@ -1,11 +1,16 @@
 import { MusclesEnum } from '~/types/MusclesEnum'
+
+export enum MaxType {
+  rm = 'RM',
+  tm = 'TM'
+}
 export interface Exercice {
   id: string
   name: string
   primary_muscle: MusclesEnum | string
-  rm: number
-  tm: number
+  RM: number
+  TM: number
   weight_progression: number
-  reference_max_progression: 'rm' | 'tm'
+  reference_max_progression: MaxType
   tag_ids: string[]
 }

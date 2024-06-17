@@ -1,4 +1,4 @@
-import type { Exercice } from "~/types/Exercice.interface"
+import { MaxType, type Exercice } from "~/types/Exercice.interface"
 import { roundValue } from "~/utils/utils"
 
 function getEmptyExercice(): Exercice {
@@ -6,23 +6,23 @@ function getEmptyExercice(): Exercice {
     id: crypto.randomUUID(),
     name: '',
     primary_muscle: '',
-    rm: 0,
-    tm: 0,
+    RM: 0,
+    TM: 0,
     weight_progression: 0,
-    reference_max_progression: 'rm',
+    reference_max_progression: MaxType.tm,
     tag_ids: []
   }
 }
 
-function updateExerciceMax(maxType: 'rm' | 'tm', value: unknown, exercice: Exercice, tmPercentage?: number) {
+function updateExerciceMax(maxType: MaxType, value: unknown, exercice: Exercice, tmPercentage?: number) {
   const newExercice: Exercice = JSON.parse(JSON.stringify(exercice))
   const maxTypeValue = isNaN(value as number) ? 0 : Number(value) // Can be Nan but TS want a number as param...
   newExercice[maxType] = maxTypeValue
 
-  if (maxType === 'rm') {
-    newExercice.tm = tmFromRm(maxTypeValue, tmPercentage)
-  } else if (maxType === 'tm') {
-    newExercice.rm = rmFromTm(maxTypeValue, tmPercentage)
+  if (maxType === MaxType.rm) {
+    newExercice.TM = tmFromRm(maxTypeValue, tmPercentage)
+  } else if (maxType === MaxType.tm) {
+    newExercice.RM = rmFromTm(maxTypeValue, tmPercentage)
   }
   return newExercice
 }
@@ -45,9 +45,17 @@ function rmFromTm(tm: number, tmPercentage?: number) {
   return 0
 }
 
+function getMaxColor(exercice: Exercice) {
+  if (exercice.reference_max_progression === MaxType.tm) {
+    return 'orange'
+  }
+  return 'primary'
+}
+
 export {
   getEmptyExercice,
   updateExerciceMax,
   tmFromRm,
-  rmFromTm
+  rmFromTm,
+  getMaxColor
 }

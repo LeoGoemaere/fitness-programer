@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FormError } from '#ui/types'
-import type { Exercice } from '~/types/Exercice.interface';
+import { MaxType, type Exercice } from '~/types/Exercice.interface';
 import coreMuscles from '~/datas/muscles/coreMuscles'
 import { blockInvalidChar } from '~/utils/utils';
 import { updateExerciceMax } from '~/composables/exerciceComposable';
@@ -12,7 +12,7 @@ const programsStore = useProgramsStore();
 
 interface Props {
   modelValue: boolean
-  exercice?: Exercice
+  exercice?: Exercice | null
 }
 
 interface Emit {
@@ -53,10 +53,11 @@ const selectedTagsLabel = computed(() => {
   return 'Sélectionner des tags'
 })
 
-function formValidation(state: any): FormError[] {
+function formValidation(state: Exercice): FormError[] {
   const errors = []
   if (!state.name) errors.push({ path: 'name', message: 'Le nom est obligatoire' })
   if (!state.primary_muscle) errors.push({ path: 'primary_muscle', message: 'Le muscle est obligatoire' })
+  if (typeof state.weight_progression === 'string') errors.push({ path: 'progression', message: 'Verifiez la saisie ou mettre 0' })
   return errors
 }
 
@@ -74,7 +75,7 @@ function onSubmit() {
 
 function updateRmMax(value: number) {
   const tmPercentage = programsStore.currentProgram?.tm_percentage
-  const newExercice = updateExerciceMax('rm', value, exerciceItem.value, tmPercentage)
+  const newExercice = updateExerciceMax(MaxType.rm, value, exerciceItem.value, tmPercentage)
   exerciceItem.value = newExercice
 }
 
@@ -83,7 +84,14 @@ function onClose() {
   emit('update:modelValue', false)
 }
 
-onMounted(() => {
+const popinTitleLabel = computed(() => {
+  if (props.exercice) {
+    return `Editer l'exercice ${props.exercice.name}`
+  }
+  return 'Créer un exercice'
+})
+
+watch(() => props.exercice, (value) => {
   if (props.exercice) {
     exerciceItem.value = { ...props.exercice }
   }
@@ -97,8 +105,7 @@ onMounted(() => {
     <template #header>
       <div class="flex items-center justify-between">
         <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-          <span v-if="props.exercice">Editer un exercice</span>
-          <span v-else>Créer un exercice</span>
+          {{ popinTitleLabel }}
         </h3>
         <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" @click="onClose" />
       </div>
@@ -108,10 +115,26 @@ onMounted(() => {
       <UFormGroup label="Nom" name="name">
         <UInput placeholder="Nom de l'exercice" v-model="exerciceItem.name" />
       </UFormGroup>
+      <UFormGroup label="Progression des poids" name="progression" :description="`Le poids à augmenter sur le ${exerciceItem.reference_max_progression}`">
+        <UButtonGroup class="w-full" orientation="horizontal">
+          <UInput
+            type="number"
+            step="0.01"
+            class="flex-1"
+            placeholder="Progression"
+            v-model="exerciceItem.weight_progression"
+          >
+            <template #trailing>
+              <span class="text-gray-500 dark:text-gray-400 text-xs">Kg</span>
+            </template>
+          </UInput>
+          <USelect v-model="exerciceItem.reference_max_progression" :options="['RM', 'TM']" />
+        </UButtonGroup>
+      </UFormGroup>
       <UFormGroup label="Répetition max" name="repetition_max">
         <UInput
           placeholder="Répetition max"
-          :modelValue="exerciceItem.rm"
+          :modelValue="exerciceItem.RM"
           @keydown="blockInvalidChar"
           @change="updateRmMax"
           type="number"

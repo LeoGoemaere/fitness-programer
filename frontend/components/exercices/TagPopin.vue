@@ -26,16 +26,14 @@ const props = withDefaults(defineProps<Props>(), {
 const selectedTags = ref([])
 const isCreationTagPopinOpen = ref(false)
 const editingTag: Ref<Tag | null> = ref(null)
+const openIndex = ref(-1)
+const confirmDelete = ref(false)
 // The UForm state's prop is required, so he doesn't grumble at us
 const state = ref({})
 
 function deleteTag(tag: Tag) {
   exercicesStore.removeExerciceTag(tag)
 }
-
-
-const openIndex = ref(-1)
-const confirmDelete = ref(false)
 
 function handleDropdownOpen(isOpen: boolean, index: number) {
   if (isOpen) {
