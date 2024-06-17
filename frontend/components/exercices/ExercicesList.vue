@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Exercice } from '~/types/Exercice.interface';
+
 const exercicesStore = useExercicesStore();
 
 interface Props {
@@ -15,6 +17,38 @@ const exercicesListByMuscle = computed(() => {
   }
   return exercicesStore.exercices.filter(exercice => exercice.primary_muscle === props.muscle)
 })
+
+const openIndex = ref(-1)
+const confirmDelete = ref(false)
+
+function handleDropdownOpen(isOpen: boolean, index: number) {
+  if (isOpen) {
+    openIndex.value = index
+    confirmDelete.value = false
+  }
+}
+
+function exerciceOptions(exercice: Exercice, index: number) {
+  const isDeleting = confirmDelete.value && (openIndex.value === index)
+  return [
+    [
+      {
+        label: isDeleting ? 'Confirmer' : 'Supprimer',
+        icon: 'i-heroicons-trash',
+        iconClass: isDeleting ? 'text-red-400' : null,
+        labelClass: isDeleting ? 'text-red-400' : null,
+        click: (event: Event) => {
+          event.preventDefault()
+          if (confirmDelete.value) {
+            exercicesStore.removeExercice(exercice)
+            return
+          }
+          confirmDelete.value = true
+        }
+      }
+    ]
+  ]
+}
 </script>
 
 <template>
@@ -27,11 +61,11 @@ const exercicesListByMuscle = computed(() => {
       <UAccordion :items="exercicesListByMuscle" :ui="{ container: 'c-accordion__container mb-3', item: { padding: 'p-2', size: '' } }">
         <template #default="{ item, index, open }">
           <UButton color="gray" variant="ghost" class="c-accordion-heading" :class="{ 'c-accordion-heading--active': open }" :ui="{}">
-            <template #leading>
+            <!-- <template #leading>
               <div class="c-accordion__leading">
                 <div class="exercice-image"></div>
               </div>
-            </template>
+            </template> -->
             <div class="c-accordion-heading__content truncate p-3">
               <div class="c-accordion-heading__left">
                 <span>{{ item.name }}</span>
@@ -42,7 +76,12 @@ const exercicesListByMuscle = computed(() => {
                     {{ item.weight_progression }}kg
                   </UButton>
                 </UChip>
-                <UButton class="ml-2" size="2xs" color="gray" icon="i-solar-menu-dots-bold" variant="soft" />
+                <UDropdown
+                  @update:open="handleDropdownOpen($event, index)"
+                  :items="exerciceOptions(item, index)"
+                >
+                  <UButton class="ml-2" size="2xs" color="gray" icon="i-solar-menu-dots-bold" variant="soft" />
+                </UDropdown>
                 <UIcon
                   name="i-heroicons-chevron-right-20-solid"
                   class="c-accordion-heading__chevron"
@@ -55,7 +94,12 @@ const exercicesListByMuscle = computed(() => {
 
           <exercice-max :exercice="item" @updated="exercicesStore.updateExercice"></exercice-max>
 
-          <exercice-tags class="my-5" title="Tags" :items="[{label: 'test', color: 'orange'}, {label: 'test', color: 'orange'}]"></exercice-tags>
+          <div class="mt-3">
+            <p class="mb-1">Muscles</p>
+            <UBadge :ui="{ rounded: 'rounded-full' }" :label="$t(`muscles.${item.primary_muscle}`)" color="white" />
+          </div>
+
+          <exercice-tags class="mt-3" title="Tags" :tags="exercicesStore.getTagFromExercice(item)"></exercice-tags>
         </template>
       </UAccordion>
     </div>

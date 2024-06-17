@@ -58,11 +58,11 @@ function tagOptions(tag: Tag, index: number) {
     ],
     [
       {
-        label: isDeleting ? 'Confirmer' : `Supprimer ${tag.name}`,
+        label: isDeleting ? 'Confirmer' : 'Supprimer',
         icon: 'i-heroicons-trash',
         iconClass: isDeleting ? 'text-red-400' : null,
         labelClass: isDeleting ? 'text-red-400' : null,
-        click: (event) => {
+        click: (event: Event) => {
           event.preventDefault()
           if (confirmDelete.value) {
             deleteTag(tag)
@@ -119,6 +119,7 @@ watch(() => isCreationTagPopinOpen.value, (value) => {
               <ExerciceTag :tag="tag"></ExerciceTag>
               <div class="flex items-center">
                 <UDropdown
+                  :ui="{  padding: 'border-solid', item: { base: 'border-solid' } }"
                   @update:open="handleDropdownOpen"
                   :items="tagOptions(tag, index)"
                   :popper="{ placement: 'bottom-start' }"
