@@ -13,6 +13,7 @@ const programsStore = useProgramsStore();
 interface Props {
   modelValue: boolean
   exercice?: Exercice | null
+  isEdition: boolean
 }
 
 interface Emit {
@@ -25,7 +26,8 @@ const emit = defineEmits<Emit>();
 
 // Declarations des props
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: false
+  modelValue: false,
+  isEdition: false
 });
 
 const exerciceItem = ref(getEmptyExercice())
@@ -81,7 +83,7 @@ function onClose() {
 }
 
 const popinTitleLabel = computed(() => {
-  if (props.exercice) {
+  if (props.isEdition && props.exercice) {
     return `Editer l'exercice ${props.exercice.name}`
   }
   return 'Créer un exercice'

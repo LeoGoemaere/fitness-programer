@@ -156,6 +156,7 @@ function toggleItem () {
   top: 0;
   bottom: 0;
   z-index: 1;
+  align-items: center;
 }
 
 .layerlv1__back {

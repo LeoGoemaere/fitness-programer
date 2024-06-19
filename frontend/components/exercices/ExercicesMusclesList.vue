@@ -18,6 +18,7 @@ import abductors from '~/assets/images/muscles/abductors.png'
 import adductors from '~/assets/images/muscles/adductors.png'
 import lumbars from '~/assets/images/muscles/lumbars.png'
 import type { MusclesEnum } from '~/types/MusclesEnum'
+import type { Exercice } from '~/types/Exercice.interface'
 
 const { t } = useI18n()
 
@@ -25,6 +26,7 @@ const muscleListSorts = coreMuscles.sort((a, b) => t(`muscles.${a}`).localeCompa
 const activeLv1Index = ref(-1)
 const isEditionExercicePopinOpen = ref(false)
 const isTagPopinOpen = ref(false)
+const editingExercice: Ref<Exercice | null> = ref(null)
 
 const listItems = computed(() => [ 'All', ...muscleListSorts ])
 
@@ -34,6 +36,15 @@ function toggleLayer({ lv1Index }: { lv1Index: number }) {
 
 function updateLv1IndexFromMuscle(muscle: MusclesEnum | string) {
   activeLv1Index.value = listItems.value.findIndex(item => item === muscle)
+}
+
+function editExercice(muscle: MusclesEnum | string) {
+  const exercice = getEmptyExercice()
+  if (muscle !== 'All') {
+    exercice.primary_muscle = muscle
+  }
+  editingExercice.value = exercice
+  isEditionExercicePopinOpen.value = true
 }
 
 // TODO: Optimize images + lazyload ?
@@ -123,12 +134,12 @@ const createOptions = [
         >
           <template #action>
             <UButton
-              @click=""
-              size="xl"
+              @click="editExercice(muscle)"
+              icon="i-heroicons-plus-circle"
               color="primary"
-              variant="link"
-              label="Create"
-              :trailing="false"
+              :ui="{ rounded: 'rounded-full' }"
+              size="xl"
+              variant="ghost"
               :padded="false"
             />
           </template>
@@ -136,7 +147,11 @@ const createOptions = [
         </ListItemLv1>
       </ul>
     </nav>
-    <EditionExercicePopin v-model="isEditionExercicePopinOpen" @exercice-created="updateLv1IndexFromMuscle"></EditionExercicePopin>
+    <EditionExercicePopin
+      v-model="isEditionExercicePopinOpen"
+      :exercice="editingExercice"
+      @exercice-created="updateLv1IndexFromMuscle"
+    ></EditionExercicePopin>
     <TagPopin v-model="isTagPopinOpen" @exercice-created="updateLv1IndexFromMuscle"></TagPopin>
   </div>
 </template>

@@ -18,6 +18,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const isCreationExercicePopinOpen = ref(false)
 const editingExercice: Ref<Exercice | null> = ref(null)
+const isEditionExercice = ref(false)
 const openIndex = ref(-1)
 const confirmDelete = ref(false)
 const openMaxPopoverIndex = ref(-1)
@@ -44,9 +45,10 @@ function handlePopoverMaxOpen(isOpen: boolean, index: number) {
   }
 }
 
-function editExercice(exercice: Exercice) {
+function editExercice(exercice: Exercice, isEdition: boolean) {
   editingExercice.value = exercice
   isCreationExercicePopinOpen.value = true
+  isEditionExercice.value = isEdition
 }
 
 function shouldDisplayMaxProgression(exercice: Exercice) {
@@ -87,7 +89,7 @@ function emptyStateActions() {
       label: 'Créer un exercice',
       icon: 'i-heroicons-plus-circle',
       click: () => {
-        editExercice(exercice)
+        editExercice(exercice, false)
       }
     }
   ]
@@ -101,7 +103,7 @@ function exerciceOptions(exercice: Exercice, index: number) {
         label: 'Editer',
         icon: 'i-heroicons-pencil-square',
         click: () => {
-          editExercice(exercice)
+          editExercice(exercice, true)
         }
       }
     ],
@@ -136,14 +138,13 @@ watch(() => isCreationExercicePopinOpen.value, (value) => {
   // If the popin is closed, then reset the editing exercice
   if (!value) {
     editingExercice.value = null
+    isEditionExercice.value = false
   }
 })
 </script>
 
 <template>
   <div>
-    <ExercicesSearch></ExercicesSearch>
-
     <!-- No exercice view -->
     <template v-if="!exercicesListByMuscle.length">
       <UAlert
@@ -158,6 +159,7 @@ watch(() => isCreationExercicePopinOpen.value, (value) => {
     </template>
     <!-- has exercices -->
     <template v-else>
+      <ExercicesSearch></ExercicesSearch>
       <p class="exo-list__title">Exercices</p>
       <div class="c-accordion">
         <UAccordion :items="exercicesListByMuscle" :ui="{ container: 'c-accordion__container mb-3', item: { padding: 'p-2', size: '' } }">
@@ -224,7 +226,7 @@ watch(() => isCreationExercicePopinOpen.value, (value) => {
         </UAccordion>
       </div>
     </template>
-    <EditionExercicePopin v-model="isCreationExercicePopinOpen" :exercice="editingExercice"></EditionExercicePopin>
+    <EditionExercicePopin v-model="isCreationExercicePopinOpen" :exercice="editingExercice" :is-edition="isEditionExercice"></EditionExercicePopin>
   </div>
 </template>
 
