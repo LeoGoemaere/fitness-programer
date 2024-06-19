@@ -134,6 +134,7 @@ watch(() => props.exercice, (value) => {
       <UFormGroup label="Répetition max" name="repetition_max">
         <UInput
           placeholder="Répetition max"
+          step="0.01"
           :modelValue="exerciceItem.RM"
           @keydown="blockInvalidChar"
           @change="updateRmMax"

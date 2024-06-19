@@ -5,6 +5,8 @@ import { roundValue } from '~/utils/utils';
 
 const exercicesStore = useExercicesStore();
 const programsStore = useProgramsStore();
+const toast = useToast()
+
 interface Props {
   muscle: string
 }
@@ -17,6 +19,7 @@ const isCreationExercicePopinOpen = ref(false)
 const editingExercice: Ref<Exercice | null> = ref(null)
 const openIndex = ref(-1)
 const confirmDelete = ref(false)
+const openMaxPopoverIndex = ref(-1)
 
 const exercicesListByMuscle = computed(() => {
   if (props.muscle === 'All') {
@@ -29,6 +32,14 @@ function handleDropdownOpen(isOpen: boolean, index: number) {
   if (isOpen) {
     openIndex.value = index
     confirmDelete.value = false
+    return
+  }
+}
+
+
+function handlePopoverMaxOpen(isOpen: boolean, index: number) {
+  if (isOpen) {
+    openMaxPopoverIndex.value = index
   }
 }
 
@@ -94,8 +105,12 @@ function incrementMax(exercice: Exercice) {
       break;
     }
   }
+  toast.add({
+    title: `Le ${exercice.reference_max_progression} de l'exercice ${exercice.name} à été augmenté de ${exercice.weight_progression}kg.`,
+    timeout: 3000
+  })
+  openMaxPopoverIndex.value = -1
 }
-
 </script>
 
 <template>
@@ -118,11 +133,27 @@ function incrementMax(exercice: Exercice) {
                 <span>{{ item.name }}</span>
               </div>
               <div class="c-accordion-heading__trailing">
-                <UChip v-if="shouldDisplayMaxProgression(item)" position="top-left" size="xl" :text="item.reference_max_progression" :color="getMaxColor(item)">
-                  <UButton @click.prevent.stop="incrementMax(item)" size="2xs" variant="soft" icon="i-heroicons-plus-circle" :color="getMaxColor(item)">
-                    {{ item.weight_progression }}kg
-                  </UButton>
-                </UChip>
+                <UPopover
+                  v-if="shouldDisplayMaxProgression(item)"
+                  :popper="{ arrow: true }"
+                  @update:open="handlePopoverMaxOpen($event, index)"
+                  :open="openMaxPopoverIndex === index"
+                >
+                  <UChip position="top-left" size="xl" :text="item.reference_max_progression" :color="getMaxColor(item)">
+                    <UButton size="2xs" variant="soft" icon="i-heroicons-plus-circle" :color="getMaxColor(item)">
+                      {{ item.weight_progression }}kg
+                    </UButton>
+                  </UChip>
+
+                  <template #panel>
+                    <div class="py-2 px-4 exo-list__popover">
+                      <p>Augmenter de {{ item.weight_progression }}kg le {{ item.reference_max_progression }}.</p>
+                      <UButton @click.stop.prevent="incrementMax(item)" class="mt-2" size="2xs" variant="outline" :color="getMaxColor(item)">
+                        Confirmer
+                      </UButton>
+                    </div>
+                  </template>
+                </UPopover>
                 <UDropdown
                   @click.prevent.stop
                   :ui="{  padding: 'border-solid', item: { base: 'border-solid' } }"
@@ -141,12 +172,12 @@ function incrementMax(exercice: Exercice) {
         </template>
         <template #item="{ item }">
 
-          <exercice-max :exercice="item" @updated="exercicesStore.updateExercice"></exercice-max>
-
-          <div class="mt-3">
+          <div class="mb-3">
             <p class="mb-1">Muscles</p>
             <UBadge :ui="{ rounded: 'rounded-full' }" :label="$t(`muscles.${item.primary_muscle}`)" color="white" />
           </div>
+
+          <exercice-max :exercice="item" @updated="exercicesStore.updateExercice"></exercice-max>
 
           <exercice-tags class="mt-3" title="Tags" :tags="exercicesStore.getTagFromExercice(item)"></exercice-tags>
         </template>
@@ -166,6 +197,9 @@ function incrementMax(exercice: Exercice) {
 
 .exo-list__title {
   margin-bottom: 10px;
+}
+
+.exo-list__popover {
 }
 
 </style>
