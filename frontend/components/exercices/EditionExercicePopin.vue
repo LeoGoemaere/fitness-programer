@@ -3,7 +3,7 @@ import type { FormError } from '#ui/types'
 import { MaxType, type Exercice } from '~/types/Exercice.interface';
 import coreMuscles from '~/datas/muscles/coreMuscles'
 import { blockInvalidChar } from '~/utils/utils';
-import { updateExerciceMax } from '~/composables/exerciceComposable';
+import { updateExerciceMax, getEmptyExercice } from '~/composables/exerciceComposable';
 import type { MusclesEnum } from '~/types/MusclesEnum';
 
 const { t } = useI18n()
@@ -62,12 +62,8 @@ function formValidation(state: Exercice): FormError[] {
 }
 
 function onSubmit() {
-  // Exercice is editing
-  if (props.exercice) {
-    exercicesStore.updateExercice(exerciceItem.value)
-    } else {
-    exercicesStore.addExercice(exerciceItem.value)
-  }
+  // Create or edit exercice
+  exercicesStore.addOrUpdateExercice(exerciceItem.value)
   emit('update:modelValue', false)
   emit('exerciceCreated', exerciceItem.value.primary_muscle)
   exerciceItem.value = getEmptyExercice()

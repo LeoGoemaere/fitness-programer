@@ -30,6 +30,15 @@ export const useExercicesStore = defineStore('exercicesStore', () => {
     }
   }
 
+  function addOrUpdateExercice(exercice: Exercice) {
+    const isExerciceExist = exercices.value.some(exerciceElement => exerciceElement.id === exercice.id)
+    if (isExerciceExist) {
+      updateExercice(exercice)
+    } else {
+      addExercice(exercice)
+    }
+  }
+
   function removeExercice(exercice: Exercice) {
     exercices.value = exercices.value.filter(element => element.id !== exercice.id)
   }
@@ -69,6 +78,7 @@ export const useExercicesStore = defineStore('exercicesStore', () => {
     exerciceTags,
     updateExercice,
     addExercice,
+    addOrUpdateExercice,
     removeExercice,
     addExerciceTag,
     updateExerciceTag,
