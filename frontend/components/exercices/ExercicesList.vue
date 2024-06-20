@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type Exercice, MaxType } from '~/types/Exercice.interface';
 import { getMaxColor, updateExerciceMax, getEmptyExercice } from '~/composables/exerciceComposable';
-import { roundValue } from '~/utils/utils';
+import { roundValue, removeDiacritics } from '~/utils/utils';
 import type { MusclesEnum } from '~/types/MusclesEnum';
 import type { Tag } from '~/types/Tag.interface';
 
@@ -26,6 +26,7 @@ const confirmDelete = ref(false)
 const openMaxPopoverIndex = ref(-1)
 const tagsFilter: Ref<Tag['id'][]> = ref([])
 const musclesFilter: Ref<MusclesEnum[] & string[]> = ref([])
+const searchQuery = ref('')
 
 function handleDropdownOpen(isOpen: boolean, index: number) {
   if (isOpen) {
@@ -142,14 +143,27 @@ const exercicesListFiltered = computed(() => {
   return exercicesListByMuscle.value.filter(exercice => {
     let isExerciceHasMuscles = true
     let isExerciceHasTags = true
+    let isExerciceContainQuery = true
     if (musclesFilter.value.length) {
       isExerciceHasMuscles = musclesFilter.value.includes(exercice.primary_muscle)
     }
     if (tagsFilter.value.length) {
       isExerciceHasTags = tagsFilter.value.some(tag => exercice.tag_ids.includes(tag))
     }
-    return isExerciceHasMuscles && isExerciceHasTags
+    if (searchQuery.value.length) {
+      const exerciceName = removeDiacritics(exercice.name.toLocaleLowerCase())
+      const query = removeDiacritics(searchQuery.value.toLocaleLowerCase())
+      isExerciceContainQuery = exerciceName.includes(query)
+    }
+    return isExerciceHasMuscles && isExerciceHasTags && isExerciceContainQuery
   })
+})
+
+const filtersToDisplay = computed<Array<'tags' | 'muscles'>>(() => {
+  if (props.muscle === 'All') {
+    return ['tags', 'muscles']
+  }
+  return ['tags']
 })
 
 watch(() => isCreationExercicePopinOpen.value, (value) => {
@@ -167,6 +181,8 @@ watch(() => isCreationExercicePopinOpen.value, (value) => {
       v-if="exercicesListByMuscle.length"
       v-model:tags="tagsFilter"
       v-model:muscles="musclesFilter"
+      v-model:search="searchQuery"
+      :display-filters="filtersToDisplay"
     ></ExercicesSearch>
     <!-- No exercice view -->
     <template v-if="!exercicesListFiltered.length">

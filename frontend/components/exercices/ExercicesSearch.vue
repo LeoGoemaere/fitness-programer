@@ -5,9 +5,21 @@ import type { MusclesEnum } from '~/types/MusclesEnum';
 
 const { t } = useI18n()
 
+type DisplayFilter = 'tags' | 'muscles';
+
+interface Props {
+  displayFilters: DisplayFilter[]
+}
+
+// Declarations des props
+const props = withDefaults(defineProps<Props>(), {
+  displayFilters: () => (['tags', 'muscles'])
+});
+
 interface Emit {
   (e: 'update:tags', tags: Tag['id'][]): void
   (e: 'update:muscles', muscles: MusclesEnum[]): void
+  (e: 'update:search', query: string): void
 }
 
 // Declarations des emits
@@ -18,6 +30,7 @@ const { muscleListSorts } = useMuscles()
 
 const selectedTags: Ref<Tag[]> = ref([])
 const selectedMuscles: Ref<MusclesEnum[]> = ref([])
+const searchQuery = ref('')
 
 const hasTagsFilter = computed(() => selectedTags.value.length)
 const hasMusclesFilter = computed(() => selectedMuscles.value.length)
@@ -44,6 +57,9 @@ const selectedMusclesLabel = computed(() => {
   return 'Muscles'
 })
 
+const shouldDisplayTags = computed(() => props.displayFilters.includes('tags'))
+const shouldDisplayMuscles = computed(() => props.displayFilters.includes('muscles'))
+
 function handleSelectedTags(tags: Tag[]) {
   selectedTags.value = tags
   emit('update:tags', tags.map(tag => tag.id))
@@ -51,6 +67,10 @@ function handleSelectedTags(tags: Tag[]) {
 function handleSelectedMuscles(muscles: MusclesEnum[]) {
   selectedMuscles.value = muscles
   emit('update:muscles', muscles)
+}
+function handleSearch(query: string) {
+  searchQuery.value = query
+  emit('update:search', query)
 }
 
 function clearFilters() {
@@ -62,15 +82,30 @@ function clearFilters() {
 <template>
   <div class="search">
     <UInput
+      :ui="{ icon: { trailing: { pointer: '' } } }"
       class="search__input"
       icon="i-heroicons-magnifying-glass-20-solid"
       size="sm"
-      color="white"
+      :color="searchQuery ? 'primary' : 'white'"
       :trailing="false"
-      placeholder="Search..."
-    />
+      placeholder="Rechercher un exercice..."
+      @update:modelValue="handleSearch"
+      :model-value="searchQuery"
+    >
+      <template #trailing>
+        <UButton
+          :ui="{ rounded: 'rounded-full' }"
+          size="2xs"
+          variant="soft"
+          icon="i-heroicons-x-mark"
+          :color="searchQuery ? 'primary' : 'gray'"
+          @click="handleSearch('')"
+        >
+        </UButton>
+      </template>
+    </UInput>
     <div class="search__actions">
-      <div class="search__filter">
+      <div v-if="shouldDisplayTags" class="search__filter">
         <USelectMenu
           searchable-placeholder="Rechercher..."
           icon="i-heroicons-tag"
@@ -85,14 +120,14 @@ function clearFilters() {
           :color="hasTagsFilter ? 'primary' : 'white'"
         >
           <template #label>
-            <span>{{ selectedTagsLabel }}</span>
+            <span class="truncate">{{ selectedTagsLabel }}</span>
           </template>
           <template #option="{ option: tag }">
             <ExerciceTag :tag="tag"></ExerciceTag>
           </template>
         </USelectMenu>
       </div>
-      <div class="search__filter">
+      <div v-if="shouldDisplayMuscles" class="search__filter">
         <USelectMenu
           searchable-placeholder="Rechercher..."
           icon="i-heroicons-adjustments-horizontal"
@@ -107,7 +142,7 @@ function clearFilters() {
           :color="hasMusclesFilter ? 'primary' : 'white'"
         >
           <template #label>
-            <span>{{ selectedMusclesLabel }}</span>
+            <span class="truncate">{{ selectedMusclesLabel }}</span>
           </template>
         </USelectMenu>
       </div>

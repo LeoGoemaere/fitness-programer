@@ -10,3 +10,7 @@ export function roundValue(value: unknown) {
   }
   return 0;
 }
+
+export function removeDiacritics(str: string) {
+  return str.normalize("NFD").replace(/\p{Diacritic}/gu, "")
+}
