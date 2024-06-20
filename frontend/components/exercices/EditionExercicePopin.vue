@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import type { FormError } from '#ui/types'
 import { MaxType, type Exercice } from '~/types/Exercice.interface';
-import coreMuscles from '~/datas/muscles/coreMuscles'
 import { blockInvalidChar } from '~/utils/utils';
 import { updateExerciceMax, getEmptyExercice } from '~/composables/exerciceComposable';
 import type { MusclesEnum } from '~/types/MusclesEnum';
+import { useMuscles } from '~/composables/musclesComposable';
 
-const { t } = useI18n()
 const exercicesStore = useExercicesStore();
 const programsStore = useProgramsStore();
+const { muscleListSorts } = useMuscles()
 
 interface Props {
   modelValue: boolean
   exercice?: Exercice | null
-  isEdition: boolean
+  isEdition?: boolean
 }
 
 interface Emit {
@@ -32,9 +32,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const exerciceItem = ref(getEmptyExercice())
 const tagQuery = ref('')
-const muscleListSorts = coreMuscles
-  .map(muscle => ({ id: muscle, libelle: t(`muscles.${muscle}`) }))
-  .sort((a, b) => a.libelle.localeCompare(b.libelle))
 
 const selectedTags = computed({
   get: () => exercicesStore.getTagFromExercice(exerciceItem.value),

@@ -2,6 +2,8 @@
 import { type Exercice, MaxType } from '~/types/Exercice.interface';
 import { getMaxColor, updateExerciceMax, getEmptyExercice } from '~/composables/exerciceComposable';
 import { roundValue } from '~/utils/utils';
+import type { MusclesEnum } from '~/types/MusclesEnum';
+import type { Tag } from '~/types/Tag.interface';
 
 const exercicesStore = useExercicesStore();
 const programsStore = useProgramsStore();
@@ -22,13 +24,8 @@ const isEditionExercice = ref(false)
 const openIndex = ref(-1)
 const confirmDelete = ref(false)
 const openMaxPopoverIndex = ref(-1)
-
-const exercicesListByMuscle = computed(() => {
-  if (props.muscle === 'All') {
-    return exercicesStore.exercices
-  }
-  return exercicesStore.exercices.filter(exercice => exercice.primary_muscle === props.muscle)
-})
+const tagsFilter: Ref<Tag['id'][]> = ref([])
+const musclesFilter: Ref<MusclesEnum[] & string[]> = ref([])
 
 function handleDropdownOpen(isOpen: boolean, index: number) {
   if (isOpen) {
@@ -134,6 +131,27 @@ const emptyExerciceLabel = computed(() => {
   return `Aucun exercice <b class="font-bold">"${muscleName}"</b>`
 })
 
+const exercicesListByMuscle = computed(() => {
+  if (props.muscle === 'All') {
+    return exercicesStore.exercices
+  }
+  return exercicesStore.exercices.filter(exercice => exercice.primary_muscle === props.muscle)
+})
+
+const exercicesListFiltered = computed(() => {
+  return exercicesListByMuscle.value.filter(exercice => {
+    let isExerciceHasMuscles = true
+    let isExerciceHasTags = true
+    if (musclesFilter.value.length) {
+      isExerciceHasMuscles = musclesFilter.value.includes(exercice.primary_muscle)
+    }
+    if (tagsFilter.value.length) {
+      isExerciceHasTags = tagsFilter.value.some(tag => exercice.tag_ids.includes(tag))
+    }
+    return isExerciceHasMuscles && isExerciceHasTags
+  })
+})
+
 watch(() => isCreationExercicePopinOpen.value, (value) => {
   // If the popin is closed, then reset the editing exercice
   if (!value) {
@@ -145,12 +163,17 @@ watch(() => isCreationExercicePopinOpen.value, (value) => {
 
 <template>
   <div>
+    <ExercicesSearch
+      v-if="exercicesListByMuscle.length"
+      v-model:tags="tagsFilter"
+      v-model:muscles="musclesFilter"
+    ></ExercicesSearch>
     <!-- No exercice view -->
-    <template v-if="!exercicesListByMuscle.length">
+    <template v-if="!exercicesListFiltered.length">
       <UAlert
         :ui="{ actions: 'justify-center' }"
         class="exo-list__empty-state"
-        :actions="emptyStateActions()"
+        :actions="!exercicesListByMuscle.length ? emptyStateActions() : []"
       >
         <template #description>
           <p v-html="emptyExerciceLabel"></p>
@@ -159,10 +182,9 @@ watch(() => isCreationExercicePopinOpen.value, (value) => {
     </template>
     <!-- has exercices -->
     <template v-else>
-      <ExercicesSearch></ExercicesSearch>
       <p class="exo-list__title">Exercices</p>
       <div class="c-accordion">
-        <UAccordion :items="exercicesListByMuscle" :ui="{ container: 'c-accordion__container mb-3', item: { padding: 'p-2', size: '' } }">
+        <UAccordion :items="exercicesListFiltered" :ui="{ container: 'c-accordion__container mb-3', item: { padding: 'p-2', size: '' } }">
           <template #default="{ item, index, open }">
             <UButton color="gray" variant="ghost" class="c-accordion-heading" :class="{ 'c-accordion-heading--active': open }" :ui="{}">
               <!-- <template #leading>

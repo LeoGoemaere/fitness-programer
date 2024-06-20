@@ -104,6 +104,7 @@ watch(() => isCreationTagPopinOpen.value, (value) => {
       <UFormGroup name="tags">
         <USelectMenu
           :uiMenu="{ option: { container: 'w-full' } }"
+          searchable-placeholder="Rechercher un tag..."
           :modelValue="selectedTags"
           :options="exercicesStore.exerciceTags"
           multiple
