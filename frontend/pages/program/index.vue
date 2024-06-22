@@ -10,6 +10,9 @@ function updateVariation(variationId: string | null) {
 function updateTemplate(templateId: string | null) {
   programsStore.setSelectedTemplateId(templateId)
 }
+function updateWeek(weekId: string | null) {
+  programsStore.setSelectedWeekId(weekId)
+}
 
 const programDescription = computed(() => programsStore.currentProgram?.description)
 const variationDescription = computed(() => programsStore.currentVariation?.description)
@@ -22,6 +25,10 @@ const hasMultipleVariations = computed(() => {
 const hasMultipleTemplates = computed(() => {
   const templates = programsStore?.currentVariation?.templates
   return templates && templates.length > 1
+})
+const hasMultipleWeeks = computed(() => {
+  const weeks = programsStore?.currentTemplate?.weeks
+  return weeks && weeks.length > 1
 })
 
 const tmPercentageValue = computed(() => {
@@ -78,14 +85,24 @@ const tmPercentageValue = computed(() => {
         :modelValue="programsStore.currentVariation?.id"
         ></USelect>
       </UFormGroup>
-        <!-- Only display if there is more than 1 template -->
-        <UFormGroup v-if="programsStore.currentVariation && hasMultipleTemplates" class="program__form-row" label="Template">
-          <USelect
+      <!-- Only display if there is more than 1 template -->
+      <UFormGroup v-if="programsStore.currentVariation && hasMultipleTemplates" class="program__form-row" label="Template">
+        <USelect
           :options="programsStore.currentVariation.templates"
           option-attribute="name"
           value-attribute="id"
           @update:modelValue="updateTemplate"
           :modelValue="programsStore.currentTemplate?.id"
+        ></USelect>
+      </UFormGroup>
+      <!-- Only display if there is more than 1 week -->
+      <UFormGroup v-if="programsStore.currentTemplate && hasMultipleWeeks" class="program__form-row" label="Semaines">
+        <USelect
+          :options="programsStore.currentTemplate.weeks"
+          option-attribute="name"
+          value-attribute="id"
+          @update:modelValue="updateWeek"
+          :modelValue="programsStore.currentWeek?.id"
         ></USelect>
       </UFormGroup>
     </div>
