@@ -6,7 +6,7 @@ export interface Program {
   variations: ProgramVariation[]
 }
 
-interface ProgramVariation {
+export interface ProgramVariation {
   id: string
   // program_id: string
   name: string
@@ -43,14 +43,14 @@ export interface ProgramTrainingExercice {
   sets: ProgramSet[]
 }
 
-interface ProgramSet {
+export interface ProgramSet {
   id: string
-  repetitions: number | string
-  weight: number
+  repetitions: number | string | [number, number]
+  weight?: number | null
   exercice_max_weight_percentage?: number | null
   personal_record: boolean
   is_done: boolean
-  displayable_set_information: ProgramDisplayableSetInformation
+  displayable_set_information?: ProgramDisplayableSetInformation | null
 }
 
 interface ProgramDisplayableSetInformation {

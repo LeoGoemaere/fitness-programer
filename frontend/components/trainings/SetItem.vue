@@ -1,47 +1,74 @@
 <script setup lang="ts">
+import type { ProgramSet, ProgramTrainingExercice } from '~/types/Program.interface';
+
 interface Props {
-  check?: boolean,
+  check?: boolean
+  programSet: ProgramSet
+  trainingExercice: ProgramTrainingExercice
+}
+
+interface Emit {
+  (e: 'deleted', programSet: ProgramSet): void
+  (e: 'edited', programSet: ProgramSet): void
 }
 
 // Declarations des props
-withDefaults(defineProps<Props>(), {
-  check: false
+const props = withDefaults(defineProps<Props>(), {
+  check: false,
 });
 
-const items = [
-  [
-    {
-      label: 'Edit',
-      icon: 'i-heroicons-pencil-square',
-      click: () => {
-        console.log('Edit')
-        isEditionPopinOpen.value = true
-      }
-    },
-    {
-      label: 'Delete',
-      icon: 'i-heroicons-trash',
-      labelClass: 'text-red-500',
-      iconClass: 'text-red-500',
-      click: () => {
-        console.log('Delete')
-      }
-    }
-  ]
-]
+// Declarations des emits
+const emit = defineEmits<Emit>();
 
-const isEditionPopinOpen = ref(false)
+const isEditionSetPopinOpen = ref(false)
+const confirmDelete = ref(false)
+
+const programSetLabel = computed(() => props.programSet?.displayable_set_information?.value)
+
+function setOptions() {
+  const isDeleting = confirmDelete.value
+  return [
+    [
+      {
+        label: 'Editer',
+        icon: 'i-heroicons-pencil-square',
+        click: () => {
+          isEditionSetPopinOpen.value = true
+        }
+      }
+    ],
+    [
+      {
+        label: isDeleting ? 'Confirmer' : 'Supprimer',
+        icon: 'i-heroicons-trash',
+        iconClass: isDeleting ? 'text-red-400' : null,
+        labelClass: isDeleting ? 'text-red-400' : null,
+        click: (event: Event) => {
+          event.preventDefault()
+          if (confirmDelete.value) {
+            emit('deleted', props.programSet)
+            return
+          }
+          confirmDelete.value = true
+        }
+      },
+    ]
+  ]
+}
 </script>
 
 <template>
-  <div class="setitem p-3" :class="{ 'setitem--check': check }">
+  <div v-if="programSet" class="setitem p-3" :class="{ 'setitem--check': check }">
     <div class="setitem__left">
       <span class="setitem__counter">1</span>
-      <set-perf class="setitem__perf"></set-perf>
+      <set-perf
+        class="setitem__perf"
+        :programSet="programSet"
+      ></set-perf>
     </div>
     <div class="setitem__right">
-      <div class="setitem__label">Un label</div>
-      <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
+      <div class="setitem__label">{{ programSetLabel }}</div>
+      <UDropdown :items="setOptions()" :popper="{ placement: 'bottom-start' }">
         <UButton
           class="setitem__options mx-2"
           icon="i-solar-menu-dots-bold"
@@ -56,7 +83,13 @@ const isEditionPopinOpen = ref(false)
         name="i-solar-check-read-outline"
       />
     </div>
-    <edition-set-popin v-model="isEditionPopinOpen"></edition-set-popin>
+    <edition-set-popin
+      v-model="isEditionSetPopinOpen"
+      :exercice-set="programSet"
+      :training-exercice="trainingExercice"
+      :is-edition="true"
+      @edited="emit('edited', $event)"
+    ></edition-set-popin>
   </div>
 </template>
 

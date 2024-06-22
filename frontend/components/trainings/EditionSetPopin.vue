@@ -1,15 +1,26 @@
 <script setup lang="ts">
+import type { Exercice } from '~/types/Exercice.interface';
+import type { ProgramSet, ProgramTrainingExercice } from '~/types/Program.interface';
+
 
 interface Props {
   modelValue: boolean
+  trainingExercice: ProgramTrainingExercice
+  exerciceSet?: ProgramSet | null
+  isEdition?: boolean
 }
 
-const isPr = ref(false)
-const repsValue = ref(null)
-const weightValue = ref(null)
+const exercicesStore = useExercicesStore()
+const { getEmptySet } = useExerciceSet()
+
+// const isPr = ref(false)
+// const repsValue = ref(null)
+// const weightValue = ref(null)
+const setBeingEdited = ref(getEmptySet())
 
 interface Emit {
   (e: 'update:modelValue', active: boolean): void
+  (e: 'edited', programSet: ProgramSet): void
 }
 
 // Declarations des emits
@@ -20,6 +31,33 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: false
 });
 
+const exerciceAssociated = computed(() => exercicesStore.exercices.find(exerciceEl => exerciceEl.id === props.trainingExercice.exercice_id))
+const setIndex = computed(() => props.trainingExercice.sets.findIndex(set => set.id === props.exerciceSet?.id))
+
+const popinTitleLabel = computed(() => {
+  if (props.isEdition) {
+    return 'Edition d\'une série'
+  }
+  return 'Créer une série'
+})
+
+const popinSubTitleLabel = computed(() => {
+  if (exerciceAssociated.value) {
+    const setNumber = setIndex.value > -1 ? setIndex.value + 1 : props.trainingExercice.sets.length + 1
+    return `${exerciceAssociated.value.name}, série n°${setNumber}`
+  }
+  return null
+})
+
+function submit() {
+  emit('edited', setBeingEdited.value)
+}
+
+onMounted(() => {
+  if (props.exerciceSet) {
+    setBeingEdited.value = { ...props.exerciceSet }
+  }
+})
 </script>
 
 <template>
@@ -28,11 +66,11 @@ const props = withDefaults(defineProps<Props>(), {
     <template #header>
       <div class="flex items-center justify-between">
         <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-          Edition d'une série
+          {{ popinTitleLabel }}
         </h3>
         <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" @click="emit('update:modelValue', false)" />
       </div>
-      <p class="text-base leading-6 text-gray-900 dark:text-white">Développé couché, série n°4</p>
+      <p v-if="popinSubTitleLabel" class="text-base leading-6 text-gray-900 dark:text-white">{{ popinSubTitleLabel }}</p>
     </template>
 
     <div class="edition__row">
@@ -55,12 +93,12 @@ const props = withDefaults(defineProps<Props>(), {
       <div class="flex items-end">
         <UFormGroup class="edition__perf-item" label="Répetitions">
           <template #default>
-            <UInput placeholder="10" v-model="repsValue" />
+            <UInput placeholder="10" v-model="setBeingEdited.repetitions" />
           </template>
         </UFormGroup>
         <span class="edition__perfs-at">@</span>
         <UFormGroup class="edition__perf-item" label="Weight">
-          <UInput placeholder="80" v-model="weightValue">
+          <UInput placeholder="80" v-model="setBeingEdited.weight">
             <template #trailing>
               <span class="text-gray-500 dark:text-gray-400 text-xs">Kg</span>
             </template>
@@ -87,7 +125,7 @@ const props = withDefaults(defineProps<Props>(), {
     </div>
 
     <div class="flex justify-center mt-5">
-      <UButton>Valider</UButton>
+      <UButton @click="submit">Valider</UButton>
     </div>
   </UCard>
 </UModal>

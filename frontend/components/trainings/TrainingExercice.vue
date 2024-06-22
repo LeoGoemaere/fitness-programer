@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import type { Exercice } from '~/types/Exercice.interface';
+import type { ProgramSet, ProgramTrainingExercice } from '~/types/Program.interface';
+import { useTrainingExercice } from '~/composables/trainingExerciceComposable';
+
+/**
+ * TODO:
+ * - Enregistrer dans le store au beforeDestroy
+ */
 const items = ref([{
   label: 'Getting Started',
   icon: 'i-heroicons-information-circle',
@@ -7,30 +15,74 @@ const items = ref([{
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.'
 }])
 
+const exercicesStore = useExercicesStore()
+const { getEmptyTrainingExercice } = useTrainingExercice()
+
 interface Props {
+  trainingExercice?: ProgramTrainingExercice
   supersetUp?: boolean
   supersetDown?: boolean
 }
 
-const isPopinOpen = ref(false)
+const isEditionSetPopinOpen = ref(false)
+const trainingExerciceItem = ref(getEmptyTrainingExercice())
+const exerciceAssociated = computed(() => exercicesStore.exercices.find(exerciceEl => exerciceEl.id === trainingExerciceItem.value?.exercice_id))
+
 // Declarations des props
 const props = withDefaults(defineProps<Props>(), {
   supersetUp: false,
   supersetDown: false,
 });
 
+onMounted(() => {
+  if (props.trainingExercice) {
+    trainingExerciceItem.value = { ...props.trainingExercice }
+  }
+})
 
 function check(item, index, open) {
   items.value[index].checked = !item.checked
 }
+
+function addExercice() {
+  // TODO
+}
+
+function deleteSet(programSet: ProgramSet) {
+  trainingExerciceItem.value.sets = trainingExerciceItem.value.sets.filter(setItem => setItem.id !== programSet.id)
+}
+
+function editSet(programSet: ProgramSet) {
+  debugger
+  const editedSetIndex = trainingExerciceItem.value.sets.findIndex(setEl => setEl.id === programSet.id)
+  if (editedSetIndex >= 0) {
+    trainingExerciceItem.value.sets[editedSetIndex] = programSet
+  }
+}
+function createSet() {
+  debugger
+}
+
 </script>
 
 <template>
   <div class="c-accordion" :class="{ 'c-accordion--top-radiusless': supersetUp, 'c-accordion--bottom-radiusless': supersetDown }">
-      
-    <UAccordion :items="items" :ui="{ container: 'c-accordion__container', item: { padding: 'p-0' } }">
+    <UButton
+      v-if="!exerciceAssociated"
+      @click="addExercice"
+    >Choisir un exercice</UButton>
+
+    <UAccordion v-else :items="[trainingExerciceItem]" :ui="{ container: 'c-accordion__container', item: { padding: 'p-0' } }">
       <template #default="{ item, index, open }">
-        <UButton color="gray" variant="ghost" class="c-accordion-heading" :class="{ 'c-accordion-heading--active': open, 'c-accordion-heading--check': items[index].checked }" :ui="{}">
+        <UButton
+          color="gray"
+          variant="ghost"
+          class="c-accordion-heading"
+          :class="{
+            'c-accordion-heading--active': open,
+            'c-accordion-heading--check': item.is_done
+          }"
+          :ui="{}">
           <template #leading>
             <div @click.stop="check(item, index, open)" class="c-accordion__leading p-3">
               <UCheckbox color="primary" :model-value="items[index].checked" :ui="{}" />
@@ -38,7 +90,7 @@ function check(item, index, open) {
           </template>
           <div class="c-accordion-heading__content">
             <div class="c-accordion-heading__left">
-              <span>1. Bench</span>
+              <span>{{ index + 1 }}. {{ exerciceAssociated.name }}</span>
             </div>
             <div class="c-accordion-heading__trailing">
               <UButton
@@ -57,11 +109,18 @@ function check(item, index, open) {
         </UButton>
       </template>
       <template #item="{ item }">
-        <set-item :check="true"></set-item>
-        <set-item></set-item>
-        <set-item></set-item>
+        <set-item
+          v-for="programSet in item.sets"
+          :key="programSet.id"
+          :program-set="programSet"
+          :training-exercice="trainingExerciceItem"
+          @deleted="deleteSet"
+          @edited="editSet"
+        ></set-item>
+        <!-- <set-item :check="true"></set-item>
+        <set-item></set-item> -->
         <UButton
-          @click="isPopinOpen = true"
+          @click="isEditionSetPopinOpen = true"
           icon="i-heroicons-pencil-square"
           size="sm"
           color="primary"
@@ -73,7 +132,12 @@ function check(item, index, open) {
       </template>
     </UAccordion>
 
-    <edition-set-popin v-model="isPopinOpen"></edition-set-popin>
+    <edition-set-popin
+      v-model="isEditionSetPopinOpen"
+      :training-exercice="trainingExerciceItem"
+      :is-edition="false"
+      @edited="createSet"
+    ></edition-set-popin>
   </div>
 </template>
 
