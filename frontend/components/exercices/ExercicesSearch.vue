@@ -8,7 +8,7 @@ const { t } = useI18n()
 type DisplayFilter = 'tags' | 'muscles';
 
 interface Props {
-  displayFilters: DisplayFilter[]
+  displayFilters?: DisplayFilter[]
 }
 
 // Declarations des props

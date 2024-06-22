@@ -14,9 +14,6 @@ const isSuperset = ref(false)
 const isSuperset2 = ref(false)
 const isSuperset3 = ref(false)
 
-const programsStore = useProgramsStore();
-
-
 </script>
 
 <template>
@@ -29,10 +26,7 @@ const programsStore = useProgramsStore();
     <!-- current program: {{ programsStore.currentProgram }} -->
     <!-- current variation: {{ programsStore.currentVariation }} -->
     <!-- current template: {{ programsStore.currentTemplate }} -->
-      <training-selector
-        :items="trainings"
-        v-model="currentTraining"
-      ></training-selector>
+      <training-selector></training-selector>
 
       <training-exercice :superset-down="isSuperset"></training-exercice>
       <superset-divider v-model="isSuperset" color="orange"></superset-divider>

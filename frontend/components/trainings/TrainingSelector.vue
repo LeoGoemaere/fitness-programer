@@ -1,63 +1,59 @@
 <script setup lang="ts">
-interface Items {
-  id: string | number
-  label: string
-  checked: boolean
+import { type ProgramTraining } from '~/types/Program.interface'
+
+const programsStore = useProgramsStore();
+
+function updateTraining(trainingId: string) {
+  programsStore.setSelectedTrainingId(trainingId)
 }
 
-interface Props {
-  items: Items[],
-  modelValue: Items
-}
-
-interface Emit {
-  (e: 'update:modelValue', data: Items): void
-}
-// Declarations des emits
-const emit = defineEmits<Emit>();
-
-// Declarations des props
-const props = withDefaults(defineProps<Props>(), {
-  items: () => ([])
-});
-
-const selectedItem = ref(props.items[0])
-
-onMounted(() => {
-  const activeItem = props.items.find(item => item.id === props.modelValue.id)
-  if (activeItem) {
-    selectedItem.value = activeItem
+function isAllExercicesDoneForTraining(training?: ProgramTraining | null) {
+  const trainingExercices = training?.training_exercices
+  if (trainingExercices && trainingExercices.length) {
+    return trainingExercices.every(trainingExercice => trainingExercice.is_done)
   }
-})
+  return false
+}
 
+const selectedTraining = computed(() => programsStore.currentTraining)
 </script>
 
 <template>
-  <div class="training-selector mb-5 mx-auto">
-    <USelectMenu color="gray" @update:modelValue="emit('update:modelValue', $event)" v-model="selectedItem" :options="props.items" selected-icon="i-solar-check-read-outline" :uiMenu="{
-      option: {
-        padding: 'p-0 w-full',
-        container: 'w-full',
-        color: 'bg-transparent',
-        selected: 'p-0',
-        selectedIcon: {
-          base: 'hidden'
+  <div
+    v-if="programsStore.currentWeek"
+    class="training-selector mb-5 mx-auto">
+    <USelectMenu
+      @update:modelValue="updateTraining"
+      :modelValue="selectedTraining?.id"
+      :options="programsStore.currentWeek.trainings"
+      option-attribute="name"
+      value-attribute="id"
+      :uiMenu="{
+        option: {
+          padding: 'p-0 w-full',
+          container: 'w-full',
+          color: 'bg-transparent',
+          selected: 'p-0',
+          selectedIcon: {
+            base: 'hidden'
+          }
         }
-      }
-    }">
+      }"
+    >
       <template #option="{ option, selected }">
         <div
           class="training-selector__option p-1.5"
           :class="{
             'training-selector__option--selected': selected,
-            'training-selector__option--checked': option.checked
-          }">
+            'training-selector__option--checked': isAllExercicesDoneForTraining(option)
+          }"
+        >
           <div class="option__left">
-            {{ option.label }}
+            {{ option.name }}
           </div>
           <div class="option__right">
-            <template v-if="option.checked">
-              <span class="mr-3">Done</span>
+            <template v-if="isAllExercicesDoneForTraining(option)">
+              <span class="mr-3">Terminé</span>
               <UIcon name="i-solar-check-circle-outline" />
             </template>
             <template v-else-if="selected">
@@ -69,39 +65,21 @@ onMounted(() => {
       </template>
       <template #default>
         <UButton
-          :color="selectedItem.checked ? 'primary' : 'gray'"
+          :color="isAllExercicesDoneForTraining(selectedTraining) ? 'primary' : 'gray'"
           variant="outline"
           class="training-selector__label"
           size="lg"
           :ui="{ rounded: 'rounded-full' }"
         >
           <div class="flex items-center mx-auto">
-            <UIcon v-if="selectedItem.checked" class="mr-1" name="i-solar-check-circle-outline" />
+            <UIcon v-if="isAllExercicesDoneForTraining(selectedTraining)" class="mr-1" name="i-solar-check-circle-outline" />
             <UIcon v-else class="mr-1" name="i-solar-dumbbell-large-minimalistic-linear" />
-            {{ selectedItem.label }}
+            {{ selectedTraining?.name }}
           </div>
           <div class="flex items-center">
-            <!-- <template v-if="selectedItem.checked">
-              <span class="mr-3">Done</span>
-            </template>
-            <template v-else>
-              <span class="mr-3">En cours</span>
-            </template> -->
             <UIcon name="i-heroicons-chevron-down-20-solid" />
           </div>
         </UButton>
-      </template>
-      <template #label>
-        <div
-          class="training-selector__label"
-          :class="{
-            'training-selector__label--selected': selectedItem,
-            'training-selector__label--checked': selectedItem.checked
-          }"
-        >
-          <UIcon v-if="selectedItem.checked" class="mr-3" name="i-solar-check-circle-outline" />
-          {{ selectedItem.label }}
-        </div>
       </template>
     </USelectMenu>
   </div>

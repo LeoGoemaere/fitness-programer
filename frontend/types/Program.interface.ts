@@ -1,4 +1,4 @@
-interface Program {
+export interface Program {
   id: string
   tm_percentage: number
   name: string
@@ -27,14 +27,14 @@ interface ProgramWeek {
   trainings: ProgramTraining[]
 }
 
-interface ProgramTraining {
+export interface ProgramTraining {
   id: string
   name: string
   training_exercices: ProgramTrainingExercice[]
 }
 
 
-interface ProgramTrainingExercice {
+export interface ProgramTrainingExercice {
   id: string
   exercice_id?: string | number | null
   alternative_exercice_ids: string[] | number[]
