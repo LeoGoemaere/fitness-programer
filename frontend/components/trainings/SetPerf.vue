@@ -12,8 +12,8 @@ const props = withDefaults(defineProps<Props>(), {
 const repsLabel = computed(() => {
   const reps = props.programSet.repetitions
   if (reps) {
-    if (Array.isArray(reps)) {
-      const [lowReps, highReps] = reps
+    if (typeof reps === 'string') {
+      const [lowReps, highReps] = reps.split('-')
       return `${lowReps} à ${highReps}`
     }
     return reps

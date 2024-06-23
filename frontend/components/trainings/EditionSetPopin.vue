@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import type { Exercice } from '~/types/Exercice.interface';
+import type { FormError } from '#ui/types'
+
 import type { ProgramSet, ProgramTrainingExercice } from '~/types/Program.interface';
+import { SetTypeEnum } from '~/types/SetTypeEnum'
+import { blockInvalidChar } from '~/utils/utils';
 
 
 interface Props {
@@ -11,7 +14,8 @@ interface Props {
 }
 
 const exercicesStore = useExercicesStore()
-const { getEmptySet } = useExerciceSet()
+const { getEmptySet, isRepetitionsValid } = useExerciceSet()
+const { t } = useI18n()
 
 // const isPr = ref(false)
 // const repsValue = ref(null)
@@ -49,8 +53,52 @@ const popinSubTitleLabel = computed(() => {
   return null
 })
 
-function submit() {
+function onSubmit() {
   emit('edited', setBeingEdited.value)
+}
+
+const setTypes = computed(() => {
+  return Object.values(SetTypeEnum).map(setType => {
+    return {
+      id: setType,
+      label: t(`exerciceSet.${setType}`)
+    }
+  })
+})
+
+function handleSetType(setType: SetTypeEnum) {
+  switch (setType) {
+    case SetTypeEnum.Custom:
+      
+      break;
+    case SetTypeEnum.Joker:
+      
+      break;
+    case SetTypeEnum.FSL:
+      
+      break;
+  
+  }
+}
+
+function handleJokerSet() {
+
+}
+
+function handleRepetitions(value: ProgramSet['repetitions']) {
+  const isNumber = !isNaN(Number(value))
+  const newValue = isNumber ? Number(value) : value
+  setBeingEdited.value.repetitions = newValue
+}
+
+function formValidation(state: ProgramSet): FormError[] {
+  const errors = []
+  if (!state.weight) errors.push({ path: 'perf', message: 'Le poid est requis' })
+  if (!state.repetitions) errors.push({ path: 'perf', message: 'Les répétitions sont requise' })
+  if (!isRepetitionsValid(state.repetitions)) {
+    errors.push({ path: 'perf', message: 'Les répétitions doivent être au format : xx ou xx-xx' })
+  }
+  return errors
 }
 
 onMounted(() => {
@@ -73,70 +121,80 @@ onMounted(() => {
       <p v-if="popinSubTitleLabel" class="text-base leading-6 text-gray-900 dark:text-white">{{ popinSubTitleLabel }}</p>
     </template>
 
-    <div class="edition__row">
-      <UFormGroup label="Type de série">
-        <template #error>
-          <div class="flex items-center">
-            <UIcon class="mr-1" name="i-heroicons-exclamation-triangle" /> La série FSL ne peut pas être en 1ère position
-          </div>
-        </template>
-        <USelect
-          :options="['Classique', 'Joker (531)', 'FSL (531)']"
-        ></USelect>
-      </UFormGroup>
-    </div>
-
-    
-    <div class="edition__row">
-      <!-- Pas de besoin de choisir AMRAP => on affiche le text directement dans le champ repetitions -->
-      <!-- <UCheckbox class="mb-2" v-model="isAmrap" name="isAmrap" label="Amrap" /> -->
-      <div class="flex items-end">
-        <UFormGroup class="edition__perf-item" label="Répetitions">
-          <template #default>
-            <UInput placeholder="10" v-model="setBeingEdited.repetitions" />
+    <UForm :validate="formValidation" :state="setBeingEdited" class="space-y-4" @submit="onSubmit">
+      <div>
+        <UFormGroup label="Type de série">
+          <template #error>
+            <div class="flex items-center">
+              <UIcon class="mr-1" name="i-heroicons-exclamation-triangle" /> La série FSL ne peut pas être en 1ère position
+            </div>
           </template>
-        </UFormGroup>
-        <span class="edition__perfs-at">@</span>
-        <UFormGroup class="edition__perf-item" label="Weight">
-          <UInput placeholder="80" v-model="setBeingEdited.weight">
-            <template #trailing>
-              <span class="text-gray-500 dark:text-gray-400 text-xs">Kg</span>
-            </template>
-          </UInput>
+          <USelect
+            :options="setTypes"
+            option-attribute="label"
+            value-attribute="id"
+            @update:modelValue="handleSetType"
+            :modelValue="setBeingEdited.type"
+          ></USelect>
         </UFormGroup>
       </div>
-      <UCheckbox class="mt-2" v-model="isPr" name="isPR" label="Personal records" />
-    </div>
-
-    <div class="edition__row">
-      <UFormGroup label="Infos affichable">
-        <template #help>
-          <div class="flex items-center">
-            <UIcon class="mr-1" name="i-heroicons-exclamation-triangle" /> L'exercice ne possède pas de TM.
+      
+      <div>
+        <UFormGroup name="perf">
+          <div class="flex items-end">
+            <UFormGroup class="edition__perf-item" label="Répetitions">
+              <template #default>
+                <UInput
+                  placeholder="10"
+                  type="text"
+                  @change="handleRepetitions"
+                  :modelValue="setBeingEdited.repetitions"
+                  :validate-on="['change']"
+                />
+              </template>
+            </UFormGroup>
+            <span class="edition__perfs-at">@</span>
+            <UFormGroup class="edition__perf-item" label="Weight">
+              <UInput
+                placeholder="80"
+                type="number"
+                step="0.01"
+                @keydown="blockInvalidChar"
+                v-model="setBeingEdited.weight"
+              >
+                <template #trailing>
+                  <span class="text-gray-500 dark:text-gray-400 text-xs">Kg</span>
+                </template>
+              </UInput>
+            </UFormGroup>
           </div>
-        </template>
-        <div class="flex">
-          <USelect
-            :options="['Label', 'Training max (%)', 'Rep max (%)']"
-          ></USelect>
-          <UInput class="ml-1" placeholder="10" v-model="repsValue" />
-        </div>
-      </UFormGroup>
-    </div>
-
-    <div class="flex justify-center mt-5">
-      <UButton @click="submit">Valider</UButton>
-    </div>
+        </UFormGroup>
+        <UCheckbox class="mt-2" v-model="setBeingEdited.personal_record" name="isPR" label="Personal records" />
+      </div>
+      <div>
+        <UFormGroup label="Infos affichable">
+          <template #help>
+            <div class="flex items-center">
+              <UIcon class="mr-1" name="i-heroicons-exclamation-triangle" /> L'exercice ne possède pas de TM.
+            </div>
+          </template>
+          <div class="flex">
+            <USelect
+              :options="['Label', 'Training max (%)', 'Rep max (%)']"
+            ></USelect>
+            <UInput class="ml-1" placeholder="10" v-model="repsValue" />
+          </div>
+        </UFormGroup>
+      </div>
+      <div class="flex justify-center mt-5">
+        <UButton type="submit">Valider</UButton>
+      </div>
+    </UForm>
   </UCard>
 </UModal>
 </template>
 
 <style lang="scss" scoped>
-.edition__row {
-  + .edition__row {
-    margin-top: 20px;
-  }
-}
 
 .edition__perf-item {
   flex: 1;

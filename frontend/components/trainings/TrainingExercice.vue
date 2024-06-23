@@ -125,7 +125,7 @@ function createSet() {
           size="sm"
           color="primary"
           variant="soft"
-          label="Add set"
+          label="Créer une série"
           class="m-3"
           :trailing="false"
         />

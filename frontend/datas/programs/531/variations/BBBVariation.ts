@@ -1,3 +1,5 @@
+import type { ProgramVariation } from "~/types/Program.interface";
+import { SetTypeEnum } from "~/types/SetTypeEnum";
 
 export const BBBVariation: ProgramVariation = {
   id: crypto.randomUUID(),
@@ -26,6 +28,7 @@ export const BBBVariation: ProgramVariation = {
                   sets: [
                     {
                       id: crypto.randomUUID(),
+                      type: SetTypeEnum.Custom,
                       repetitions: 5,
                       weight: 50,
                       exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice

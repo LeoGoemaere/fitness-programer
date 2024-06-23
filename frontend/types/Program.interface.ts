@@ -1,3 +1,5 @@
+import type { SetTypeEnum } from "./SetTypeEnum"
+
 export interface Program {
   id: string
   tm_percentage: number
@@ -45,7 +47,8 @@ export interface ProgramTrainingExercice {
 
 export interface ProgramSet {
   id: string
-  repetitions: number | string | [number, number]
+  type: SetTypeEnum
+  repetitions: number | string
   weight?: number | null
   exercice_max_weight_percentage?: number | null
   personal_record: boolean
