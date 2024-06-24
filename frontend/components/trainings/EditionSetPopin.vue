@@ -3,6 +3,7 @@ import type { FormError } from '#ui/types'
 
 import type { ProgramSet, ProgramTrainingExercice } from '~/types/Program.interface';
 import { SetTypeEnum } from '~/types/SetTypeEnum'
+import { DisplayableSetInformationTypeEnum } from '~/types/DisplayableSetInformationTypeEnum'
 import { blockInvalidChar } from '~/utils/utils';
 
 
@@ -54,14 +55,29 @@ const popinSubTitleLabel = computed(() => {
 })
 
 function onSubmit() {
-  emit('edited', setBeingEdited.value)
+  emit('edited', JSON.parse(JSON.stringify(setBeingEdited.value)))
+  onClose()
+}
+
+
+function onClose() {
+  emit('update:modelValue', false)
 }
 
 const setTypes = computed(() => {
   return Object.values(SetTypeEnum).map(setType => {
     return {
       id: setType,
-      label: t(`exerciceSet.${setType}`)
+      label: t(`exerciceSet.type.${setType}`)
+    }
+  })
+})
+
+const displayableInformationTypes = computed(() => {
+  return Object.values(DisplayableSetInformationTypeEnum).map(type => {
+    return {
+      id: type,
+      label: t(`exerciceSet.information.type.${type}`)
     }
   })
 })
@@ -93,7 +109,6 @@ function handleRepetitions(value: ProgramSet['repetitions']) {
 
 function formValidation(state: ProgramSet): FormError[] {
   const errors = []
-  if (!state.weight) errors.push({ path: 'perf', message: 'Le poid est requis' })
   if (!state.repetitions) errors.push({ path: 'perf', message: 'Les répétitions sont requise' })
   if (!isRepetitionsValid(state.repetitions)) {
     errors.push({ path: 'perf', message: 'Les répétitions doivent être au format : xx ou xx-xx' })
@@ -101,22 +116,26 @@ function formValidation(state: ProgramSet): FormError[] {
   return errors
 }
 
+function handleInformationSetValue() {
+  debugger
+}
+
 onMounted(() => {
   if (props.exerciceSet) {
-    setBeingEdited.value = { ...props.exerciceSet }
+    setBeingEdited.value = JSON.parse(JSON.stringify(props.exerciceSet))
   }
 })
 </script>
 
 <template>
-<UModal :model-value="props.modelValue" @update:modelValue="emit('update:modelValue', $event)" :ui="{ container: 'items-center' }">
+<UModal :model-value="props.modelValue" @update:modelValue="onClose" :ui="{ container: 'items-center' }">
   <UCard :ui="{ body: { base: 'border-solid' } }">
     <template #header>
       <div class="flex items-center justify-between">
         <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
           {{ popinTitleLabel }}
         </h3>
-        <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" @click="emit('update:modelValue', false)" />
+        <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" @click="onClose" />
       </div>
       <p v-if="popinSubTitleLabel" class="text-base leading-6 text-gray-900 dark:text-white">{{ popinSubTitleLabel }}</p>
     </template>
@@ -180,9 +199,18 @@ onMounted(() => {
           </template>
           <div class="flex">
             <USelect
-              :options="['Label', 'Training max (%)', 'Rep max (%)']"
+              class="flex-1"
+              :options="displayableInformationTypes"
+              option-attribute="label"
+              value-attribute="id"
+              @update:modelValue="handleInformationSetValue"
+              :modelValue="setBeingEdited.displayable_set_information.type"
             ></USelect>
-            <UInput class="ml-1" placeholder="10" v-model="repsValue" />
+            <UInput
+              class="ml-1 flex-1"
+              placeholder="Label"
+              v-model="setBeingEdited.displayable_set_information.value"
+            />
           </div>
         </UFormGroup>
       </div>

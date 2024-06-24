@@ -1,3 +1,4 @@
+import type { DisplayableSetInformationTypeEnum } from "./DisplayableSetInformationTypeEnum"
 import type { SetTypeEnum } from "./SetTypeEnum"
 
 export interface Program {
@@ -53,11 +54,11 @@ export interface ProgramSet {
   exercice_max_weight_percentage?: number | null
   personal_record: boolean
   is_done: boolean
-  displayable_set_information?: ProgramDisplayableSetInformation | null
+  displayable_set_information: ProgramDisplayableSetInformation
 }
 
 interface ProgramDisplayableSetInformation {
   id: string
-  type: 'label' | 'rm' | 'tm'
-  value: string
+  type: DisplayableSetInformationTypeEnum
+  value: string | null
 }
