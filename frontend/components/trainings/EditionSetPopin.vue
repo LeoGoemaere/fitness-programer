@@ -110,7 +110,7 @@ function formValidation(state: ProgramSet): FormError[] {
   const errors = []
   if (!state.repetitions) errors.push({ path: 'perf', message: 'Les répétitions sont requise' })
   if (!isRepetitionsValid(state.repetitions)) {
-    errors.push({ path: 'perf', message: 'Les répétitions doivent être au format : xx ou xx-xx' })
+    errors.push({ path: 'perf', message: 'Formats valides : xx, xx-xx ou amrap' })
   }
   if (!isFirstSetTypeValid(props.trainingExercice, state)) {
     errors.push({ path: 'type', message: `Ce type de série ne peut pas être en 1ère position !!!!!` })

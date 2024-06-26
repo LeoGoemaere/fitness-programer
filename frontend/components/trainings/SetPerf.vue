@@ -12,16 +12,22 @@ const props = withDefaults(defineProps<Props>(), {
 const repsLabel = computed(() => {
   const reps = props.programSet.repetitions
   if (reps) {
+    let repsLabel = reps
+    const isPersonalRecord = props.programSet.personal_record
     if (typeof reps === 'string') {
       // If AMRAP
-      if (reps.toLocaleLowerCase() === RepetitionValues.Amrap) {
-        return RepetitionValues.Amrap.toLocaleUpperCase()
+      if (reps.toLowerCase() === RepetitionValues.Amrap) {
+        repsLabel = RepetitionValues.Amrap.toLowerCase()
+      } else {
+        // If xx-xx
+        const [lowReps, highReps] = reps.split('-')
+        repsLabel = `${lowReps} à ${highReps}`
       }
-      // If xx-xx
-      const [lowReps, highReps] = reps.split('-')
-      return `${lowReps} à ${highReps}`
     }
-    return reps
+    if (isPersonalRecord) {
+      repsLabel += ' +'
+    }
+    return repsLabel
   }
   return null
 })
