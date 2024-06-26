@@ -233,9 +233,9 @@ watch(() => props.modelValue, (value) => {
           label="Personal records"
         />
       </div>
-      <div>
-        <UFormGroup v-if="isReadonlyFields" label="Infos affichable">
-          <div class="flex">
+      <div>        
+        <div v-if="isReadonlyFields" class="flex items-end">
+          <UFormGroup class="flex-1" label="Infos affichable">
             <USelect
               class="flex-1"
               option-attribute="label"
@@ -244,20 +244,17 @@ watch(() => props.modelValue, (value) => {
               :modelValue="computedSet.displayable_set_information.type"
               :disabled="true"
             ></USelect>
+          </UFormGroup>
+          <UFormGroup class="flex-1">
             <UInput
               class="ml-1 flex-1"
               :modelValue="computedSet.displayable_set_information.value"
               :disabled="true"
             />
-          </div>
-        </UFormGroup>
-        <UFormGroup v-else label="Infos affichable">
-          <template #help>
-            <div class="flex items-center">
-              <UIcon class="mr-1" name="i-heroicons-exclamation-triangle" /> L'exercice ne possède pas de TM.
-            </div>
-          </template>
-          <div class="flex">
+          </UFormGroup>
+        </div>
+        <div v-else class="flex items-end">
+          <UFormGroup class="flex-1" label="Infos affichable">
             <USelect
               class="flex-1"
               :options="displayableInformationTypes"
@@ -266,13 +263,15 @@ watch(() => props.modelValue, (value) => {
               @update:modelValue="handleInformationSetValue"
               :modelValue="setBeingEdited.displayable_set_information.type"
             ></USelect>
+          </UFormGroup>
+          <UFormGroup class="flex-1">
             <UInput
               class="ml-1 flex-1"
               placeholder="Label"
               v-model="setBeingEdited.displayable_set_information.value"
             />
-          </div>
-        </UFormGroup>
+          </UFormGroup>
+        </div>
       </div>
       <div class="flex justify-center mt-5">
         <UButton type="submit">Valider</UButton>

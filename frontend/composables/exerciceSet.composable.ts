@@ -1,3 +1,4 @@
+import { DisplayableSetInformationTypeEnum } from "~/types/DisplayableSetInformationTypeEnum";
 import type { ProgramSet, ProgramTrainingExercice } from "~/types/Program.interface"
 import { SetTypeEnum } from "~/types/SetTypeEnum"
 
@@ -6,12 +7,16 @@ export function useExerciceSet() {
     return {
       id: crypto.randomUUID(),
       type: SetTypeEnum.Custom,
-      repetitions: 0,
+      repetitions: 1,
       weight: null,
       exercice_max_weight_percentage: null,
       personal_record: false,
       is_done: false,
-      displayable_set_information: null
+      displayable_set_information: {
+        id: crypto.randomUUID(),
+        type: DisplayableSetInformationTypeEnum.Label,
+        value: null
+      }
     }
   }
 
@@ -23,8 +28,53 @@ export function useExerciceSet() {
     return Number.isInteger(value)
   }
 
+  function _computeJokerSet(trainingExercice: ProgramTrainingExercice, currentSet: ProgramSet) {
+    const currentSetIndex = trainingExercice.sets.findIndex(set => set.id === currentSet.id)
+    const previousSet = trainingExercice.sets[currentSetIndex - 1]
+    const set = getEmptySet()
+    set.id = currentSet.id
+    if (previousSet) {
+      // Use the compute previous set values
+      const computedPreviousSet = getComputedSet(trainingExercice, previousSet)
+      if (computedPreviousSet?.weight) {
+        const newWeight = roundValue(computedPreviousSet.weight + ((computedPreviousSet.weight * 5) / 100))
+        set.weight = newWeight
+      }
+      set.type = SetTypeEnum.Joker
+      set.repetitions = computedPreviousSet.repetitions
+      set.displayable_set_information.type = DisplayableSetInformationTypeEnum.Label
+      set.displayable_set_information.value = SetTypeEnum.Joker
+      return set
+    }
+    return null
+  }
+
+  function getComputedSet(trainingExercice: ProgramTrainingExercice, currentSet: ProgramSet) {
+    switch (currentSet.type) {
+      case SetTypeEnum.Joker: {
+        const jokerSet = _computeJokerSet(trainingExercice, currentSet)
+        return jokerSet || currentSet
+      }
+    }
+      // Nothing to handle
+      return currentSet
+  }
+
+  function isFirstSetTypeValid(trainingExercice: ProgramTrainingExercice, currentSet: ProgramSet) {
+    const currentSetIndex = trainingExercice.sets.findIndex(set => set.id === currentSet.id)
+    switch (currentSet.type) {
+      case SetTypeEnum.Joker:
+      case SetTypeEnum.FSL:
+        return currentSetIndex !== 0
+      default:
+      return true
+    }
+  }
+
   return {
     getEmptySet,
-    isRepetitionsValid
+    isRepetitionsValid,
+    getComputedSet,
+    isFirstSetTypeValid
   }
 }
