@@ -34,20 +34,40 @@ export function useExerciceSet() {
     // If it's a new set, then the previous set is the last set
     const lastSet = trainingExercice.sets[trainingExercice.sets.length - 1]
     const previousSet = isNewSet ? lastSet : trainingExercice.sets[currentSetIndex - 1]
-    const set = getEmptySet()
-    set.id = currentSet.id
     if (previousSet) {
+      const computeSet = getEmptySet()
+      computeSet.id = currentSet.id
       // Use the compute previous set values
       const computedPreviousSet = getComputedSet(trainingExercice, previousSet)
       if (computedPreviousSet?.weight) {
         const newWeight = roundValue(computedPreviousSet.weight + ((computedPreviousSet.weight * 5) / 100))
-        set.weight = newWeight
+        computeSet.weight = newWeight
       }
-      set.type = SetTypeEnum.Joker
-      set.repetitions = computedPreviousSet.repetitions
-      set.displayable_set_information.type = DisplayableSetInformationTypeEnum.Label
-      set.displayable_set_information.value = SetTypeEnum.Joker
-      return set
+      computeSet.type = SetTypeEnum.Joker
+      computeSet.repetitions = computedPreviousSet.repetitions
+      computeSet.displayable_set_information.type = DisplayableSetInformationTypeEnum.Label
+      computeSet.displayable_set_information.value = SetTypeEnum.Joker
+      return computeSet
+    }
+    return null
+  }
+
+  function _computeFSLSet(trainingExercice: ProgramTrainingExercice, currentSet: ProgramSet) {
+    const currentSetIndex = trainingExercice.sets.findIndex(set => set.id === currentSet.id)
+    const isCurrentSetFirst = currentSetIndex === 0
+    const firstSet = trainingExercice.sets[0]
+    // FSL set can't be the first
+    if (firstSet && !isCurrentSetFirst) {
+      const computeSet = getEmptySet()
+      // Use the compute first set values
+      const computedFirstSet = getComputedSet(trainingExercice, firstSet)
+      computeSet.id = currentSet.id
+      computeSet.weight = computedFirstSet.weight
+      computeSet.repetitions = computedFirstSet.repetitions
+      computeSet.type = SetTypeEnum.FSL
+      computeSet.displayable_set_information.type = DisplayableSetInformationTypeEnum.Label
+      computeSet.displayable_set_information.value = SetTypeEnum.FSL
+      return computeSet
     }
     return null
   }
@@ -58,9 +78,13 @@ export function useExerciceSet() {
         const jokerSet = _computeJokerSet(trainingExercice, currentSet)
         return jokerSet || currentSet
       }
+      case SetTypeEnum.FSL: {
+        const FSLSet = _computeFSLSet(trainingExercice, currentSet)
+        return FSLSet || currentSet
+      }
     }
-      // Nothing to handle
-      return currentSet
+    // Nothing to handle
+    return currentSet
   }
 
   function isFirstSetTypeValid(trainingExercice: ProgramTrainingExercice, currentSet: ProgramSet) {
