@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ProgramSet } from '~/types/Program.interface';
+import { type ProgramSet, RepetitionValues } from '~/types/Program.interface';
 
 interface Props {
   programSet: ProgramSet
@@ -13,6 +13,11 @@ const repsLabel = computed(() => {
   const reps = props.programSet.repetitions
   if (reps) {
     if (typeof reps === 'string') {
+      // If AMRAP
+      if (reps.toLocaleLowerCase() === RepetitionValues.Amrap) {
+        return RepetitionValues.Amrap.toLocaleUpperCase()
+      }
+      // If xx-xx
       const [lowReps, highReps] = reps.split('-')
       return `${lowReps} à ${highReps}`
     }
@@ -20,13 +25,15 @@ const repsLabel = computed(() => {
   }
   return null
 })
+
+const shouldShowRepsLabel = computed(() => props.programSet.repetitions !== RepetitionValues.Amrap)
 </script>
 
 <template>
   <div v-if="programSet" class="perf">
     <template v-if="repsLabel">
       <div class="perf__reps">{{ repsLabel }}</div>
-      <div class="perf__reps-label ml-1">reps</div>
+      <div v-if="shouldShowRepsLabel" class="perf__reps-label ml-1">reps</div>
     </template>
     <template v-if="programSet.weight">
       <div class="perf__at mx-1">@</div>

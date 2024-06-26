@@ -1,5 +1,5 @@
 import { DisplayableSetInformationTypeEnum } from "~/types/DisplayableSetInformationTypeEnum";
-import type { ProgramSet, ProgramTrainingExercice } from "~/types/Program.interface"
+import { RepetitionValues, type ProgramSet, type ProgramTrainingExercice } from "~/types/Program.interface"
 import { SetTypeEnum } from "~/types/SetTypeEnum"
 
 export function useExerciceSet() {
@@ -21,8 +21,9 @@ export function useExerciceSet() {
   }
 
   function isRepetitionsValid(value: ProgramSet['repetitions']) {
+    // Accept "xx-xx" or "amrap"
     if (typeof value === 'string') {
-      const pattern = /^(\d+|\d+-\d+)$/;
+      const pattern = /^(\d+|\d+-\d+|amrap)$/i;
       return pattern.test(value);
     }
     return Number.isInteger(value)
@@ -63,7 +64,7 @@ export function useExerciceSet() {
       const computedFirstSet = getComputedSet(trainingExercice, firstSet)
       computeSet.id = currentSet.id
       computeSet.weight = computedFirstSet.weight
-      computeSet.repetitions = computedFirstSet.repetitions
+      computeSet.repetitions = RepetitionValues.Amrap
       computeSet.type = SetTypeEnum.FSL
       computeSet.displayable_set_information.type = DisplayableSetInformationTypeEnum.Label
       computeSet.displayable_set_information.value = SetTypeEnum.FSL

@@ -49,12 +49,16 @@ export interface ProgramTrainingExercice {
 export interface ProgramSet {
   id: string
   type: SetTypeEnum
-  repetitions: number | string
+  repetitions: number | RepetitionValues | string
   weight?: number | null
   exercice_max_weight_percentage?: number | null
   personal_record: boolean
   is_done: boolean
   displayable_set_information: ProgramDisplayableSetInformation
+}
+
+export enum RepetitionValues {
+  Amrap = 'amrap'
 }
 
 interface ProgramDisplayableSetInformation {
