@@ -21,6 +21,14 @@ const confirmDelete = ref(false)
 
 const computedSet = computed(() => getComputedSet(props.trainingExercice, props.programSet))
 const programSetLabel = computed(() => computedSet.value?.displayable_set_information?.value)
+const setIndex = computed(() => props.trainingExercice.sets.findIndex(set => set.id === props.programSet.id))
+const setCounter = computed(() => setIndex.value + 1)
+
+function handleDropdownOpen(isOpen: boolean) {
+  if (isOpen) {
+    confirmDelete.value = false
+  }
+}
 
 function setOptions() {
   const isDeleting = confirmDelete.value
@@ -57,7 +65,7 @@ function setOptions() {
 <template>
   <div v-if="computedSet" class="setitem p-3" :class="{ 'setitem--check': check }">
     <div class="setitem__left">
-      <span class="setitem__counter">1</span>
+      <span class="setitem__counter">{{ setCounter }}</span>
       <set-perf
         class="setitem__perf"
         :programSet="computedSet"
@@ -65,13 +73,18 @@ function setOptions() {
     </div>
     <div class="setitem__right">
       <div class="setitem__label">{{ programSetLabel }}</div>
-      <UDropdown :items="setOptions()" :popper="{ placement: 'bottom-start' }">
+      <UDropdown
+        :items="setOptions()"
+        :popper="{ placement: 'bottom-start' }"
+        @update:open="handleDropdownOpen"
+      >
         <UButton
           class="setitem__options mx-2"
           icon="i-solar-menu-dots-bold"
           size="2xs"
           color="gray"
-          variant="soft">
+          variant="soft"
+        >
         </UButton>
       </UDropdown>
       <UIcon
