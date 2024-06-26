@@ -7,23 +7,20 @@ interface Props {
   trainingExercice: ProgramTrainingExercice
 }
 
-interface Emit {
-  (e: 'deleted', programSet: ProgramSet): void
-  (e: 'edited', programSet: ProgramSet): void
-}
-
 // Declarations des props
 const props = withDefaults(defineProps<Props>(), {
   check: false,
 });
 
-// Declarations des emits
-const emit = defineEmits<Emit>();
+const programsStore = useProgramsStore();
+const { getComputedSet } = useExerciceSet()
+
 
 const isEditionSetPopinOpen = ref(false)
 const confirmDelete = ref(false)
 
-const programSetLabel = computed(() => props.programSet?.displayable_set_information?.value)
+const computedSet = computed(() => getComputedSet(props.trainingExercice, props.programSet))
+const programSetLabel = computed(() => computedSet.value?.displayable_set_information?.value)
 
 function setOptions() {
   const isDeleting = confirmDelete.value
@@ -46,7 +43,7 @@ function setOptions() {
         click: (event: Event) => {
           event.preventDefault()
           if (confirmDelete.value) {
-            emit('deleted', props.programSet)
+            programsStore.deleteProgramSet(props.programSet)
             return
           }
           confirmDelete.value = true
@@ -58,12 +55,12 @@ function setOptions() {
 </script>
 
 <template>
-  <div v-if="programSet" class="setitem p-3" :class="{ 'setitem--check': check }">
+  <div v-if="computedSet" class="setitem p-3" :class="{ 'setitem--check': check }">
     <div class="setitem__left">
       <span class="setitem__counter">1</span>
       <set-perf
         class="setitem__perf"
-        :programSet="programSet"
+        :programSet="computedSet"
       ></set-perf>
     </div>
     <div class="setitem__right">
@@ -86,9 +83,8 @@ function setOptions() {
     <edition-set-popin
       v-model="isEditionSetPopinOpen"
       :exercice-set="programSet"
-      :training-exercice="trainingExercice"
+      :training-exercice="props.trainingExercice"
       :is-edition="true"
-      @edited="emit('edited', $event)"
     ></edition-set-popin>
   </div>
 </template>

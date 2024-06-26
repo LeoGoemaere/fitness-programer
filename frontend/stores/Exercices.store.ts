@@ -4,14 +4,6 @@ import { type Tag } from '~/types/Tag.interface'
 
 import coreExercices from '~/datas/exercices/coreExercices'
 
-// TODO: Créer un store exercicesTags (BDD pivot) pour pouvoir delete / ajout de tag
-const arr = [
-  {
-    tagId: 'id-tag',
-    exericeId: 'exercice-id'
-  },
-]
-
 export const useExercicesStore = defineStore('exercicesStore', () => {
   const exercices: Ref<Exercice[]> = ref(coreExercices);
   const exerciceTags: Ref<Tag[]> = ref([]);

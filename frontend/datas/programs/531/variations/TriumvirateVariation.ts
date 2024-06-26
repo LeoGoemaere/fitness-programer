@@ -1,3 +1,4 @@
+import { DisplayableSetInformationTypeEnum } from "~/types/DisplayableSetInformationTypeEnum";
 import type { ProgramVariation } from "~/types/Program.interface";
 import { SetTypeEnum } from "~/types/SetTypeEnum";
 
@@ -30,14 +31,14 @@ export const TriumvirateVariation: ProgramVariation = {
                       id: crypto.randomUUID(),
                       type: SetTypeEnum.Custom,
                       repetitions: '8-10',
-                      // weight: 100,
+                      weight: 100,
                       exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
                       personal_record: false,
                       is_done: false,
                       displayable_set_information: {
                         id: crypto.randomUUID(),
-                        type: 'label',
-                        value: 'Coucou'
+                        type: DisplayableSetInformationTypeEnum.Label,
+                        value: null
                       }
                     },
                     {
@@ -50,7 +51,7 @@ export const TriumvirateVariation: ProgramVariation = {
                       is_done: false,
                       displayable_set_information: {
                         id: crypto.randomUUID(),
-                        type: 'label',
+                        type: DisplayableSetInformationTypeEnum.Label,
                         value: 'Coucou'
                       }
                     },
@@ -64,7 +65,7 @@ export const TriumvirateVariation: ProgramVariation = {
                       is_done: false,
                       displayable_set_information: {
                         id: crypto.randomUUID(),
-                        type: 'label',
+                        type: DisplayableSetInformationTypeEnum.Label,
                         value: 'Coucou'
                       }
                     },
@@ -78,7 +79,7 @@ export const TriumvirateVariation: ProgramVariation = {
                       is_done: false,
                       displayable_set_information: {
                         id: crypto.randomUUID(),
-                        type: 'label',
+                        type: DisplayableSetInformationTypeEnum.Label,
                         value: 'Coucou'
                       }
                     },
@@ -107,7 +108,7 @@ export const TriumvirateVariation: ProgramVariation = {
                       is_done: false,
                       displayable_set_information: {
                         id: crypto.randomUUID(),
-                        type: 'label',
+                        type: DisplayableSetInformationTypeEnum.Label,
                         value: 'Coucou'
                       }
                     }
@@ -130,7 +131,7 @@ export const TriumvirateVariation: ProgramVariation = {
                       is_done: false,
                       displayable_set_information: {
                         id: crypto.randomUUID(),
-                        type: 'label',
+                        type: DisplayableSetInformationTypeEnum.Label,
                         value: 'Coucou'
                       }
                     }
@@ -165,7 +166,7 @@ export const TriumvirateVariation: ProgramVariation = {
                       is_done: false,
                       displayable_set_information: {
                         id: crypto.randomUUID(),
-                        type: 'label',
+                        type: DisplayableSetInformationTypeEnum.Label,
                         value: 'Coucou'
                       }
                     }
@@ -207,7 +208,7 @@ export const TriumvirateVariation: ProgramVariation = {
                       is_done: false,
                       displayable_set_information: {
                         id: crypto.randomUUID(),
-                        type: 'label',
+                        type: DisplayableSetInformationTypeEnum.Label,
                         value: 'Coucou'
                       }
                     }

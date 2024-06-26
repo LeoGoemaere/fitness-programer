@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
+
 // import { program_response_531 } from '~/datas/programs'
 import corePrograms from '~/datas/programs/corePrograms'
-import type { Program } from '~/types/Program.interface';
+import type { Program, ProgramSet } from '~/types/Program.interface';
 
 export const useProgramsStore = defineStore('programsStore', () => {
   const programs: Ref<Program[]> = ref(corePrograms);
@@ -17,6 +18,38 @@ export const useProgramsStore = defineStore('programsStore', () => {
   const selectedTemplateId: Ref<string | null | undefined> = ref(firstTemplateId || null)
   const selectedWeekId: Ref<string | null | undefined> = ref(firstWeekId || null)
   const selectedTrainingId: Ref<string | null | undefined> = ref(firstTrainingId || null)
+
+  const selectedProgramIndex = computed(() => {
+    return programs.value.findIndex(program => program.id === selectedProgramId.value)
+  })
+  const selectedVariationIndex = computed(() => {
+    return currentProgram.value.variations.findIndex(variation => variation.id === selectedVariationId.value)
+  })
+  const selectedTemplateIndex = computed(() => {
+    return currentVariation.value.templates.findIndex(template => template.id === selectedTemplateId.value)
+  })
+  const selectedWeekIndex = computed(() => {
+    return currentTemplate.value.weeks.findIndex(week => week.id === selectedWeekId.value)
+  })
+  const selectedTrainingIndex = computed(() => {
+    return currentWeek.value.trainings.findIndex(training => training.id === selectedTrainingId.value)
+  })
+
+  const currentProgram = computed(() => {
+    return programs.value[selectedProgramIndex.value]
+  })
+  const currentVariation = computed(() => {
+    return currentProgram.value.variations[selectedVariationIndex.value]
+  })
+  const currentTemplate = computed(() => {
+    return currentVariation.value.templates[selectedTemplateIndex.value]
+  })
+  const currentWeek = computed(() => {
+    return currentTemplate.value.weeks[selectedWeekIndex.value]
+  })
+  const currentTraining = computed(() => {
+    return currentWeek.value.trainings[selectedTrainingIndex.value]
+  })
 
   function setSelectedProgramId(programId?: string | null) {
     selectedProgramId.value = programId
@@ -44,6 +77,34 @@ export const useProgramsStore = defineStore('programsStore', () => {
     selectedTrainingId.value = trainingId ? trainingId : firstTrainingId
   }
 
+  function deleteProgramSet(programSet: ProgramSet) {
+    // Update the current program/variation etc.
+    const trainingExercice = programs.value[selectedProgramIndex.value]
+      .variations[selectedVariationIndex.value]
+      .templates[selectedTemplateIndex.value]
+      .weeks[selectedWeekIndex.value]
+      .trainings[selectedTrainingIndex.value]
+      .training_exercices[selectedTrainingIndex.value]
+      
+      // Update the reference
+    trainingExercice.sets = trainingExercice.sets.filter(setItem => setItem.id !== programSet.id)
+  }
+
+  function updateProgramSet(programSet: ProgramSet) {
+    // Update the current program/variation etc.
+    const trainingExercice = programs.value[selectedProgramIndex.value]
+      .variations[selectedVariationIndex.value]
+      .templates[selectedTemplateIndex.value]
+      .weeks[selectedWeekIndex.value]
+      .trainings[selectedTrainingIndex.value]
+      .training_exercices[selectedTrainingIndex.value]
+      
+    const getSetIndex = trainingExercice.sets.findIndex(setItem => setItem.id === programSet.id)
+
+    // Update the reference
+    trainingExercice.sets[getSetIndex] = programSet
+  }
+
   // TODO: Make a composable
   function resetVariation() {
     const variation = currentProgram.value?.variations[0]
@@ -61,40 +122,6 @@ export const useProgramsStore = defineStore('programsStore', () => {
     const training = currentWeek.value?.trainings[0]
     selectedTrainingId.value = training ? training.id : null
   }
-
-  const currentProgram = computed(() => {
-    if (selectedProgramId.value) {
-      return programs.value.find(program => program.id === selectedProgramId.value)
-    }
-    return null
-  })
-
-  const currentVariation = computed(() => {
-    if (currentProgram.value) {
-      return currentProgram.value.variations.find(variation => variation.id === selectedVariationId.value)
-    }
-    return null
-  })
-
-  const currentTemplate = computed(() => {
-    if (currentVariation.value) {
-      return currentVariation.value.templates.find(template => template.id === selectedTemplateId.value)
-    }
-    return null
-  })
-  
-  const currentWeek = computed(() => {
-    if (currentTemplate.value) {
-      return currentTemplate.value.weeks.find(week => week.id === selectedWeekId.value)
-    }
-    return null
-  })
-  const currentTraining = computed(() => {
-    if (currentWeek.value) {
-      return currentWeek.value.trainings.find(training => training.id === selectedTrainingId.value)
-    }
-    return null
-  })
 
   return {
     programs,
@@ -114,6 +141,8 @@ export const useProgramsStore = defineStore('programsStore', () => {
     currentVariation,
     currentTemplate,
     currentWeek,
-    currentTraining
+    currentTraining,
+    updateProgramSet,
+    deleteProgramSet
   };
 });

@@ -4,28 +4,17 @@ import type { FormError } from '#ui/types'
 import type { ProgramSet, ProgramTrainingExercice } from '~/types/Program.interface';
 import { SetTypeEnum } from '~/types/SetTypeEnum'
 import { DisplayableSetInformationTypeEnum } from '~/types/DisplayableSetInformationTypeEnum'
-import { blockInvalidChar } from '~/utils/utils';
-
+import { blockInvalidChar, roundValue } from '~/utils/utils';
 
 interface Props {
   modelValue: boolean
   trainingExercice: ProgramTrainingExercice
-  exerciceSet?: ProgramSet | null
+  exerciceSet?: ProgramSet // If creation, it can be undefined
   isEdition?: boolean
 }
 
-const exercicesStore = useExercicesStore()
-const { getEmptySet, isRepetitionsValid } = useExerciceSet()
-const { t } = useI18n()
-
-// const isPr = ref(false)
-// const repsValue = ref(null)
-// const weightValue = ref(null)
-const setBeingEdited = ref(getEmptySet())
-
 interface Emit {
   (e: 'update:modelValue', active: boolean): void
-  (e: 'edited', programSet: ProgramSet): void
 }
 
 // Declarations des emits
@@ -35,6 +24,31 @@ const emit = defineEmits<Emit>();
 const props = withDefaults(defineProps<Props>(), {
   modelValue: false
 });
+
+const exercicesStore = useExercicesStore()
+const programsStore = useProgramsStore();
+
+const {
+    getEmptySet,
+    isRepetitionsValid,
+    getComputedSet,
+    isFirstSetTypeValid
+} = useExerciceSet()
+const { t } = useI18n()
+
+const setBeingEdited = ref(getEmptySet())
+
+const computedSet = computed(() => getComputedSet(props.trainingExercice, setBeingEdited.value))
+
+const isReadonlyFields = computed(() => {
+  switch (setBeingEdited.value.type) {
+    case SetTypeEnum.Joker:
+    case SetTypeEnum.FSL:
+      return true
+    default:
+      return false;
+  }
+})
 
 const exerciceAssociated = computed(() => exercicesStore.exercices.find(exerciceEl => exerciceEl.id === props.trainingExercice.exercice_id))
 const setIndex = computed(() => props.trainingExercice.sets.findIndex(set => set.id === props.exerciceSet?.id))
@@ -55,7 +69,7 @@ const popinSubTitleLabel = computed(() => {
 })
 
 function onSubmit() {
-  emit('edited', JSON.parse(JSON.stringify(setBeingEdited.value)))
+  programsStore.updateProgramSet(setBeingEdited.value)
   onClose()
 }
 
@@ -82,25 +96,6 @@ const displayableInformationTypes = computed(() => {
   })
 })
 
-function handleSetType(setType: SetTypeEnum) {
-  switch (setType) {
-    case SetTypeEnum.Custom:
-      
-      break;
-    case SetTypeEnum.Joker:
-      
-      break;
-    case SetTypeEnum.FSL:
-      
-      break;
-  
-  }
-}
-
-function handleJokerSet() {
-
-}
-
 function handleRepetitions(value: ProgramSet['repetitions']) {
   const isNumber = !isNaN(Number(value))
   const newValue = isNumber ? Number(value) : value
@@ -113,6 +108,9 @@ function formValidation(state: ProgramSet): FormError[] {
   if (!isRepetitionsValid(state.repetitions)) {
     errors.push({ path: 'perf', message: 'Les répétitions doivent être au format : xx ou xx-xx' })
   }
+  if (!isFirstSetTypeValid(props.trainingExercice, state)) {
+    errors.push({ path: 'type', message: `Ce type de série ne peut pas être en 1ère position !!!!!` })
+  }
   return errors
 }
 
@@ -120,9 +118,18 @@ function handleInformationSetValue() {
   debugger
 }
 
-onMounted(() => {
+function initSet() {
   if (props.exerciceSet) {
     setBeingEdited.value = JSON.parse(JSON.stringify(props.exerciceSet))
+  } else {
+    setBeingEdited.value = getEmptySet()
+  }
+}
+
+// Init set with prop value on each opening
+watch(() => props.modelValue, (value) => {
+  if (value) {
+    initSet()
   }
 })
 </script>
@@ -142,18 +149,12 @@ onMounted(() => {
 
     <UForm :validate="formValidation" :state="setBeingEdited" class="space-y-4" @submit="onSubmit">
       <div>
-        <UFormGroup label="Type de série">
-          <template #error>
-            <div class="flex items-center">
-              <UIcon class="mr-1" name="i-heroicons-exclamation-triangle" /> La série FSL ne peut pas être en 1ère position
-            </div>
-          </template>
+        <UFormGroup label="Type de série" name="type">
           <USelect
             :options="setTypes"
             option-attribute="label"
             value-attribute="id"
-            @update:modelValue="handleSetType"
-            :modelValue="setBeingEdited.type"
+            v-model="setBeingEdited.type"
           ></USelect>
         </UFormGroup>
       </div>
@@ -161,7 +162,20 @@ onMounted(() => {
       <div>
         <UFormGroup name="perf">
           <div class="flex items-end">
-            <UFormGroup class="edition__perf-item" label="Répetitions">
+            <UFormGroup
+              v-if="isReadonlyFields"
+              class="edition__perf-item"
+              label="Répetitions"
+            >
+              <template #default>
+                <UInput
+                  type="text"
+                  :disabled="true"
+                  :modelValue="computedSet.repetitions"
+                />
+              </template>
+            </UFormGroup>
+            <UFormGroup v-else class="edition__perf-item" label="Répetitions">
               <template #default>
                 <UInput
                   placeholder="10"
@@ -173,7 +187,22 @@ onMounted(() => {
               </template>
             </UFormGroup>
             <span class="edition__perfs-at">@</span>
-            <UFormGroup class="edition__perf-item" label="Weight">
+            <UFormGroup
+              v-if="isReadonlyFields"
+              class="edition__perf-item"
+              label="Weight">
+              <template #default>
+                <UInput
+                  type="text"
+                  :disabled="true"
+                  :modelValue="computedSet.weight"
+                />
+              </template>
+            </UFormGroup>
+            <UFormGroup
+              v-else
+              class="edition__perf-item"
+              label="Weight">
               <UInput
                 placeholder="80"
                 type="number"
@@ -188,10 +217,41 @@ onMounted(() => {
             </UFormGroup>
           </div>
         </UFormGroup>
-        <UCheckbox class="mt-2" v-model="setBeingEdited.personal_record" name="isPR" label="Personal records" />
+        <UCheckbox
+          v-if="isReadonlyFields"
+          class="mt-2"
+          v-model="computedSet.personal_record"
+          name="isPR"
+          label="Personal records"
+          :disabled="true"
+        />
+        <UCheckbox
+          v-else
+          class="mt-2"
+          v-model="setBeingEdited.personal_record"
+          name="isPR"
+          label="Personal records"
+        />
       </div>
       <div>
-        <UFormGroup label="Infos affichable">
+        <UFormGroup v-if="isReadonlyFields" label="Infos affichable">
+          <div class="flex">
+            <USelect
+              class="flex-1"
+              option-attribute="label"
+              value-attribute="id"
+              :options="displayableInformationTypes"
+              :modelValue="computedSet.displayable_set_information.type"
+              :disabled="true"
+            ></USelect>
+            <UInput
+              class="ml-1 flex-1"
+              :modelValue="computedSet.displayable_set_information.value"
+              :disabled="true"
+            />
+          </div>
+        </UFormGroup>
+        <UFormGroup v-else label="Infos affichable">
           <template #help>
             <div class="flex items-center">
               <UIcon class="mr-1" name="i-heroicons-exclamation-triangle" /> L'exercice ne possède pas de TM.

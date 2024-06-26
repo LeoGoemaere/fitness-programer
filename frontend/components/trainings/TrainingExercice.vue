@@ -1,12 +1,6 @@
 <script setup lang="ts">
-import type { Exercice } from '~/types/Exercice.interface';
-import type { ProgramSet, ProgramTrainingExercice } from '~/types/Program.interface';
-import { useTrainingExercice } from '~/composables/trainingExerciceComposable';
+import type { ProgramTrainingExercice } from '~/types/Program.interface';
 
-/**
- * TODO:
- * - Enregistrer dans le store au beforeDestroy
- */
 const items = ref([{
   label: 'Getting Started',
   icon: 'i-heroicons-information-circle',
@@ -16,29 +10,21 @@ const items = ref([{
 }])
 
 const exercicesStore = useExercicesStore()
-const { getEmptyTrainingExercice } = useTrainingExercice()
 
 interface Props {
-  trainingExercice?: ProgramTrainingExercice
+  trainingExercice: ProgramTrainingExercice
   supersetUp?: boolean
   supersetDown?: boolean
 }
 
 const isEditionSetPopinOpen = ref(false)
-const trainingExerciceItem = ref(getEmptyTrainingExercice())
-const exerciceAssociated = computed(() => exercicesStore.exercices.find(exerciceEl => exerciceEl.id === trainingExerciceItem.value?.exercice_id))
+const exerciceAssociated = computed(() => exercicesStore.exercices.find(exerciceEl => exerciceEl.id === props.trainingExercice.exercice_id))
 
 // Declarations des props
 const props = withDefaults(defineProps<Props>(), {
   supersetUp: false,
   supersetDown: false,
 });
-
-onMounted(() => {
-  if (props.trainingExercice) {
-    trainingExerciceItem.value = { ...props.trainingExercice }
-  }
-})
 
 function check(item, index, open) {
   items.value[index].checked = !item.checked
@@ -48,20 +34,6 @@ function addExercice() {
   // TODO
 }
 
-function deleteSet(programSet: ProgramSet) {
-  trainingExerciceItem.value.sets = trainingExerciceItem.value.sets.filter(setItem => setItem.id !== programSet.id)
-}
-
-function editSet(programSet: ProgramSet) {
-  debugger
-  const editedSetIndex = trainingExerciceItem.value.sets.findIndex(setEl => setEl.id === programSet.id)
-  if (editedSetIndex >= 0) {
-    trainingExerciceItem.value.sets[editedSetIndex] = programSet
-  }
-}
-function createSet() {
-  debugger
-}
 
 </script>
 
@@ -72,7 +44,7 @@ function createSet() {
       @click="addExercice"
     >Choisir un exercice</UButton>
 
-    <UAccordion v-else :items="[trainingExerciceItem]" :ui="{ container: 'c-accordion__container', item: { padding: 'p-0' } }">
+    <UAccordion v-else :items="[props.trainingExercice]" :ui="{ container: 'c-accordion__container', item: { padding: 'p-0' } }">
       <template #default="{ item, index, open }">
         <UButton
           color="gray"
@@ -113,9 +85,7 @@ function createSet() {
           v-for="programSet in item.sets"
           :key="programSet.id"
           :program-set="programSet"
-          :training-exercice="trainingExerciceItem"
-          @deleted="deleteSet"
-          @edited="editSet"
+          :training-exercice="item"
         ></set-item>
         <!-- <set-item :check="true"></set-item>
         <set-item></set-item> -->
@@ -134,9 +104,8 @@ function createSet() {
 
     <edition-set-popin
       v-model="isEditionSetPopinOpen"
-      :training-exercice="trainingExerciceItem"
+      :training-exercice="props.trainingExercice"
       :is-edition="false"
-      @edited="createSet"
     ></edition-set-popin>
   </div>
 </template>
