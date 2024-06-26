@@ -99,10 +99,28 @@ export const useProgramsStore = defineStore('programsStore', () => {
       .trainings[selectedTrainingIndex.value]
       .training_exercices[selectedTrainingIndex.value]
       
-    const getSetIndex = trainingExercice.sets.findIndex(setItem => setItem.id === programSet.id)
+    const setIndex = trainingExercice.sets.findIndex(setItem => setItem.id === programSet.id)
 
-    // Update the reference
-    trainingExercice.sets[getSetIndex] = programSet
+    if (setIndex >= 0) {
+      // Update the reference
+      trainingExercice.sets[setIndex] = programSet
+    }
+  }
+
+  function addProgramSet(programSet: ProgramSet) {
+    // Update the current program/variation etc.
+    const trainingExercice = programs.value[selectedProgramIndex.value]
+      .variations[selectedVariationIndex.value]
+      .templates[selectedTemplateIndex.value]
+      .weeks[selectedWeekIndex.value]
+      .trainings[selectedTrainingIndex.value]
+      .training_exercices[selectedTrainingIndex.value]
+      
+    const existingSet = trainingExercice.sets.find(setItem => setItem.id === programSet.id)
+
+    if (!existingSet) {
+      trainingExercice.sets.push(programSet)
+    }
   }
 
   // TODO: Make a composable
@@ -143,6 +161,7 @@ export const useProgramsStore = defineStore('programsStore', () => {
     currentWeek,
     currentTraining,
     updateProgramSet,
-    deleteProgramSet
+    deleteProgramSet,
+    addProgramSet
   };
 });

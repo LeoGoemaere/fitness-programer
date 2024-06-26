@@ -69,7 +69,11 @@ const popinSubTitleLabel = computed(() => {
 })
 
 function onSubmit() {
-  programsStore.updateProgramSet(setBeingEdited.value)
+  if (props.isEdition) {
+    programsStore.updateProgramSet(setBeingEdited.value)
+  } else {
+    programsStore.addProgramSet(setBeingEdited.value)
+  }
   onClose()
 }
 

@@ -30,7 +30,10 @@ export function useExerciceSet() {
 
   function _computeJokerSet(trainingExercice: ProgramTrainingExercice, currentSet: ProgramSet) {
     const currentSetIndex = trainingExercice.sets.findIndex(set => set.id === currentSet.id)
-    const previousSet = trainingExercice.sets[currentSetIndex - 1]
+    const isNewSet = currentSetIndex === -1
+    // If it's a new set, then the previous set is the last set
+    const lastSet = trainingExercice.sets[trainingExercice.sets.length - 1]
+    const previousSet = isNewSet ? lastSet : trainingExercice.sets[currentSetIndex - 1]
     const set = getEmptySet()
     set.id = currentSet.id
     if (previousSet) {
