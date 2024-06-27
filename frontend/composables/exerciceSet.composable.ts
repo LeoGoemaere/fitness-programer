@@ -90,12 +90,13 @@ export function useExerciceSet() {
       computeSet.id = currentSet.id
       computeSet.weight = 0
       if (currentSet.exercice_max_weight_percentage) {
-        computeSet.weight = currentSet.exercice_max_weight_percentage * exerciceMax
+        computeSet.weight = roundValue(currentSet.exercice_max_weight_percentage * exerciceMax, 4)
         const RmPercentageComputed = currentSet.exercice_max_weight_percentage * 100
         computeSet.displayable_set_information.value = `${RmPercentageComputed} % ${currentSet.type}`
       }
       computeSet.repetitions = currentSet.repetitions
       computeSet.type = currentSet.type
+      computeSet.personal_record = currentSet.personal_record
       computeSet.exercice_max_weight_percentage = currentSet.exercice_max_weight_percentage
       computeSet.displayable_set_information.type = DisplayableSetInformationTypeEnum.Label
       return computeSet

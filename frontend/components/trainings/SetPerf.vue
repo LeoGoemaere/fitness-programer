@@ -17,7 +17,7 @@ const repsLabel = computed(() => {
     if (typeof reps === 'string') {
       // If AMRAP
       if (reps.toLowerCase() === RepetitionValues.Amrap) {
-        repsLabel = RepetitionValues.Amrap.toLowerCase()
+        repsLabel = RepetitionValues.Amrap.toUpperCase()
       } else {
         // If xx-xx
         const [lowReps, highReps] = reps.split('-')
