@@ -26,6 +26,7 @@ const setIndex = computed(() => props.trainingExercice.sets.findIndex(set => set
 const setCounter = computed(() => setIndex.value + 1)
 const exerciceAssociated = computed(() => exercicesStore.exercices.find(exerciceEl => exerciceEl.id === props.trainingExercice.exercice_id))
 const computedSet = computed(() => getComputedSet(props.trainingExercice, props.programSet, exerciceAssociated.value))
+const isSetDone = computed(() => props.trainingExercice.is_done)
 
 function handleDropdownOpen(isOpen: boolean) {
   if (isOpen) {
@@ -80,7 +81,7 @@ function setOptions() {
 </script>
 
 <template>
-  <div v-if="computedSet" class="setitem p-3" :class="{ 'setitem--check': check }">
+  <div v-if="computedSet" class="setitem p-3" :class="{ 'setitem--check': isSetDone }">
     <div class="setitem__left">
       <span class="setitem__counter">{{ setCounter }}</span>
       <set-perf
@@ -106,7 +107,7 @@ function setOptions() {
         </UButton>
       </UDropdown>
       <UIcon
-        v-if="check"
+        v-if="isSetDone"
         class="setitem__check"
         name="i-solar-check-read-outline"
       />
@@ -143,6 +144,7 @@ function setOptions() {
     bottom: 0;
     opacity: .7;
     background-color: white;
+    z-index: 10;
   }
 }
 
@@ -167,6 +169,8 @@ function setOptions() {
 }
 
 .setitem__check {
+  position: relative;
+  z-index: 20;
   color: rgb(var(--color-primary-500));
 }
 </style>

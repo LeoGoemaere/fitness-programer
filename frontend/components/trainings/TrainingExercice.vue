@@ -1,15 +1,8 @@
 <script setup lang="ts">
 import type { ProgramTrainingExercice } from '~/types/Program.interface';
 
-const items = ref([{
-  label: 'Getting Started',
-  icon: 'i-heroicons-information-circle',
-  defaultOpen: true,
-  checked: false,
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.'
-}])
-
 const exercicesStore = useExercicesStore()
+const programsStore = useProgramsStore();
 
 interface Props {
   trainingExercice: ProgramTrainingExercice
@@ -26,8 +19,10 @@ const props = withDefaults(defineProps<Props>(), {
   supersetDown: false,
 });
 
-function check(item, index, open) {
-  items.value[index].checked = !item.checked
+function toggleIsDone() {
+  const newTrainingExercice: ProgramTrainingExercice = JSON.parse(JSON.stringify(props.trainingExercice))
+  newTrainingExercice.is_done = !newTrainingExercice.is_done
+  programsStore.updateTrainingExercice(newTrainingExercice)
 }
 
 function addExercice() {
@@ -56,8 +51,8 @@ function addExercice() {
           }"
           :ui="{}">
           <template #leading>
-            <div @click.stop="check(item, index, open)" class="c-accordion__leading p-3">
-              <UCheckbox color="primary" :model-value="items[index].checked" :ui="{}" />
+            <div @click.stop="toggleIsDone" class="c-accordion__leading p-3">
+              <UCheckbox color="primary" :model-value="item.is_done" :ui="{}" />
             </div>
           </template>
           <div class="c-accordion-heading__content">
@@ -87,17 +82,16 @@ function addExercice() {
           :program-set="programSet"
           :training-exercice="item"
         ></set-item>
-        <!-- <set-item :check="true"></set-item>
-        <set-item></set-item> -->
         <UButton
           @click="isEditionSetPopinOpen = true"
           icon="i-heroicons-pencil-square"
           size="sm"
-          color="primary"
           variant="soft"
           label="Créer une série"
           class="m-3"
           :trailing="false"
+          :color="item.is_done ? 'white' : 'primary'"
+          :disabled="item.is_done"
         />
       </template>
     </UAccordion>

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 
 // import { program_response_531 } from '~/datas/programs'
 import corePrograms from '~/datas/programs/corePrograms'
-import type { Program, ProgramSet } from '~/types/Program.interface';
+import type { Program, ProgramSet, ProgramTrainingExercice } from '~/types/Program.interface';
 
 export const useProgramsStore = defineStore('programsStore', () => {
   const programs: Ref<Program[]> = ref(corePrograms);
@@ -107,6 +107,22 @@ export const useProgramsStore = defineStore('programsStore', () => {
     }
   }
 
+  function updateTrainingExercice(trainingExercice: ProgramTrainingExercice) {
+    // Update the current program/variation etc.
+    const currentTrainingExercice = programs.value[selectedProgramIndex.value]
+      .variations[selectedVariationIndex.value]
+      .templates[selectedTemplateIndex.value]
+      .weeks[selectedWeekIndex.value]
+      .trainings[selectedTrainingIndex.value]
+      
+      
+    const trainingExerciceIndex = currentTrainingExercice.training_exercices.findIndex(trainingItem => trainingItem.id === trainingExercice.id)
+    if (trainingExerciceIndex >= 0) {
+      // Update the reference
+      currentTrainingExercice.training_exercices[trainingExerciceIndex] = trainingExercice
+    }
+  }
+  
   function addProgramSet(programSet: ProgramSet) {
     // Update the current program/variation etc.
     const trainingExercice = programs.value[selectedProgramIndex.value]
@@ -162,6 +178,7 @@ export const useProgramsStore = defineStore('programsStore', () => {
     currentTraining,
     updateProgramSet,
     deleteProgramSet,
-    addProgramSet
+    addProgramSet,
+    updateTrainingExercice
   };
 });
