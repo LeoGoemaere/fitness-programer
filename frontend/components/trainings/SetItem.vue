@@ -14,15 +14,17 @@ const props = withDefaults(defineProps<Props>(), {
 
 const programsStore = useProgramsStore();
 const { getComputedSet } = useExerciceSet()
+const exercicesStore = useExercicesStore()
 
 
 const isEditionSetPopinOpen = ref(false)
 const confirmDelete = ref(false)
 
-const computedSet = computed(() => getComputedSet(props.trainingExercice, props.programSet))
 const programSetLabel = computed(() => computedSet.value?.displayable_set_information?.value)
 const setIndex = computed(() => props.trainingExercice.sets.findIndex(set => set.id === props.programSet.id))
 const setCounter = computed(() => setIndex.value + 1)
+const exerciceAssociated = computed(() => exercicesStore.exercices.find(exerciceEl => exerciceEl.id === props.trainingExercice.exercice_id))
+const computedSet = computed(() => getComputedSet(props.trainingExercice, props.programSet, exerciceAssociated.value))
 
 function handleDropdownOpen(isOpen: boolean) {
   if (isOpen) {

@@ -38,8 +38,6 @@ const { t } = useI18n()
 
 const setBeingEdited = ref(getEmptySet())
 
-const computedSet = computed(() => getComputedSet(props.trainingExercice, setBeingEdited.value))
-
 const isReadonlyFields = computed(() => {
   switch (setBeingEdited.value.type) {
     case SetTypeEnum.Joker:
@@ -50,8 +48,20 @@ const isReadonlyFields = computed(() => {
   }
 })
 
+const isReadonlyInfosFields = computed(() => {
+  switch (setBeingEdited.value.type) {
+    case SetTypeEnum.RM:
+    case SetTypeEnum.TM:
+      return true
+    default:
+      return false;
+  }
+})
+
+
 const exerciceAssociated = computed(() => exercicesStore.exercices.find(exerciceEl => exerciceEl.id === props.trainingExercice.exercice_id))
 const setIndex = computed(() => props.trainingExercice.sets.findIndex(set => set.id === props.exerciceSet?.id))
+const computedSet = computed(() => getComputedSet(props.trainingExercice, setBeingEdited.value, exerciceAssociated.value))
 
 const popinTitleLabel = computed(() => {
   if (props.isEdition) {
@@ -68,6 +78,36 @@ const popinSubTitleLabel = computed(() => {
   return null
 })
 
+const showWeightField = computed(() => {
+  switch (setBeingEdited.value.type) {
+    case SetTypeEnum.Custom:
+    case SetTypeEnum.FSL:
+    case SetTypeEnum.Joker:
+      return true
+    default:
+      return false
+  }
+})
+
+const showPercentageMaxWeightField = computed(() => {
+  switch (setBeingEdited.value.type) {
+    case SetTypeEnum.RM:
+    case SetTypeEnum.TM:
+      return true
+    default:
+      return false
+  }
+})
+
+const maxPercentageExercice = computed(() => {
+  switch (setBeingEdited.value.type) {
+    case SetTypeEnum.RM:
+      return exerciceAssociated.value?.RM || 0
+    case SetTypeEnum.TM:
+      return exerciceAssociated.value?.TM || 0
+  }
+  return 0
+})
 function onSubmit() {
   if (props.isEdition) {
     programsStore.updateProgramSet(setBeingEdited.value)
@@ -92,12 +132,19 @@ const setTypes = computed(() => {
 })
 
 const displayableInformationTypes = computed(() => {
-  return Object.values(DisplayableSetInformationTypeEnum).map(type => {
+  // For now we only use the label option
+  return [DisplayableSetInformationTypeEnum.Label].map(type => {
     return {
       id: type,
       label: t(`exerciceSet.information.type.${type}`)
     }
   })
+  // return Object.values(DisplayableSetInformationTypeEnum).map(type => {
+  //   return {
+  //     id: type,
+  //     label: t(`exerciceSet.information.type.${type}`)
+  //   }
+  // })
 })
 
 function handleRepetitions(value: ProgramSet['repetitions']) {
@@ -115,11 +162,10 @@ function formValidation(state: ProgramSet): FormError[] {
   if (!isFirstSetTypeValid(props.trainingExercice, state)) {
     errors.push({ path: 'type', message: `Ce type de série ne peut pas être en 1ère position !!!!!` })
   }
+  if (showPercentageMaxWeightField.value && !isValidDecimalPercentage(state.exercice_max_weight_percentage)) {
+    errors.push({ path: 'perf', message: `Le ${state.type} % doit être compris entre 0 et 1` })
+  }
   return errors
-}
-
-function handleInformationSetValue() {
-  debugger
 }
 
 function initSet() {
@@ -165,6 +211,9 @@ watch(() => props.modelValue, (value) => {
       
       <div>
         <UFormGroup name="perf">
+          <!-- <template #help v-if="showPercentageMaxWeightField && exerciceAssociated?.RM === 0">
+            <p>Attention, l'exercice à un RM à 0</p>
+          </template> -->
           <div class="flex items-end">
             <UFormGroup
               v-if="isReadonlyFields"
@@ -191,34 +240,60 @@ watch(() => props.modelValue, (value) => {
               </template>
             </UFormGroup>
             <span class="edition__perfs-at">@</span>
-            <UFormGroup
-              v-if="isReadonlyFields"
-              class="edition__perf-item"
-              label="Weight">
-              <template #default>
-                <UInput
-                  type="text"
-                  :disabled="true"
-                  :modelValue="computedSet.weight"
-                />
-              </template>
-            </UFormGroup>
-            <UFormGroup
-              v-else
-              class="edition__perf-item"
-              label="Weight">
-              <UInput
-                placeholder="80"
-                type="number"
-                step="0.01"
-                @keydown="blockInvalidChar"
-                v-model="setBeingEdited.weight"
-              >
-                <template #trailing>
-                  <span class="text-gray-500 dark:text-gray-400 text-xs">Kg</span>
+            <!-- Weight field -->
+            <template v-if="showWeightField">
+              <UFormGroup
+                v-if="isReadonlyFields"
+                class="edition__perf-item"
+                label="Weight">
+                <template #default>
+                  <UInput
+                    type="text"
+                    :disabled="true"
+                    :modelValue="computedSet.weight"
+                  />
                 </template>
-              </UInput>
-            </UFormGroup>
+              </UFormGroup>
+              <UFormGroup
+                v-else
+                class="edition__perf-item"
+                label="Weight">
+                <UInput
+                  placeholder="80"
+                  type="number"
+                  step="0.01"
+                  @keydown="blockInvalidChar"
+                  v-model="setBeingEdited.weight"
+                >
+                  <template #trailing>
+                    <span class="text-gray-500 dark:text-gray-400 text-xs">Kg</span>
+                  </template>
+                </UInput>
+              </UFormGroup>
+            </template>
+            <!-- Percentage max weight field -->
+            <template v-if="showPercentageMaxWeightField">
+              <UFormGroup
+                class="edition__perf-item"
+              >
+                <template #label>
+                  <p>
+                    % {{ setBeingEdited.type }} - <span class="text-gray-500 dark:text-gray-400 text-[10px]">Exercice {{ setBeingEdited.type }} {{ maxPercentageExercice }}kg</span>
+                  </p>
+                </template>
+                <UInput
+                  placeholder="0.7"
+                  type="number"
+                  step="0.01"
+                  @keydown="blockInvalidChar"
+                  v-model="setBeingEdited.exercice_max_weight_percentage"
+                >
+                  <template #trailing>
+                    <span class="text-gray-500 dark:text-gray-400 text-xs">% décimal</span>
+                  </template>
+                </UInput>
+              </UFormGroup>
+            </template>
           </div>
         </UFormGroup>
         <UCheckbox
@@ -238,7 +313,7 @@ watch(() => props.modelValue, (value) => {
         />
       </div>
       <div>        
-        <div v-if="isReadonlyFields" class="flex items-end">
+        <div v-if="isReadonlyFields || isReadonlyInfosFields" class="flex items-end">
           <UFormGroup class="flex-1" label="Infos affichable">
             <USelect
               class="flex-1"
@@ -264,7 +339,6 @@ watch(() => props.modelValue, (value) => {
               :options="displayableInformationTypes"
               option-attribute="label"
               value-attribute="id"
-              @update:modelValue="handleInformationSetValue"
               :modelValue="setBeingEdited.displayable_set_information.type"
             ></USelect>
           </UFormGroup>

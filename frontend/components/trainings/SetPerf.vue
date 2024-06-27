@@ -33,6 +33,7 @@ const repsLabel = computed(() => {
 })
 
 const shouldShowRepsLabel = computed(() => props.programSet.repetitions !== RepetitionValues.Amrap)
+const shouldShowWeight = computed(() => typeof props.programSet.weight === 'number')
 </script>
 
 <template>
@@ -41,7 +42,7 @@ const shouldShowRepsLabel = computed(() => props.programSet.repetitions !== Repe
       <div class="perf__reps">{{ repsLabel }}</div>
       <div v-if="shouldShowRepsLabel" class="perf__reps-label ml-1">reps</div>
     </template>
-    <template v-if="programSet.weight">
+    <template v-if="shouldShowWeight">
       <div class="perf__at mx-1">@</div>
       <div class="perf__weight">{{ programSet.weight }}</div>
       <div class="perf__unit ml-1">kg</div>

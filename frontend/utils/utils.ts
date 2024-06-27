@@ -4,13 +4,17 @@ export function blockInvalidChar(e: KeyboardEvent) {
   }
 }
 
-export function roundValue(value: unknown) {
+export function roundValue(value: unknown, accuracy: number = 10) {
   if (typeof value === 'number') {
-    return Math.ceil(value * 10) / 10;
+    return Math.ceil(value * accuracy) / accuracy;
   }
   return 0;
 }
 
 export function removeDiacritics(str: string) {
   return str.normalize("NFD").replace(/\p{Diacritic}/gu, "")
+}
+
+export function isValidDecimalPercentage(number?: number | null) {
+  return typeof number === 'number' && number >= 0 && number <= 1;
 }
