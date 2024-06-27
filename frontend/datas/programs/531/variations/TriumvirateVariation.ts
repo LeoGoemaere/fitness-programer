@@ -25,11 +25,11 @@ export const TriumvirateVariation: ProgramVariation = {
                   exercice_id: 'bench-id',
                   alternative_exercice_ids: [],
                   superset_exercice_ids: [],
-                  is_done: true,
+                  is_done: false,
                   sets: [
                     {
                       id: crypto.randomUUID(),
-                      type: SetTypeEnum.Custom,
+                      type: SetTypeEnum.TM,
                       repetitions: '8-10',
                       weight: 100,
                       exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
@@ -43,10 +43,10 @@ export const TriumvirateVariation: ProgramVariation = {
                     },
                     {
                       id: crypto.randomUUID(),
-                      type: SetTypeEnum.Custom,
+                      type: SetTypeEnum.RM,
                       repetitions: 1,
                       // weight: 100,
-                      exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
+                      exercice_max_weight_percentage: 0.7, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
                       personal_record: false,
                       is_done: false,
                       displayable_set_information: {
@@ -61,6 +61,20 @@ export const TriumvirateVariation: ProgramVariation = {
                       repetitions: 3,
                       weight: 100,
                       exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
+                      personal_record: true,
+                      is_done: false,
+                      displayable_set_information: {
+                        id: crypto.randomUUID(),
+                        type: DisplayableSetInformationTypeEnum.Label,
+                        value: 'Custom'
+                      }
+                    },
+                    {
+                      id: crypto.randomUUID(),
+                      type: SetTypeEnum.Joker,
+                      repetitions: 5,
+                      weight: 100,
+                      exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
                       personal_record: false,
                       is_done: false,
                       displayable_set_information: {
@@ -71,8 +85,8 @@ export const TriumvirateVariation: ProgramVariation = {
                     },
                     {
                       id: crypto.randomUUID(),
-                      type: SetTypeEnum.Custom,
-                      repetitions: '5-8',
+                      type: SetTypeEnum.FSL,
+                      repetitions: 5,
                       weight: 100,
                       exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
                       personal_record: false,
