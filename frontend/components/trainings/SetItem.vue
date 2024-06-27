@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ProgramSet, ProgramTrainingExercice } from '~/types/Program.interface';
+import { SetTypeEnum } from '~/types/SetTypeEnum';
 
 interface Props {
   check?: boolean
@@ -31,6 +32,20 @@ function handleDropdownOpen(isOpen: boolean) {
     confirmDelete.value = false
   }
 }
+
+interface IlabelStyle {
+  color: string | null
+  isBadge: boolean
+}
+const labelStyle: Ref<IlabelStyle> = computed(() => {
+  switch (computedSet.value.type) {
+    case SetTypeEnum.FSL:
+      return { color: 'violet', isBadge: true }
+    case SetTypeEnum.Joker:
+      return { color: 'emerald', isBadge: true }
+  }
+  return { color: null, isBadge: false }
+})
 
 function setOptions() {
   const isDeleting = confirmDelete.value
@@ -74,7 +89,8 @@ function setOptions() {
       ></set-perf>
     </div>
     <div class="setitem__right">
-      <div class="setitem__label">{{ programSetLabel }}</div>
+      <UBadge v-if="labelStyle.isBadge" size="xs" :label="programSetLabel" :color="labelStyle.color" />
+      <div v-else class="setitem__label">{{ programSetLabel }}</div>
       <UDropdown
         :items="setOptions()"
         :popper="{ placement: 'bottom-start' }"
