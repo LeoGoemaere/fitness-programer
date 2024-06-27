@@ -8,7 +8,7 @@ export default {
   },
   information: {
     type: {
-      Label: "Label custom",
+      Label: "Label",
       TM: "% du TM",
       RM: "% du RM",
     }
