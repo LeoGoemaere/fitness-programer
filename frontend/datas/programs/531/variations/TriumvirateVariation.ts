@@ -133,7 +133,7 @@ export const TriumvirateVariation: ProgramVariation = {
                   exercice_id: undefined,
                   alternative_exercice_ids: [],
                   superset_exercice_ids: [],
-                  is_done: true,
+                  is_done: false,
                   sets: [
                     {
                       id: crypto.randomUUID(),

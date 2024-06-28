@@ -1,4 +1,5 @@
 import type { DisplayableSetInformationTypeEnum } from "./DisplayableSetInformationTypeEnum"
+import type { Exercice } from "./Exercice.interface"
 import type { SetTypeEnum } from "./SetTypeEnum"
 
 export interface Program {
@@ -39,7 +40,7 @@ export interface ProgramTraining {
 
 export interface ProgramTrainingExercice {
   id: string
-  exercice_id?: string | number | null
+  exercice_id?: Exercice['id'] | null
   alternative_exercice_ids: string[] | number[]
   superset_exercice_ids: string[] | number[]
   is_done: boolean

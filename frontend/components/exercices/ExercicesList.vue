@@ -12,10 +12,20 @@ const { t } = useI18n()
 
 interface Props {
   muscle: string
+  selectable?: boolean
+  currentAssociatedExerciceId?: Exercice['id'] | null
 }
+
+interface Emit {
+  (e: 'update:selectedExercice', exercice: Exercice | null): void
+}
+
+// Declarations des emits
+const emit = defineEmits<Emit>();
 
 // Declarations des props
 const props = withDefaults(defineProps<Props>(), {
+  selectable: false
 });
 
 const isCreationExercicePopinOpen = ref(false)
@@ -27,6 +37,7 @@ const openMaxPopoverIndex = ref(-1)
 const tagsFilter: Ref<Tag['id'][]> = ref([])
 const musclesFilter: Ref<MusclesEnum[] & string[]> = ref([])
 const searchQuery = ref('')
+const selectedExerciceId: Ref<Exercice['id'] | null> = ref(null)
 
 function handleDropdownOpen(isOpen: boolean, index: number) {
   if (isOpen) {
@@ -124,6 +135,17 @@ function exerciceOptions(exercice: Exercice, index: number) {
   ]
 }
 
+function toggleSelectedExercice(exercice: Exercice | null) {
+  const isAlreadyChecked = exercice?.id === selectedExerciceId.value
+  const selectedExercice = isAlreadyChecked ? null : exercice
+  selectedExerciceId.value = selectedExercice?.id || null
+  emit('update:selectedExercice', selectedExercice)
+}
+
+function isSelectedExercice(exercice: Exercice) {
+  return selectedExerciceId.value === exercice.id
+}
+
 const emptyExerciceLabel = computed(() => {
   const muscleName = t(`muscles.${props.muscle}`)
   if (props.muscle === 'All') {
@@ -144,6 +166,7 @@ const exercicesListFiltered = computed(() => {
     let isExerciceHasMuscles = true
     let isExerciceHasTags = true
     let isExerciceContainQuery = true
+    let isExerciceNotCurrentAssociated = true // If selectable, we don't want to show the current exercice that is used by the trainingExercice
     if (musclesFilter.value.length) {
       isExerciceHasMuscles = musclesFilter.value.includes(exercice.primary_muscle)
     }
@@ -155,7 +178,10 @@ const exercicesListFiltered = computed(() => {
       const query = removeDiacritics(searchQuery.value.toLocaleLowerCase())
       isExerciceContainQuery = exerciceName.includes(query)
     }
-    return isExerciceHasMuscles && isExerciceHasTags && isExerciceContainQuery
+
+    isExerciceNotCurrentAssociated = props.currentAssociatedExerciceId !== exercice.id
+
+    return isExerciceHasMuscles && isExerciceHasTags && isExerciceContainQuery && isExerciceNotCurrentAssociated
   })
 })
 
@@ -166,11 +192,20 @@ const filtersToDisplay = computed<Array<'tags' | 'muscles'>>(() => {
   return ['tags']
 })
 
+const isSelectedExerciceVisible = computed(() => exercicesListFiltered.value.some(exercice => exercice.id === selectedExerciceId.value))
+
 watch(() => isCreationExercicePopinOpen.value, (value) => {
   // If the popin is closed, then reset the editing exercice
   if (!value) {
     editingExercice.value = null
     isEditionExercice.value = false
+  }
+})
+
+// Reset the selected exercice if a filter/querySearch hide the exercice
+watch(() => isSelectedExerciceVisible.value, (value) => {
+  if (selectedExerciceId.value && !value) {
+    toggleSelectedExercice(null)
   }
 })
 </script>
@@ -202,19 +237,32 @@ watch(() => isCreationExercicePopinOpen.value, (value) => {
       <div class="c-accordion">
         <UAccordion :items="exercicesListFiltered" :ui="{ container: 'c-accordion__container mb-3', item: { padding: 'p-2', size: '' } }">
           <template #default="{ item, index, open }">
-            <UButton color="gray" variant="ghost" class="c-accordion-heading" :class="{ 'c-accordion-heading--active': open }" :ui="{}">
-              <!-- <template #leading>
-                <div class="c-accordion__leading">
-                  <div class="exercice-image"></div>
+            <UButton
+              color="gray"
+              variant="ghost"
+              class="c-accordion-heading"
+              :class="{
+                'c-accordion-heading--active': open,
+                'c-accordion-heading--check': isSelectedExercice(item)
+              }"
+              :ui="{}"
+            >
+              <template #leading v-if="props.selectable">
+                <div @click.stop="" class="c-accordion__leading p-3">
+                  <UCheckbox
+                    color="primary"
+                    @update:modelValue="toggleSelectedExercice(item)"
+                    :model-value="selectedExerciceId === item.id"
+                  />
                 </div>
-              </template> -->
+              </template>
               <div class="c-accordion-heading__content truncate p-3">
                 <div class="c-accordion-heading__left">
                   <span>{{ item.name }}</span>
                 </div>
                 <div class="c-accordion-heading__trailing">
                   <UPopover
-                    v-if="shouldDisplayMaxProgression(item)"
+                    v-if="shouldDisplayMaxProgression(item) && !props.selectable"
                     :popper="{ arrow: true }"
                     @update:open="handlePopoverMaxOpen($event, index)"
                     :open="openMaxPopoverIndex === index"
@@ -235,6 +283,7 @@ watch(() => isCreationExercicePopinOpen.value, (value) => {
                     </template>
                   </UPopover>
                   <UDropdown
+                    v-if="!props.selectable"
                     @click.prevent.stop
                     :ui="{  padding: 'border-solid', item: { base: 'border-solid' } }"
                     @update:open="handleDropdownOpen($event, index)"
@@ -257,7 +306,11 @@ watch(() => isCreationExercicePopinOpen.value, (value) => {
               <UBadge :ui="{ rounded: 'rounded-full' }" :label="$t(`muscles.${item.primary_muscle}`)" color="white" />
             </div>
 
-            <exercice-max :exercice="item" @updated="exercicesStore.updateExercice"></exercice-max>
+            <exercice-max
+              :exercice="item"
+              :readonly="props.selectable"
+              @updated="exercicesStore.updateExercice"
+            ></exercice-max>
 
             <exercice-tags class="mt-3" title="Tags" :tags="exercicesStore.getTagFromExercice(item)"></exercice-tags>
           </template>
@@ -269,13 +322,6 @@ watch(() => isCreationExercicePopinOpen.value, (value) => {
 </template>
 
 <style lang="scss" scoped>
-
-.exercice-image {
-  width: 50px;
-  height: 100%;
-  background-color:rgb(137, 143, 161);
-}
-
 .exo-list__title {
   margin-bottom: 10px;
 }

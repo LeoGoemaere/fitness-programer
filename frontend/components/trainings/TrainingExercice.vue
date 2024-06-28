@@ -12,6 +12,7 @@ interface Props {
 }
 
 const isEditionSetPopinOpen = ref(false)
+const isAddExercicePopinOpen = ref(false)
 const exerciceAssociated = computed(() => exercicesStore.exercices.find(exerciceEl => exerciceEl.id === props.trainingExercice.exercice_id))
 
 // Declarations des props
@@ -26,8 +27,8 @@ function toggleIsDone() {
   programsStore.updateTrainingExercice(newTrainingExercice)
 }
 
-function addExercice() {
-  // TODO
+function openAddExercicePopin() {
+  isAddExercicePopinOpen.value = true
 }
 
 const confirmDelete = ref(false)
@@ -46,7 +47,7 @@ function trainingExerciceOptions() {
         label: 'Changer d\'exercice',
         icon: 'i-solar-refresh-outline',
         click: () => {
-          // isEditionSetPopinOpen.value = true
+          openAddExercicePopin()
         }
       }
     ],
@@ -88,6 +89,7 @@ function trainingExerciceOptions() {
             <UButton
               icon="i-heroicons-plus-circle"
               size="xs"
+              @click="openAddExercicePopin"
             >Ajouter</UButton>
           </div>
         </div>
@@ -164,6 +166,10 @@ function trainingExerciceOptions() {
       :training-exercice="props.trainingExercice"
       :is-edition="false"
     ></edition-set-popin>
+    <add-exercice-popin
+      v-model="isAddExercicePopinOpen"
+      :training-exercice="props.trainingExercice"
+    ></add-exercice-popin>
   </div>
 </template>
 

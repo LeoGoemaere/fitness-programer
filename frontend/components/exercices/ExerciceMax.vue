@@ -3,11 +3,11 @@ import { blockInvalidChar } from '~/utils/utils'
 import { MaxType, type Exercice } from '~/types/Exercice.interface';
 import { updateExerciceMax } from '~/composables/exerciceComposable';
 
-const exercicesStore = useExercicesStore();
 const programsStore = useProgramsStore();
 
 interface Props {
   exercice: Exercice
+  readonly?: boolean
 }
 
 interface Emit {
@@ -16,6 +16,7 @@ interface Emit {
 
 // Declarations des props
 const props = withDefaults(defineProps<Props>(), {
+  readonly: false
 });
 
 // Declarations des emits
@@ -34,7 +35,26 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="max">
+  <div v-if="props.readonly">
+    <div class="flex text-center">
+      <UFormGroup
+        class="flex-1"
+        label="Répétition Max"
+      >
+        <UBadge class="block">{{ exercice.RM }}Kg</UBadge>
+      </UFormGroup>
+      <div class="max__icon self-end p-1">
+        <UIcon size="2xs" name="i-heroicons-arrows-right-left" />
+      </div>
+      <UFormGroup
+        class="flex-1"
+        label="Training Max"
+        >
+        <UBadge class="block" color="orange">{{ exercice.TM }}Kg</UBadge>
+      </UFormGroup>
+    </div>
+  </div>
+  <div v-else class="max">
     <div class="max__item">
       <span class="max__label">Répetition max</span>
       <UInput
