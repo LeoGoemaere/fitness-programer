@@ -93,13 +93,14 @@ function setOptions() {
       <UBadge v-if="labelStyle.isBadge" size="xs" :label="programSetLabel" :color="labelStyle.color" />
       <div v-else class="setitem__label">{{ programSetLabel }}</div>
       <UDropdown
+        :ui="{ padding: 'border-solid', item: { base: 'border-solid' } }"
         :items="setOptions()"
         :popper="{ placement: 'bottom-start' }"
         @update:open="handleDropdownOpen"
       >
         <UButton
           class="setitem__options mx-2"
-          icon="i-solar-menu-dots-bold"
+          icon="i-heroicons-ellipsis-horizontal"
           size="2xs"
           color="gray"
           variant="soft"

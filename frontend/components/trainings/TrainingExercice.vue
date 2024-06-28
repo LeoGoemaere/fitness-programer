@@ -6,6 +6,7 @@ const programsStore = useProgramsStore();
 
 interface Props {
   trainingExercice: ProgramTrainingExercice
+  trainingIndex: number // Avoid to calcul it
   supersetUp?: boolean
   supersetDown?: boolean
 }
@@ -29,16 +30,69 @@ function addExercice() {
   // TODO
 }
 
+const confirmDelete = ref(false)
+
+function handleDropdownOpen(isOpen: boolean) {
+  if (isOpen) {
+    confirmDelete.value = false
+  }
+}
+
+function trainingExerciceOptions() {
+  const isDeleting = confirmDelete.value
+  return [
+    [
+      {
+        label: 'Changer d\'exercice',
+        icon: 'i-solar-refresh-outline',
+        click: () => {
+          // isEditionSetPopinOpen.value = true
+        }
+      }
+    ],
+    [
+      {
+        label: isDeleting ? 'Confirmer' : 'Supprimer',
+        icon: 'i-heroicons-trash',
+        iconClass: isDeleting ? 'text-red-400' : null,
+        labelClass: isDeleting ? 'text-red-400' : null,
+        click: (event: Event) => {
+          event.preventDefault()
+          if (confirmDelete.value) {
+            const newTrainingExercice: ProgramTrainingExercice = JSON.parse(JSON.stringify(props.trainingExercice))
+            // Remove the associated exercice, not the entire trainingExercice
+            newTrainingExercice.exercice_id = null
+            programsStore.updateTrainingExercice(newTrainingExercice)
+            return
+          }
+          confirmDelete.value = true
+        }
+      },
+    ]
+  ]
+}
 
 </script>
 
 <template>
   <div class="c-accordion" :class="{ 'c-accordion--top-radiusless': supersetUp, 'c-accordion--bottom-radiusless': supersetDown }">
-    <UButton
-      v-if="!exerciceAssociated"
-      @click="addExercice"
-    >Choisir un exercice</UButton>
-
+    <div v-if="!exerciceAssociated" class="c-accordion__container">
+      <div
+        class="c-accordion-heading"
+      >
+        <div class="c-accordion-heading__content">
+          <div class="c-accordion-heading__left">
+            <span class="text-sm">Exercice {{ trainingIndex + 1 }}</span>
+          </div>
+          <div class="c-accordion-heading__trailing">
+            <UButton
+              icon="i-heroicons-plus-circle"
+              size="xs"
+            >Ajouter</UButton>
+          </div>
+        </div>
+      </div>
+    </div>
     <UAccordion v-else :items="[props.trainingExercice]" :ui="{ container: 'c-accordion__container', item: { padding: 'p-0' } }">
       <template #default="{ item, index, open }">
         <UButton
@@ -60,13 +114,22 @@ function addExercice() {
               <span>{{ index + 1 }}. {{ exerciceAssociated.name }}</span>
             </div>
             <div class="c-accordion-heading__trailing">
-              <UButton
-                class="mr-3"
-                icon="i-solar-refresh-outline"
-                size="xs"
-                color="gray"
-                variant="soft">
-              </UButton>
+              <UDropdown
+                @click.prevent.stop
+                :ui="{  padding: 'border-solid', item: { base: 'border-solid' } }"
+                :items="trainingExerciceOptions()"
+                :popper="{ placement: 'bottom-start' }"
+                @update:open="handleDropdownOpen"
+              >
+                <UButton
+                  class="setitem__options mx-2"
+                  icon="i-solar-menu-dots-bold"
+                  size="2xs"
+                  color="gray"
+                  variant="soft"
+                >
+                </UButton>
+              </UDropdown>
               <UIcon
                 name="i-heroicons-chevron-right-20-solid"
                 class="c-accordion-heading__chevron"

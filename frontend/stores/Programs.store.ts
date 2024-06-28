@@ -106,6 +106,22 @@ export const useProgramsStore = defineStore('programsStore', () => {
       trainingExercice.sets[setIndex] = programSet
     }
   }
+  
+  function addProgramSet(programSet: ProgramSet) {
+    // Update the current program/variation etc.
+    const trainingExercice = programs.value[selectedProgramIndex.value]
+      .variations[selectedVariationIndex.value]
+      .templates[selectedTemplateIndex.value]
+      .weeks[selectedWeekIndex.value]
+      .trainings[selectedTrainingIndex.value]
+      .training_exercices[selectedTrainingIndex.value]
+      
+    const existingSet = trainingExercice.sets.find(setItem => setItem.id === programSet.id)
+
+    if (!existingSet) {
+      trainingExercice.sets.push(programSet)
+    }
+  }
 
   function updateTrainingExercice(trainingExercice: ProgramTrainingExercice) {
     // Update the current program/variation etc.
@@ -123,20 +139,16 @@ export const useProgramsStore = defineStore('programsStore', () => {
     }
   }
   
-  function addProgramSet(programSet: ProgramSet) {
+  function deleteTrainingExercice(trainingExercice: ProgramTrainingExercice) {
     // Update the current program/variation etc.
-    const trainingExercice = programs.value[selectedProgramIndex.value]
+    const currentTrainingExercice = programs.value[selectedProgramIndex.value]
       .variations[selectedVariationIndex.value]
       .templates[selectedTemplateIndex.value]
       .weeks[selectedWeekIndex.value]
       .trainings[selectedTrainingIndex.value]
-      .training_exercices[selectedTrainingIndex.value]
       
-    const existingSet = trainingExercice.sets.find(setItem => setItem.id === programSet.id)
-
-    if (!existingSet) {
-      trainingExercice.sets.push(programSet)
-    }
+      // Update the reference
+      currentTrainingExercice.training_exercices = currentTrainingExercice.training_exercices.filter(trainingItem => trainingItem.id !== trainingExercice.id)
   }
 
   // TODO: Make a composable
@@ -179,6 +191,7 @@ export const useProgramsStore = defineStore('programsStore', () => {
     updateProgramSet,
     deleteProgramSet,
     addProgramSet,
-    updateTrainingExercice
+    updateTrainingExercice,
+    deleteTrainingExercice
   };
 });
