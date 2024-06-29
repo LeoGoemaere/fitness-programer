@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const programsStore = useProgramsStore();
-const { getComputedSet } = useExerciceSet()
+const { getComputedSet, isFirstSetTypeValid } = useExerciceSet()
 const exercicesStore = useExercicesStore()
 
 
@@ -39,11 +39,13 @@ interface IlabelStyle {
   isBadge: boolean
 }
 const labelStyle: Ref<IlabelStyle> = computed(() => {
-  switch (computedSet.value.type) {
-    case SetTypeEnum.FSL:
-      return { color: 'violet', isBadge: true }
-    case SetTypeEnum.Joker:
-      return { color: 'emerald', isBadge: true }
+  if (isFirstSetTypeValid(props.trainingExercice, computedSet.value)) {
+    switch (computedSet.value.type) {
+      case SetTypeEnum.FSL:
+        return { color: 'violet', isBadge: true }
+      case SetTypeEnum.Joker:
+        return { color: 'emerald', isBadge: true }
+    }
   }
   return { color: null, isBadge: false }
 })
@@ -69,7 +71,7 @@ function setOptions() {
         click: (event: Event) => {
           event.preventDefault()
           if (confirmDelete.value) {
-            programsStore.deleteProgramSet(props.programSet)
+            programsStore.deleteProgramSet(props.programSet, props.trainingExercice)
             return
           }
           confirmDelete.value = true

@@ -77,49 +77,51 @@ export const useProgramsStore = defineStore('programsStore', () => {
     selectedTrainingId.value = trainingId ? trainingId : firstTrainingId
   }
 
-  function deleteProgramSet(programSet: ProgramSet) {
+  function deleteProgramSet(programSet: ProgramSet, trainingExercice: ProgramTrainingExercice) {
     // Update the current program/variation etc.
-    const trainingExercice = programs.value[selectedProgramIndex.value]
+    const selectedTraining = programs.value[selectedProgramIndex.value]
       .variations[selectedVariationIndex.value]
       .templates[selectedTemplateIndex.value]
       .weeks[selectedWeekIndex.value]
       .trainings[selectedTrainingIndex.value]
-      .training_exercices[selectedTrainingIndex.value]
-      
-      // Update the reference
-    trainingExercice.sets = trainingExercice.sets.filter(setItem => setItem.id !== programSet.id)
+
+      const trainingExerciceIndex = selectedTraining.training_exercices.findIndex(trainingExerciceItem => trainingExerciceItem.id === trainingExercice.id)
+
+      if (trainingExerciceIndex >= 0) {
+        // delete the reference
+        selectedTraining.training_exercices[trainingExerciceIndex].sets = trainingExercice.sets.filter(setItem => setItem.id !== programSet.id)
+      }
   }
 
-  function updateProgramSet(programSet: ProgramSet) {
+  function updateProgramSet(programSet: ProgramSet, trainingExercice: ProgramTrainingExercice) {
     // Update the current program/variation etc.
-    const trainingExercice = programs.value[selectedProgramIndex.value]
+    const selectedTrainings = programs.value[selectedProgramIndex.value]
       .variations[selectedVariationIndex.value]
       .templates[selectedTemplateIndex.value]
       .weeks[selectedWeekIndex.value]
       .trainings[selectedTrainingIndex.value]
-      .training_exercices[selectedTrainingIndex.value]
       
     const setIndex = trainingExercice.sets.findIndex(setItem => setItem.id === programSet.id)
-
-    if (setIndex >= 0) {
+    const trainingExerciceIndex = selectedTrainings.training_exercices.findIndex(trainingExerciceItem => trainingExerciceItem.id === trainingExercice.id)
+    if (setIndex >= 0 && trainingExerciceIndex >= 0) {
       // Update the reference
-      trainingExercice.sets[setIndex] = programSet
+      selectedTrainings.training_exercices[trainingExerciceIndex].sets[setIndex] = programSet
     }
   }
   
-  function addProgramSet(programSet: ProgramSet) {
+  function addProgramSet(programSet: ProgramSet, trainingExercice: ProgramTrainingExercice) {
     // Update the current program/variation etc.
-    const trainingExercice = programs.value[selectedProgramIndex.value]
+    const selectedTrainings = programs.value[selectedProgramIndex.value]
       .variations[selectedVariationIndex.value]
       .templates[selectedTemplateIndex.value]
       .weeks[selectedWeekIndex.value]
       .trainings[selectedTrainingIndex.value]
-      .training_exercices[selectedTrainingIndex.value]
       
     const existingSet = trainingExercice.sets.find(setItem => setItem.id === programSet.id)
+    const trainingExerciceIndex = selectedTrainings.training_exercices.findIndex(trainingExerciceItem => trainingExerciceItem.id === trainingExercice.id)
 
-    if (!existingSet) {
-      trainingExercice.sets.push(programSet)
+    if (!existingSet && trainingExerciceIndex >= 0) {
+      selectedTrainings.training_exercices[trainingExerciceIndex].sets.push(programSet)
     }
   }
 

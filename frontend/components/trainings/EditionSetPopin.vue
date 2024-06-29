@@ -110,9 +110,9 @@ const maxPercentageExercice = computed(() => {
 })
 function onSubmit() {
   if (props.isEdition) {
-    programsStore.updateProgramSet(setBeingEdited.value)
+    programsStore.updateProgramSet(setBeingEdited.value, props.trainingExercice)
   } else {
-    programsStore.addProgramSet(setBeingEdited.value)
+    programsStore.addProgramSet(setBeingEdited.value, props.trainingExercice)
   }
   onClose()
 }
