@@ -5,6 +5,8 @@ import type { ProgramTrainingExercice } from '~/types/Program.interface';
 interface Props {
   modelValue: boolean
   trainingExercice: ProgramTrainingExercice
+  isRecommendation?: boolean
+  exercicesList?: Exercice[] | null
 }
 
 interface Emit {
@@ -28,8 +30,15 @@ function onClose() {
 }
 
 function onValidate() {
-  const newTrainingExercice: ProgramTrainingExercice = JSON.parse(JSON.stringify(props.trainingExercice))
+  let newTrainingExercice: ProgramTrainingExercice = JSON.parse(JSON.stringify(props.trainingExercice))
   newTrainingExercice.exercice_id = selectedExercice.value?.id
+  newTrainingExercice.sets = []
+  if (props.isRecommendation) {
+    // Get the trainingExercice by the selectedExercice id => not ideal, but in fact we shouldn't recommend 2 sames exercices
+    const recommendedTrainingExercice = newTrainingExercice.recommended_training_exercices.find(trainingExercice => trainingExercice.exercice_id === selectedExercice.value?.id)
+    // Add the sets from the recommended training exercice
+    newTrainingExercice.sets = recommendedTrainingExercice?.sets || []
+  }
   newTrainingExercice.is_done = false
   programsStore.updateTrainingExercice(newTrainingExercice)
   onClose()
@@ -40,6 +49,14 @@ const popinTitleLabel = computed(() => {
     return 'Ajouter un exercice'
   }
   return 'Changer d\'exercice'
+})
+
+const listTitle = computed(() => props.isRecommendation ? 'Recommandations du coach :' : 'Exercices')
+
+watch(() => props.modelValue, (value) => {
+  if (!value) {
+    selectedExercice.value = null
+  }
 })
 </script>
 
@@ -67,11 +84,15 @@ const popinTitleLabel = computed(() => {
         muscle="All"
         :selectable="true"
         v-model:selected-exercice="selectedExercice"
-        :current-associated-exercice-id="trainingExercice.exercice_id"
+        :title="listTitle"
+        :filterable="!props.isRecommendation"
+        :exercices-list="props.exercicesList"
 
       ></ExercicesList>
+      <slot name="default" />
       <template #footer>
         <div class="justify-center flex">
+          <slot name="action" />
           <UButton
             type="button"
             :disabled="!selectedExercice"
@@ -81,5 +102,6 @@ const popinTitleLabel = computed(() => {
         </div>
       </template>
     </UCard>
+    
   </UModal>
 </template>

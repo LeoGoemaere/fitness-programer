@@ -5,7 +5,7 @@ export function useTrainingExercice() {
     return {
       id: crypto.randomUUID(),
       exercice_id: null,
-      alternative_exercice_ids: [],
+      recommended_training_exercices: [],
       superset_exercice_ids: [],
       is_done: false,
       sets: []

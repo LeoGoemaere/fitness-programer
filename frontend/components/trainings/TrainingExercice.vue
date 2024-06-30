@@ -1,8 +1,6 @@
 <script setup lang="ts">
+import type { Exercice } from '~/types/Exercice.interface';
 import type { ProgramTrainingExercice } from '~/types/Program.interface';
-
-const exercicesStore = useExercicesStore()
-const programsStore = useProgramsStore();
 
 interface Props {
   trainingExercice: ProgramTrainingExercice
@@ -11,15 +9,40 @@ interface Props {
   supersetDown?: boolean
 }
 
-const isEditionSetPopinOpen = ref(false)
-const isAddExercicePopinOpen = ref(false)
-const exerciceAssociated = computed(() => exercicesStore.exercices.find(exerciceEl => exerciceEl.id === props.trainingExercice.exercice_id))
-
 // Declarations des props
 const props = withDefaults(defineProps<Props>(), {
   supersetUp: false,
   supersetDown: false,
 });
+
+const exercicesStore = useExercicesStore()
+const programsStore = useProgramsStore();
+
+const isEditionSetPopinOpen = ref(false)
+const isAddExercicePopinOpen = ref(false)
+const isRecommendedExercicedPopinOpen = ref(false)
+const confirmDelete = ref(false)
+
+const exerciceAssociated = computed(() => exercicesStore.exercices.find(exerciceEl => exerciceEl.id === props.trainingExercice.exercice_id))
+
+// We don't want to show the current exercice that is used by the trainingExercice
+const recommendedExercices = computed(() => {
+  const exercicesList = props.trainingExercice.recommended_training_exercices
+    .map(trainingExercice => {
+      const exercice = exercicesStore.exercices.find(exerciceEl => exerciceEl.id === trainingExercice.exercice_id)
+      return exercice
+    })
+    .filter(exercice => exercice && exercice.id !== props.trainingExercice.exercice_id)
+  return exercicesList as Exercice[]
+})
+
+const exercicesExceptRecommendedAndCurrent = computed(() => {
+  return exercicesStore.exercices.filter(exercice => {
+    const recommendedExercices = props.trainingExercice.recommended_training_exercices
+    const ids = recommendedExercices.map(trainingExercices => trainingExercices.exercice_id)
+    return !ids.includes(exercice.id) && exercice.id !== props.trainingExercice.exercice_id
+  })
+})
 
 function toggleIsDone() {
   const newTrainingExercice: ProgramTrainingExercice = JSON.parse(JSON.stringify(props.trainingExercice))
@@ -27,11 +50,20 @@ function toggleIsDone() {
   programsStore.updateTrainingExercice(newTrainingExercice)
 }
 
-function openAddExercicePopin() {
-  isAddExercicePopinOpen.value = true
+function toggleAddExercicePopin(isOpen: boolean) {
+  isAddExercicePopinOpen.value = isOpen
+  isRecommendedExercicedPopinOpen.value = !isOpen
 }
 
-const confirmDelete = ref(false)
+function toggleRecommendedExercicesPopin(isOpen: boolean) {
+  if (!isOpen) {
+    isRecommendedExercicedPopinOpen.value = false
+    isAddExercicePopinOpen.value = false
+    return
+  }
+  isRecommendedExercicedPopinOpen.value = isOpen
+  isAddExercicePopinOpen.value = !isOpen
+}
 
 function handleDropdownOpen(isOpen: boolean) {
   if (isOpen) {
@@ -47,7 +79,7 @@ function trainingExerciceOptions() {
         label: 'Changer d\'exercice',
         icon: 'i-solar-refresh-outline',
         click: () => {
-          openAddExercicePopin()
+          toggleRecommendedExercicesPopin(true)
         }
       }
     ],
@@ -72,7 +104,6 @@ function trainingExerciceOptions() {
     ]
   ]
 }
-
 </script>
 
 <template>
@@ -89,7 +120,7 @@ function trainingExerciceOptions() {
             <UButton
               icon="i-heroicons-plus-circle"
               size="xs"
-              @click="openAddExercicePopin"
+              @click="toggleRecommendedExercicesPopin(true)"
             >Ajouter</UButton>
           </div>
         </div>
@@ -166,10 +197,37 @@ function trainingExerciceOptions() {
       :training-exercice="props.trainingExercice"
       :is-edition="false"
     ></edition-set-popin>
+    
+    <!-- recommendation exercices popin -->
     <add-exercice-popin
-      v-model="isAddExercicePopinOpen"
+      @update:model-value="toggleRecommendedExercicesPopin"
+      :model-value="isRecommendedExercicedPopinOpen"
       :training-exercice="props.trainingExercice"
-    ></add-exercice-popin>
+      :is-recommendation="true"
+      :exercices-list="recommendedExercices"
+
+    >
+      <div class="flex justify-center">
+        <UButton variant="soft" @click="toggleAddExercicePopin(true)">Choisir un autre exercice</UButton>
+      </div>
+    </add-exercice-popin>
+    <!-- Custom add exercice popin -->
+    <add-exercice-popin
+      @update:model-value="toggleRecommendedExercicesPopin"
+      :model-value="isAddExercicePopinOpen"
+      :training-exercice="props.trainingExercice"
+      :exercices-list="exercicesExceptRecommendedAndCurrent"
+    >
+      <template #action>
+        <UButton
+          type="button"
+          icon="i-heroicons-arrow-left"
+          class="mr-2"
+          variant="outline"
+          @click="toggleAddExercicePopin(false)"
+        >Retour</UButton>
+      </template>
+    </add-exercice-popin>
   </div>
 </template>
 

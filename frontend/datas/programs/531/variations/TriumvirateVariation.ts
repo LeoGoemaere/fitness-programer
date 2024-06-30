@@ -22,58 +22,119 @@ export const TriumvirateVariation: ProgramVariation = {
               training_exercices: [
                 {
                   id: crypto.randomUUID(),
-                  exercice_id: 'bench-id',
-                  alternative_exercice_ids: [],
+                  exercice_id: null,
+                  recommended_training_exercices: [
+                    {
+                      id: crypto.randomUUID(),
+                      exercice_id: 'bench-id',
+                      recommended_training_exercices: [],
+                      superset_exercice_ids: [],
+                      is_done: false,
+                      sets: [
+                        {
+                          id: crypto.randomUUID(),
+                          type: SetTypeEnum.TM,
+                          repetitions: '8-10',
+                          weight: 100,
+                          exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
+                          personal_record: false,
+                          is_done: false,
+                          displayable_set_information: {
+                            id: crypto.randomUUID(),
+                            type: DisplayableSetInformationTypeEnum.Label,
+                            value: null
+                          }
+                        },
+                        {
+                          id: crypto.randomUUID(),
+                          type: SetTypeEnum.RM,
+                          repetitions: 1,
+                          // weight: 100,
+                          exercice_max_weight_percentage: 0.7, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
+                          personal_record: false,
+                          is_done: false,
+                          displayable_set_information: {
+                            id: crypto.randomUUID(),
+                            type: DisplayableSetInformationTypeEnum.Label,
+                            value: 'Coucou'
+                          }
+                        },
+                        {
+                          id: crypto.randomUUID(),
+                          type: SetTypeEnum.Custom,
+                          repetitions: 3,
+                          weight: 100,
+                          exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
+                          personal_record: true,
+                          is_done: false,
+                          displayable_set_information: {
+                            id: crypto.randomUUID(),
+                            type: DisplayableSetInformationTypeEnum.Label,
+                            value: 'Custom'
+                          }
+                        },
+                        {
+                          id: crypto.randomUUID(),
+                          type: SetTypeEnum.Joker,
+                          repetitions: 5,
+                          weight: 100,
+                          exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
+                          personal_record: false,
+                          is_done: false,
+                          displayable_set_information: {
+                            id: crypto.randomUUID(),
+                            type: DisplayableSetInformationTypeEnum.Label,
+                            value: 'Coucou'
+                          }
+                        },
+                        {
+                          id: crypto.randomUUID(),
+                          type: SetTypeEnum.FSL,
+                          repetitions: 5,
+                          weight: 100,
+                          exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
+                          personal_record: false,
+                          is_done: false,
+                          displayable_set_information: {
+                            id: crypto.randomUUID(),
+                            type: DisplayableSetInformationTypeEnum.Label,
+                            value: 'Coucou'
+                          }
+                        },
+                      ]
+                    },
+                    {
+                      id: crypto.randomUUID(),
+                      exercice_id: 'sdt-id',
+                      recommended_training_exercices: [],
+                      superset_exercice_ids: [],
+                      is_done: false,
+                      sets: [
+                        {
+                          id: crypto.randomUUID(),
+                          type: SetTypeEnum.Custom,
+                          repetitions: 5,
+                          weight: 50,
+                          exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
+                          personal_record: false,
+                          is_done: false,
+                          displayable_set_information: {
+                            id: crypto.randomUUID(),
+                            type: DisplayableSetInformationTypeEnum.Label,
+                            value: 'Coucou'
+                          }
+                        }
+                      ]
+                    },
+                  ],
                   superset_exercice_ids: [],
                   is_done: false,
                   sets: [
                     {
                       id: crypto.randomUUID(),
-                      type: SetTypeEnum.TM,
-                      repetitions: '8-10',
-                      weight: 100,
-                      exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
-                      personal_record: false,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: crypto.randomUUID(),
-                        type: DisplayableSetInformationTypeEnum.Label,
-                        value: null
-                      }
-                    },
-                    {
-                      id: crypto.randomUUID(),
-                      type: SetTypeEnum.RM,
-                      repetitions: 1,
-                      // weight: 100,
-                      exercice_max_weight_percentage: 0.7, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
-                      personal_record: false,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: crypto.randomUUID(),
-                        type: DisplayableSetInformationTypeEnum.Label,
-                        value: 'Coucou'
-                      }
-                    },
-                    {
-                      id: crypto.randomUUID(),
                       type: SetTypeEnum.Custom,
-                      repetitions: 3,
-                      weight: 100,
-                      exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
-                      personal_record: true,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: crypto.randomUUID(),
-                        type: DisplayableSetInformationTypeEnum.Label,
-                        value: 'Custom'
-                      }
-                    },
-                    {
-                      id: crypto.randomUUID(),
-                      type: SetTypeEnum.Joker,
                       repetitions: 5,
-                      weight: 100,
+                      weight: 50,
                       exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
                       personal_record: false,
                       is_done: false,
@@ -87,7 +148,7 @@ export const TriumvirateVariation: ProgramVariation = {
                       id: crypto.randomUUID(),
                       type: SetTypeEnum.FSL,
                       repetitions: 5,
-                      weight: 100,
+                      weight: 50,
                       exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
                       personal_record: false,
                       is_done: false,
@@ -96,7 +157,7 @@ export const TriumvirateVariation: ProgramVariation = {
                         type: DisplayableSetInformationTypeEnum.Label,
                         value: 'Coucou'
                       }
-                    },
+                    }
                   ]
                 }
               ]
@@ -108,7 +169,7 @@ export const TriumvirateVariation: ProgramVariation = {
                 {
                   id: crypto.randomUUID(),
                   exercice_id: undefined,
-                  alternative_exercice_ids: [],
+                  recommended_training_exercices: [],
                   superset_exercice_ids: [],
                   is_done: false,
                   sets: [
@@ -131,7 +192,7 @@ export const TriumvirateVariation: ProgramVariation = {
                 {
                   id: crypto.randomUUID(),
                   exercice_id: undefined,
-                  alternative_exercice_ids: [],
+                  recommended_training_exercices: [],
                   superset_exercice_ids: [],
                   is_done: false,
                   sets: [
@@ -166,7 +227,7 @@ export const TriumvirateVariation: ProgramVariation = {
                 {
                   id: crypto.randomUUID(),
                   exercice_id: undefined,
-                  alternative_exercice_ids: [],
+                  recommended_training_exercices: [],
                   superset_exercice_ids: [],
                   is_done: false,
                   sets: [
@@ -208,7 +269,7 @@ export const TriumvirateVariation: ProgramVariation = {
                 {
                   id: crypto.randomUUID(),
                   exercice_id: undefined,
-                  alternative_exercice_ids: [],
+                  recommended_training_exercices: [],
                   superset_exercice_ids: [],
                   is_done: false,
                   sets: [

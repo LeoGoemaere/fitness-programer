@@ -13,7 +13,9 @@ const { t } = useI18n()
 interface Props {
   muscle: string
   selectable?: boolean
-  currentAssociatedExerciceId?: Exercice['id'] | null
+  filterable?: boolean
+  exercicesList?: Exercice[] | null
+  title?: string | null
 }
 
 interface Emit {
@@ -25,7 +27,9 @@ const emit = defineEmits<Emit>();
 
 // Declarations des props
 const props = withDefaults(defineProps<Props>(), {
-  selectable: false
+  selectable: false,
+  filterable: true,
+  title: 'Exercices'
 });
 
 const isCreationExercicePopinOpen = ref(false)
@@ -154,11 +158,18 @@ const emptyExerciceLabel = computed(() => {
   return `Aucun exercice <b class="font-bold">"${muscleName}"</b>`
 })
 
+const exercicesList = computed(() => {
+  if (typeof props.exercicesList !== 'undefined' && props.exercicesList !== null) {
+    return props.exercicesList
+  }
+  return exercicesStore.exercices
+})
+
 const exercicesListByMuscle = computed(() => {
   if (props.muscle === 'All') {
-    return exercicesStore.exercices
+    return exercicesList.value
   }
-  return exercicesStore.exercices.filter(exercice => exercice.primary_muscle === props.muscle)
+  return exercicesList.value.filter(exercice => exercice.primary_muscle === props.muscle)
 })
 
 const exercicesListFiltered = computed(() => {
@@ -166,7 +177,6 @@ const exercicesListFiltered = computed(() => {
     let isExerciceHasMuscles = true
     let isExerciceHasTags = true
     let isExerciceContainQuery = true
-    let isExerciceNotCurrentAssociated = true // If selectable, we don't want to show the current exercice that is used by the trainingExercice
     if (musclesFilter.value.length) {
       isExerciceHasMuscles = musclesFilter.value.includes(exercice.primary_muscle)
     }
@@ -179,9 +189,7 @@ const exercicesListFiltered = computed(() => {
       isExerciceContainQuery = exerciceName.includes(query)
     }
 
-    isExerciceNotCurrentAssociated = props.currentAssociatedExerciceId !== exercice.id
-
-    return isExerciceHasMuscles && isExerciceHasTags && isExerciceContainQuery && isExerciceNotCurrentAssociated
+    return isExerciceHasMuscles && isExerciceHasTags && isExerciceContainQuery
   })
 })
 
@@ -213,7 +221,7 @@ watch(() => isSelectedExerciceVisible.value, (value) => {
 <template>
   <div>
     <ExercicesSearch
-      v-if="exercicesListByMuscle.length"
+      v-if="exercicesListByMuscle.length && props.filterable"
       v-model:tags="tagsFilter"
       v-model:muscles="musclesFilter"
       v-model:search="searchQuery"
@@ -224,7 +232,7 @@ watch(() => isSelectedExerciceVisible.value, (value) => {
       <UAlert
         :ui="{ actions: 'justify-center' }"
         class="exo-list__empty-state"
-        :actions="!exercicesListByMuscle.length ? emptyStateActions() : []"
+        :actions="!exercicesListByMuscle.length && !props.selectable ? emptyStateActions() : []"
       >
         <template #description>
           <p v-html="emptyExerciceLabel"></p>
@@ -233,7 +241,7 @@ watch(() => isSelectedExerciceVisible.value, (value) => {
     </template>
     <!-- has exercices -->
     <template v-else>
-      <p class="exo-list__title">Exercices</p>
+      <p class="exo-list__title">{{ props.title }}</p>
       <div class="c-accordion">
         <UAccordion :items="exercicesListFiltered" :ui="{ container: 'c-accordion__container mb-3', item: { padding: 'p-2', size: '' } }">
           <template #default="{ item, index, open }">
