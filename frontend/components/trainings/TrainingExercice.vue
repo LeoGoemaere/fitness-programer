@@ -156,7 +156,7 @@ function trainingExerciceOptions() {
           </template>
           <div class="c-accordion-heading__content c-accordion-heading__content--bigger">
             <div class="c-accordion-heading__left">
-              <span>{{ index + 1 }}. {{ exerciceAssociated.name }}</span>
+              <span>{{ trainingIndex + 1 }}. {{ exerciceAssociated.name }}</span>
             </div>
             <div class="c-accordion-heading__trailing">
               <UBadge v-if="isSuperset" color="white" variant="solid" size="xs">Superset</UBadge>
