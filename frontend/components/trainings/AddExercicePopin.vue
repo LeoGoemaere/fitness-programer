@@ -32,7 +32,6 @@ function onClose() {
 function onValidate() {
   let newTrainingExercice: ProgramTrainingExercice = JSON.parse(JSON.stringify(props.trainingExercice))
   newTrainingExercice.exercice_id = selectedExercice.value?.id
-  newTrainingExercice.sets = []
   if (props.isRecommendation) {
     // Get the trainingExercice by the selectedExercice id => not ideal, but in fact we shouldn't recommend 2 sames exercices
     const recommendedTrainingExercice = newTrainingExercice.recommended_training_exercices.find(trainingExercice => trainingExercice.exercice_id === selectedExercice.value?.id)

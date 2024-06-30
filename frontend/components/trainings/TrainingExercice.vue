@@ -44,6 +44,8 @@ const exercicesExceptRecommendedAndCurrent = computed(() => {
   })
 })
 
+const shouldShowRecommendedExercicePopin = computed(() => props.trainingExercice.recommended_training_exercices.length)
+
 function toggleIsDone() {
   const newTrainingExercice: ProgramTrainingExercice = JSON.parse(JSON.stringify(props.trainingExercice))
   newTrainingExercice.is_done = !newTrainingExercice.is_done
@@ -65,6 +67,14 @@ function toggleRecommendedExercicesPopin(isOpen: boolean) {
   isAddExercicePopinOpen.value = !isOpen
 }
 
+function toggleExercicesPopin(isOpen: boolean) {
+  if (shouldShowRecommendedExercicePopin.value) {
+    toggleRecommendedExercicesPopin(isOpen)
+    return
+  }
+  toggleAddExercicePopin(isOpen)
+}
+
 function handleDropdownOpen(isOpen: boolean) {
   if (isOpen) {
     confirmDelete.value = false
@@ -79,7 +89,7 @@ function trainingExerciceOptions() {
         label: 'Changer d\'exercice',
         icon: 'i-solar-refresh-outline',
         click: () => {
-          toggleRecommendedExercicesPopin(true)
+          toggleExercicesPopin(true)
         }
       }
     ],
@@ -120,7 +130,7 @@ function trainingExerciceOptions() {
             <UButton
               icon="i-heroicons-plus-circle"
               size="xs"
-              @click="toggleRecommendedExercicesPopin(true)"
+              @click="toggleExercicesPopin(true)"
             >Ajouter</UButton>
           </div>
         </div>
@@ -218,7 +228,7 @@ function trainingExerciceOptions() {
       :training-exercice="props.trainingExercice"
       :exercices-list="exercicesExceptRecommendedAndCurrent"
     >
-      <template #action>
+      <template #action v-if="shouldShowRecommendedExercicePopin">
         <UButton
           type="button"
           icon="i-heroicons-arrow-left"
