@@ -51,6 +51,19 @@ export const useProgramsStore = defineStore('programsStore', () => {
     return currentWeek.value.trainings[selectedTrainingIndex.value]
   })
 
+  const hasMultipleVariations = computed(() => {
+    const variations = currentProgram.value?.variations
+    return variations && variations.length > 1
+  })
+  const hasMultipleTemplates = computed(() => {
+    const templates = currentVariation.value?.templates
+    return templates && templates.length > 1
+  })
+  const hasMultipleWeeks = computed(() => {
+    const weeks = currentTemplate.value?.weeks
+    return weeks && weeks.length > 1
+  })
+
   function setSelectedProgramId(programId?: string | null) {
     selectedProgramId.value = programId
     resetVariation()
@@ -194,6 +207,9 @@ export const useProgramsStore = defineStore('programsStore', () => {
     deleteProgramSet,
     addProgramSet,
     updateTrainingExercice,
-    deleteTrainingExercice
+    deleteTrainingExercice,
+    hasMultipleVariations,
+    hasMultipleTemplates,
+    hasMultipleWeeks
   };
 });

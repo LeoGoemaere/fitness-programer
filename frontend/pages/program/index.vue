@@ -18,19 +18,6 @@ const programDescription = computed(() => programsStore.currentProgram?.descript
 const variationDescription = computed(() => programsStore.currentVariation?.description)
 const templateDescription = computed(() => programsStore.currentTemplate?.description)
 
-const hasMultipleVariations = computed(() => {
-  const variations = programsStore?.currentProgram?.variations
-  return variations && variations.length > 1
-})
-const hasMultipleTemplates = computed(() => {
-  const templates = programsStore?.currentVariation?.templates
-  return templates && templates.length > 1
-})
-const hasMultipleWeeks = computed(() => {
-  const weeks = programsStore?.currentTemplate?.weeks
-  return weeks && weeks.length > 1
-})
-
 const tmPercentageValue = computed(() => {
   const program = programsStore.currentProgram
   if (program) {
@@ -76,7 +63,7 @@ const tmPercentageValue = computed(() => {
           </UFormGroup>
         </UButtonGroup>
       <!-- Only display if there is more than 1 variation -->
-      <UFormGroup v-if="programsStore.currentProgram && hasMultipleVariations" class="program__form-row" label="Variation">
+      <UFormGroup v-if="programsStore.currentProgram && programsStore.hasMultipleVariations" class="program__form-row" label="Variation">
         <USelect
         :options="programsStore.currentProgram.variations"
         option-attribute="name"
@@ -86,7 +73,7 @@ const tmPercentageValue = computed(() => {
         ></USelect>
       </UFormGroup>
       <!-- Only display if there is more than 1 template -->
-      <UFormGroup v-if="programsStore.currentVariation && hasMultipleTemplates" class="program__form-row" label="Template">
+      <UFormGroup v-if="programsStore.currentVariation && programsStore.hasMultipleTemplates" class="program__form-row" label="Template">
         <USelect
           :options="programsStore.currentVariation.templates"
           option-attribute="name"
@@ -96,7 +83,7 @@ const tmPercentageValue = computed(() => {
         ></USelect>
       </UFormGroup>
       <!-- Only display if there is more than 1 week -->
-      <UFormGroup v-if="programsStore.currentTemplate && hasMultipleWeeks" class="program__form-row" label="Semaines">
+      <UFormGroup v-if="programsStore.currentTemplate && programsStore.hasMultipleWeeks" class="program__form-row" label="Semaines">
         <USelect
           :options="programsStore.currentTemplate.weeks"
           option-attribute="name"
@@ -116,12 +103,12 @@ const tmPercentageValue = computed(() => {
         </div>
         <div v-if="variationDescription" class="description__row">
           <p>
-            <span v-if="hasMultipleVariations" class="font-bold">Variation:</span> {{ variationDescription }}
+            <span v-if="programsStore.hasMultipleVariations" class="font-bold">Variation:</span> {{ variationDescription }}
           </p>
         </div>
         <div v-if="templateDescription" class="description__row">
           <p>
-            <span v-if="hasMultipleTemplates" class="font-bold">Template:</span> {{ templateDescription }}
+            <span v-if="programsStore.hasMultipleTemplates" class="font-bold">Template:</span> {{ templateDescription }}
           </p>
         </div>
       </template>

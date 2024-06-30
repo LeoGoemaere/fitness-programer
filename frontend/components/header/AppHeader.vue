@@ -8,6 +8,8 @@ interface Props {
 withDefaults(defineProps<Props>(), {
 });
 
+const programsStore = useProgramsStore();
+
 const isMounted = ref(false)
 
 onMounted(() => {
@@ -23,9 +25,10 @@ onMounted(() => {
           <h1>{{ title }}</h1>
         </div>
         <div class="header__right">
-          <span class="header__info header__info--primary">531</span>
-          <span class="header__info">Light template</span>
-          <span class="header__info header__info--tertiary">Week 1</span>
+          <span class="header__info header__info--primary">{{ programsStore.currentProgram.name }}</span>
+          <span class="header__info" v-if="programsStore.hasMultipleVariations">{{ programsStore.currentVariation.name }}</span>
+          <!-- <span class="header__info" v-if="programsStore.hasMultipleTemplates">{{ programsStore.currentTemplate.name }}</span> -->
+          <span class="header__info header__info--tertiary" v-if="programsStore.hasMultipleWeeks">{{ programsStore.currentWeek.name }}</span>
         </div>
       </div>
       <span v-if="contextLabel" class="header__context">
