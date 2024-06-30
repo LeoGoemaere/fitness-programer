@@ -1,19 +1,32 @@
 <script setup lang="ts">
-// import { program_response_531 } from '~/datas/programs'
-// Id obligatoire pour chaque training
-const trainings = ref([
-  { id: 1, label: 'Lundi', checked: true },
-  { id: 2, label: 'Mardi', checked: true },
-  { id: 3, label: 'Mercredi', checked: false },
-  { id: 4, label: 'Jeudi', checked: false },
-  { id: 5, label: 'Vendredi', checked: false }
-])
 
-const currentTraining = ref(trainings.value[0])
-const isSuperset = ref(false)
-const isSuperset2 = ref(false)
-const isSuperset3 = ref(false)
+const programsStore = useProgramsStore()
+const supersetsStore = useSupersetsStore()
 
+const trainingExerciceList = computed(() => programsStore.currentTraining.training_exercices)
+
+function toggleSuperset(index: number) {
+  const firstExercice = trainingExerciceList.value[index]
+  const secondExercice = trainingExerciceList.value[index - 1]
+  const supersets: [string, string] = [firstExercice.id, secondExercice.id]
+  const supersetExercice = supersetsStore.getSupersetExercice(supersets)
+  if (supersetExercice) {
+    supersetsStore.deleteSupersetExercice(supersets)
+  } else {
+    supersetsStore.addSupersetExercice(supersets)
+  }
+}
+
+function getSupersetValue(index: number) {
+  if (index === 0 || index > trainingExerciceList.value.length - 1) {
+    return false
+  }
+  const firstExercice = trainingExerciceList.value[index]
+  const secondExercice = trainingExerciceList.value[index - 1]
+  const supersets: [string, string] = [firstExercice.id, secondExercice.id]
+  const supersetExercice = supersetsStore.getSupersetExercice(supersets)
+  return !!supersetExercice
+}
 </script>
 
 <template>
@@ -23,18 +36,24 @@ const isSuperset3 = ref(false)
       context-label="Mercredi (pecs)"
     ></app-header>
     <div>
-    <!-- current program: {{ programsStore.currentProgram }} -->
-    <!-- current variation: {{ programsStore.currentVariation }} -->
-    <!-- current template: {{ programsStore.currentTemplate }} -->
       <training-selector></training-selector>
 
-      <training-exercice :superset-down="isSuperset"></training-exercice>
-      <superset-divider v-model="isSuperset" color="orange"></superset-divider>
-      <training-exercice :superset-up="isSuperset" :superset-down="isSuperset2"></training-exercice>
-      <superset-divider v-model="isSuperset2" color="blue"></superset-divider>
-      <training-exercice :superset-up="isSuperset2" :superset-down="isSuperset3"></training-exercice>
-      <superset-divider v-model="isSuperset3" color="green"></superset-divider>
-      <training-exercice :superset-up="isSuperset3"></training-exercice>
+      <template
+        v-for="(trainingExercice, index) in trainingExerciceList"
+        :key="trainingExercice.id"
+      >
+        <superset-divider
+          v-if="index !== 0"
+         @update:model-value="toggleSuperset(index)"
+         :model-value="getSupersetValue(index)"
+        ></superset-divider>
+        <training-exercice
+          :training-exercice="trainingExercice"
+          :training-index="index"
+          :superset-down="getSupersetValue(index + 1)"
+          :superset-up="getSupersetValue(index)"
+        ></training-exercice>
+      </template>
     </div>
   </div>
 </template>
