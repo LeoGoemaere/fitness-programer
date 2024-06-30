@@ -218,7 +218,11 @@ function trainingExerciceOptions() {
 
     >
       <div class="flex justify-center">
-        <UButton variant="soft" @click="toggleAddExercicePopin(true)">Choisir un autre exercice</UButton>
+        <UButton
+          variant="outline"
+          icon="i-heroicons-plus"
+          @click="toggleAddExercicePopin(true)"
+        >Choisir un autre exercice</UButton>
       </div>
     </add-exercice-popin>
     <!-- Custom add exercice popin -->
