@@ -186,6 +186,34 @@ export const TriumvirateVariation: ProgramVariation = {
                         type: DisplayableSetInformationTypeEnum.Label,
                         value: 'Coucou'
                       }
+                    },
+                    {
+                      id: crypto.randomUUID(),
+                      type: SetTypeEnum.Joker,
+                      repetitions: 5,
+                      weight: 50,
+                      exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
+                      personal_record: false,
+                      is_done: false,
+                      displayable_set_information: {
+                        id: crypto.randomUUID(),
+                        type: DisplayableSetInformationTypeEnum.Label,
+                        value: 'Coucou'
+                      }
+                    },
+                    {
+                      id: crypto.randomUUID(),
+                      type: SetTypeEnum.FSL,
+                      repetitions: 5,
+                      weight: 50,
+                      exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
+                      personal_record: false,
+                      is_done: false,
+                      displayable_set_information: {
+                        id: crypto.randomUUID(),
+                        type: DisplayableSetInformationTypeEnum.Label,
+                        value: 'Coucou'
+                      }
                     }
                   ]
                 },
