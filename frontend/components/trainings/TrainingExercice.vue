@@ -46,6 +46,8 @@ const exercicesExceptRecommendedAndCurrent = computed(() => {
 
 const shouldShowRecommendedExercicePopin = computed(() => props.trainingExercice.recommended_training_exercices.length)
 
+const isSuperset = computed(() => props.supersetDown || props.supersetUp)
+
 function toggleIsDone() {
   const newTrainingExercice: ProgramTrainingExercice = JSON.parse(JSON.stringify(props.trainingExercice))
   newTrainingExercice.is_done = !newTrainingExercice.is_done
@@ -122,7 +124,7 @@ function trainingExerciceOptions() {
       <div
         class="c-accordion-heading"
       >
-        <div class="c-accordion-heading__content">
+        <div class="c-accordion-heading__content c-accordion-heading__content--bigger">
           <div class="c-accordion-heading__left">
             <span class="text-sm">Exercice {{ trainingIndex + 1 }}</span>
           </div>
@@ -152,11 +154,12 @@ function trainingExerciceOptions() {
               <UCheckbox color="primary" :model-value="item.is_done" :ui="{}" />
             </div>
           </template>
-          <div class="c-accordion-heading__content">
+          <div class="c-accordion-heading__content c-accordion-heading__content--bigger">
             <div class="c-accordion-heading__left">
               <span>{{ index + 1 }}. {{ exerciceAssociated.name }}</span>
             </div>
             <div class="c-accordion-heading__trailing">
+              <UBadge v-if="isSuperset" color="white" variant="solid" size="xs">Superset</UBadge>
               <UDropdown
                 @click.prevent.stop
                 :ui="{  padding: 'border-solid', item: { base: 'border-solid' } }"
@@ -194,7 +197,7 @@ function trainingExerciceOptions() {
           size="sm"
           variant="soft"
           label="Créer une série"
-          class="m-3"
+          class="mt-3 mb-6 mx-3"
           :trailing="false"
           :color="item.is_done ? 'white' : 'primary'"
           :disabled="item.is_done"
