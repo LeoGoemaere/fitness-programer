@@ -18,14 +18,14 @@ export interface ProgramVariation {
   templates: ProgramTemplate[]
 }
 
-interface ProgramTemplate {
+export interface ProgramTemplate {
   id: string
   name: string
   description?: string | null
   weeks: ProgramWeek[]
 }
 
-interface ProgramWeek {
+export interface ProgramWeek {
   id: string
   name: string
   trainings: ProgramTraining[]
@@ -42,7 +42,6 @@ export interface ProgramTrainingExercice {
   id: string
   exercice_id?: Exercice['id'] | null
   recommended_training_exercices: ProgramTrainingExercice[]
-  superset_exercice_ids: string[] | number[]
   is_done: boolean
   sets: ProgramSet[]
 }
