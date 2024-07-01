@@ -31,6 +31,10 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     '@pinia/nuxt',
-    '@nuxtjs/i18n'
-  ]
+    '@nuxtjs/i18n',
+    '@pinia-plugin-persistedstate/nuxt'
+  ],
+  piniaPersistedstate: {
+    storage: 'localStorage'
+  },
 })

@@ -77,4 +77,6 @@ export const useExercicesStore = defineStore('exercicesStore', () => {
     removeExerciceTag,
     getTagFromExercice
   };
+}, {
+  persist: true
 });

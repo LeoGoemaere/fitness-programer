@@ -35,4 +35,6 @@ export const useSupersetsStore = defineStore('supersetsStore', () => {
     deleteSupersetExercice,
     getSupersetExercice
   };
+}, {
+  persist: true
 });

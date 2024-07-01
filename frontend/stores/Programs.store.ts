@@ -212,4 +212,6 @@ export const useProgramsStore = defineStore('programsStore', () => {
     hasMultipleTemplates,
     hasMultipleWeeks
   };
+}, {
+  persist: true
 });
