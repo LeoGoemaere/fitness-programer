@@ -4,6 +4,8 @@
 
 <template>
   <div class="teleport-header" id="header-teleport-target" />
+  <!-- Load the PWA manifest -->
+  <NuxtPwaManifest />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>

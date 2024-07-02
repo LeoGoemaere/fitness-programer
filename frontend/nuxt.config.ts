@@ -1,6 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
+  experimental: {
+    appManifest: true
+  },
   ssr: false,
   app: {
      baseURL: '/fitness-programer/',
@@ -8,7 +11,11 @@ export default defineNuxtConfig({
       title: 'Fitness Programmer',
       viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
     },
-    //  buildAssetsDir: 'assets'
+  },
+  pwa: {
+    manifest: {
+      name: 'Fitness Programmer App'
+    }
   },
   components: {
     dirs: [
@@ -40,7 +47,8 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@pinia/nuxt',
     '@nuxtjs/i18n',
-    '@pinia-plugin-persistedstate/nuxt'
+    '@pinia-plugin-persistedstate/nuxt',
+    "@vite-pwa/nuxt"
   ],
   piniaPersistedstate: {
     storage: 'localStorage'
