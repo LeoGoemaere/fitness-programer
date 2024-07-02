@@ -117,7 +117,6 @@ function clearFilters() {
           placeholder="Tags"
           option-attribute="name"
           by="id"
-          searchable
           :color="hasTagsFilter ? 'primary' : 'white'"
         >
           <template #label>
@@ -130,7 +129,6 @@ function clearFilters() {
       </div>
       <div v-if="shouldDisplayMuscles" class="search__filter">
         <USelectMenu
-          searchable-placeholder="Rechercher..."
           icon="i-heroicons-adjustments-horizontal"
           @update:modelValue="handleSelectedMuscles"
           :model-value="selectedMuscles"
@@ -139,7 +137,6 @@ function clearFilters() {
           placeholder="Muscles"
           value-attribute="id"
           option-attribute="libelle"
-          searchable
           :color="hasMusclesFilter ? 'primary' : 'white'"
         >
           <template #label>

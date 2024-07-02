@@ -57,13 +57,23 @@ watch(() => props.modelValue, (value) => {
     selectedExercice.value = null
   }
 })
+
+const modalUi = computed(() => {
+  let containerUi = 'items-center px-0 pb-0 pt-14'
+  let heightUi = 'rounded-b-none'
+  if (props.isRecommendation) {
+    containerUi += ' h-full'
+    heightUi += ' h-full'
+  }
+  return { container: containerUi, height: heightUi }
+})
 </script>
 
 <template>
   <UModal
     :model-value="props.modelValue"
     @update:modelValue="onClose"
-    :ui="{ container: 'items-center h-full px-0 pb-0 pt-14', height: 'h-full rounded-b-none' }"
+    :ui="modalUi"
   >
     <UCard :ui="{ base: 'h-full flex flex-col', body: { base: 'border-solid flex-1 border-b-none' } }">
       <template #header>
