@@ -82,6 +82,7 @@ function clearFilters() {
 <template>
   <div class="search">
     <UInput
+      name="search-input"
       :ui="{ icon: { trailing: { pointer: '' } } }"
       class="search__input"
       icon="i-heroicons-magnifying-glass-20-solid"

@@ -37,27 +37,24 @@ onMounted(() => {
 <template>
   <div v-if="props.readonly">
     <div class="flex text-center">
-      <UFormGroup
-        class="flex-1"
-        label="Répétition Max"
-      >
-        <UBadge class="block">{{ exercice.RM }}Kg</UBadge>
-      </UFormGroup>
+        <div class="flex-1">
+          <p class="text-left mb-1 text-sm text-gray-700">Répétition Max</p>
+          <UBadge class="block">{{ exercice.RM }}Kg</UBadge>
+        </div>
       <div class="max__icon self-end p-1">
         <UIcon size="2xs" name="i-heroicons-arrows-right-left" />
       </div>
-      <UFormGroup
-        class="flex-1"
-        label="Training Max"
-        >
+      <div class="flex-1">
+        <p class="text-left mb-1 text-sm text-gray-700">Training Max</p>
         <UBadge class="block" color="orange">{{ exercice.TM }}Kg</UBadge>
-      </UFormGroup>
+      </div>
     </div>
   </div>
   <div v-else class="max">
     <div class="max__item">
       <span class="max__label">Répetition max</span>
       <UInput
+        name="max-rm"
         :modelValue="exercice.RM"
         @keydown="blockInvalidChar"
         @change="updateMax(MaxType.rm, $event)"
@@ -75,6 +72,7 @@ onMounted(() => {
     <div class="max__item">
       <span class="max__label max__label--tm">Training max</span>
       <UInput
+          name="max-tm"
         :modelValue="exercice.TM"
         @keydown="blockInvalidChar"
         @change="updateMax(MaxType.tm, $event)"
