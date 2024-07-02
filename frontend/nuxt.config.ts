@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   ssr: false,
   app: {
      baseURL: '/fitness-programer/',
-     buildAssetsDir: 'assets'
+    //  buildAssetsDir: 'assets'
   },
   components: {
     dirs: [
