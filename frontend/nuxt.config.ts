@@ -2,6 +2,10 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr: false,
+  app: {
+     baseURL: '/fitness-programer/',
+     buildAssetsDir: 'assets'
+  },
   components: {
     dirs: [
       '~/components/exercices',

@@ -8,7 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy": "nuxt generate && gh-pages --dotfiles --nojekyll -d .output/public"
+    "deploy": "pnpm run generate && gh-pages --nojekyll -d dist"
   },
   "dependencies": {
     "@iconify-json/solar": "^1.1.9",
