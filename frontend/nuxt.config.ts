@@ -17,6 +17,9 @@ export default defineNuxtConfig({
       name: 'Fitness Programmer App'
     }
   },
+  colorMode: {
+    preference: 'light'
+  },
   components: {
     dirs: [
       '~/components/exercices',
