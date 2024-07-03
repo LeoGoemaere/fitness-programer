@@ -28,12 +28,10 @@ onMounted(() => {
           <span class="header__info header__info--primary">{{ programsStore.currentProgram.name }}</span>
           <span class="header__info" v-if="programsStore.hasMultipleVariations">{{ programsStore.currentVariation.name }}</span>
           <!-- <span class="header__info" v-if="programsStore.hasMultipleTemplates">{{ programsStore.currentTemplate.name }}</span> -->
-          <span class="header__info header__info--tertiary" v-if="programsStore.hasMultipleWeeks">{{ programsStore.currentWeek.name }}</span>
+          <span class="header__info font-bold" v-if="programsStore.hasMultipleWeeks">{{ programsStore.currentWeek.name }}</span>
+          <span class="header__info" v-if="programsStore.currentTraining">{{ programsStore.currentTraining.name }}</span>
         </div>
       </div>
-      <span v-if="contextLabel" class="header__context">
-        <UBadge :ui="{ rounded: 'rounded-full' }" color="primary" variant="subtle" size="md">{{ contextLabel }}</UBadge>
-      </span>
     </header>
   </Teleport>
 </template>
@@ -70,10 +68,6 @@ onMounted(() => {
 
 .header__info--primary {
   font-size: 14px;
-  font-weight: 600;
-}
-
-.header__info--tertiary {
   font-weight: 600;
 }
 

@@ -33,7 +33,6 @@ function getSupersetValue(index: number) {
   <div>
     <app-header
       title="Entrainements"
-      context-label="Mercredi (pecs)"
     ></app-header>
     <div>
       <training-selector></training-selector>
