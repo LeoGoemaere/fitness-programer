@@ -56,7 +56,6 @@ onMounted(() => {
 
 .header__right {
   text-align: right;
-  font-size: 12px
 }
 
 .header__info {
@@ -67,7 +66,6 @@ onMounted(() => {
 }
 
 .header__info--primary {
-  font-size: 14px;
   font-weight: 600;
 }
 

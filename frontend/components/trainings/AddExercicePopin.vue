@@ -89,6 +89,7 @@ const modalUi = computed(() => {
           />
         </div>
       </template>
+      <slot name="header-action" />
       <ExercicesList
         muscle="All"
         :selectable="true"
@@ -101,7 +102,7 @@ const modalUi = computed(() => {
       <slot name="default" />
       <template #footer>
         <div class="justify-center flex">
-          <slot name="action" />
+          <slot name="footer-action" />
           <UButton
             type="button"
             :disabled="!selectedExercice"

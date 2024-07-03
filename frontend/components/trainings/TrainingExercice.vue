@@ -220,7 +220,7 @@ function trainingExerciceOptions() {
     >
       <div class="flex justify-center">
         <UButton
-          variant="outline"
+          variant="ghost"
           icon="i-heroicons-plus"
           @click="toggleAddExercicePopin(true)"
         >Choisir un autre exercice</UButton>
@@ -233,12 +233,21 @@ function trainingExerciceOptions() {
       :training-exercice="props.trainingExercice"
       :exercices-list="exercicesExceptRecommendedAndCurrent"
     >
-      <template #action v-if="shouldShowRecommendedExercicePopin">
+      <template #header-action v-if="shouldShowRecommendedExercicePopin">
         <UButton
           type="button"
           icon="i-heroicons-arrow-left"
-          class="mr-2"
-          variant="outline"
+          class="mb-5"
+          variant="soft"
+          @click="toggleAddExercicePopin(false)"
+        >Retour</UButton>
+      </template>
+      <template #footer-action v-if="shouldShowRecommendedExercicePopin">
+        <UButton
+          type="button"
+          icon="i-heroicons-arrow-left"
+          class="mr-3"
+          variant="soft"
           @click="toggleAddExercicePopin(false)"
         >Retour</UButton>
       </template>

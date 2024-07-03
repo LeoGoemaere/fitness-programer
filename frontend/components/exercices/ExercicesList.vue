@@ -190,7 +190,7 @@ const exercicesListFiltered = computed(() => {
     }
 
     return isExerciceHasMuscles && isExerciceHasTags && isExerciceContainQuery
-  })
+  }).sort((a, b) => a.name.localeCompare(b.name))
 })
 
 const filtersToDisplay = computed<Array<'tags' | 'muscles'>>(() => {
