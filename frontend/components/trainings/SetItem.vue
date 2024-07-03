@@ -103,7 +103,7 @@ function setOptions() {
         <UButton
           class="setitem__options mx-2"
           icon="i-heroicons-ellipsis-horizontal"
-          size="2xs"
+          size="sm"
           color="gray"
           variant="soft"
         >

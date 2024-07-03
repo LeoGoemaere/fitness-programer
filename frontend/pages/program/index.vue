@@ -34,11 +34,10 @@ const tmPercentageValue = computed(() => {
     ></app-header>
 
     <div class="program__form">
-        <UButtonGroup class="program__form-row" size="sm" orientation="horizontal">
+        <UButtonGroup class="program__form-row" orientation="horizontal">
           <UFormGroup class="flex-1" label="My program" :ui="{ label: { base: 'text-primary-500' } }">
             <USelect
               color="primary"
-              size="lg"
               :options="programsStore.programs"
               option-attribute="name"
               value-attribute="id"

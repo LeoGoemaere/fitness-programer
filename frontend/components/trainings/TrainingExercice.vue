@@ -124,14 +124,13 @@ function trainingExerciceOptions() {
       <div
         class="c-accordion-heading"
       >
-        <div class="c-accordion-heading__content c-accordion-heading__content--bigger">
+        <div class="c-accordion-heading__content">
           <div class="c-accordion-heading__left">
             <span class="text-sm">Exercice {{ trainingIndex + 1 }}</span>
           </div>
           <div class="c-accordion-heading__trailing">
             <UButton
               icon="i-heroicons-plus-circle"
-              size="xs"
               @click="toggleExercicesPopin(true)"
             >Ajouter</UButton>
           </div>
@@ -154,7 +153,7 @@ function trainingExerciceOptions() {
               <UCheckbox color="primary" :model-value="item.is_done" :ui="{}" />
             </div>
           </template>
-          <div class="c-accordion-heading__content c-accordion-heading__content--bigger">
+          <div class="c-accordion-heading__content">
             <div class="c-accordion-heading__left">
               <span>{{ trainingIndex + 1 }}. {{ exerciceAssociated.name }}</span>
             </div>
@@ -170,7 +169,7 @@ function trainingExerciceOptions() {
                 <UButton
                   class="setitem__options mx-2"
                   icon="i-solar-menu-dots-bold"
-                  size="2xs"
+                  size="sm"
                   color="gray"
                   variant="soft"
                 >
@@ -194,7 +193,6 @@ function trainingExerciceOptions() {
         <UButton
           @click="isEditionSetPopinOpen = true"
           icon="i-heroicons-pencil-square"
-          size="sm"
           variant="soft"
           label="Créer une série"
           class="mt-3 mb-6 mx-3"

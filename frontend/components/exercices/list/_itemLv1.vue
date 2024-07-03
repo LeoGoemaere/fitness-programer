@@ -61,6 +61,7 @@ function toggleItem () {
               variant="link"
               :trailing="false"
               :padded="false"
+              :ui="{ icon: { size: { xl: 'w-8 h-8' } } }"
             />
           </div>
           <div class="layerlv1__title">{{ label }}</div>
@@ -104,7 +105,7 @@ function toggleItem () {
 }
 
 .headinglv1 {
-  padding: 5px 0;
+  padding: 10px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;

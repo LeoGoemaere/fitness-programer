@@ -112,7 +112,7 @@ const createOptions = [
         <UButton
           icon="i-heroicons-ellipsis-horizontal-circle"
           color="primary"
-          :ui="{ rounded: 'rounded-full' }"
+          :ui="{ rounded: 'rounded-full', icon: { size: { xl: 'w-8 h-8' } } }"
           size="xl"
           variant="ghost"
           :padded="false"
@@ -137,7 +137,7 @@ const createOptions = [
               @click="editExercice(muscle)"
               icon="i-heroicons-plus-circle"
               color="primary"
-              :ui="{ rounded: 'rounded-full' }"
+              :ui="{ rounded: 'rounded-full', icon: { size: { xl: 'w-8 h-8' } } }"
               size="xl"
               variant="ghost"
               :padded="false"

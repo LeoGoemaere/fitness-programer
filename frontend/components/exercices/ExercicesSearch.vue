@@ -86,7 +86,6 @@ function clearFilters() {
       :ui="{ icon: { trailing: { pointer: '' } } }"
       class="search__input"
       icon="i-heroicons-magnifying-glass-20-solid"
-      size="sm"
       :color="searchQuery ? 'primary' : 'white'"
       :trailing="false"
       placeholder="Rechercher un exercice..."

@@ -142,8 +142,6 @@ watch(() => props.exercice, (value) => {
       </UFormGroup>
       <UFormGroup label="Muscle principal" name="primary_muscle">
         <USelectMenu
-          searchable
-          searchable-placeholder="Rechercher un muscle..."
           class="w-full lg:w-48"
           placeholder="Selectionner un muscle"
           value-attribute="id"
@@ -162,7 +160,6 @@ watch(() => props.exercice, (value) => {
           placeholder="Tags"
           option-attribute="name"
           by="id"
-          searchable
         >
           <template #label>
             <span>{{ selectedTagsLabel }}</span>

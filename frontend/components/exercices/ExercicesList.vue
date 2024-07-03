@@ -256,10 +256,9 @@ watch(() => isSelectedExerciceVisible.value, (value) => {
               :ui="{}"
             >
               <template #leading v-if="props.selectable">
-                <div @click.stop="" class="c-accordion__leading p-3">
+                <div @click.stop="toggleSelectedExercice(item)" class="c-accordion__leading p-3">
                   <UCheckbox
                     color="primary"
-                    @update:modelValue="toggleSelectedExercice(item)"
                     :model-value="selectedExerciceId === item.id"
                   />
                 </div>
