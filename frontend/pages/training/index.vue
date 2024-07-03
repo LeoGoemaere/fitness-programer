@@ -32,7 +32,7 @@ function getSupersetValue(index: number) {
 <template>
   <div>
     <app-header
-      title="Training"
+      title="Entrainements"
       context-label="Mercredi (pecs)"
     ></app-header>
     <div>

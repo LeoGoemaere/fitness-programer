@@ -30,12 +30,12 @@ const tmPercentageValue = computed(() => {
 <template>
   <div class="program">
     <app-header
-      title="Program"
+      title="Programme"
     ></app-header>
 
     <div class="program__form">
         <UButtonGroup class="program__form-row" orientation="horizontal">
-          <UFormGroup class="flex-1" label="My program" :ui="{ label: { base: 'text-primary-500' } }">
+          <UFormGroup class="flex-1" label="Mon programme" :ui="{ label: { base: 'text-primary-500' } }">
             <USelect
               color="primary"
               :options="programsStore.programs"
@@ -56,7 +56,7 @@ const tmPercentageValue = computed(() => {
                 :modelValue="tmPercentageValue"
               >
                 <template #trailing>
-                  <span class="tm__hint">% of 1 RM</span>
+                  <span class="tm__hint">% de la RM</span>
                 </template>
               </UInput>
           </UFormGroup>
@@ -97,7 +97,7 @@ const tmPercentageValue = computed(() => {
       <template #description>
         <div v-if="programDescription" class="description__row">
           <p>
-            <span class="font-bold">Program:</span> {{ programDescription }}
+            <span class="font-bold">Programme:</span> {{ programDescription }}
           </p>
         </div>
         <div v-if="variationDescription" class="description__row">
@@ -128,7 +128,7 @@ const tmPercentageValue = computed(() => {
 }
 
 .program__tm {
-  max-width: 100px;
+  max-width: 120px;
 }
 
 .tm__hint {

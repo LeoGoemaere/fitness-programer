@@ -14,7 +14,7 @@
     </li>
     <li class="tabbar__item">
       <NuxtLink class="tabbar__link" activeClass="tabbar__link--active" :to="{ name: 'training' }">
-        <span class="tabbar__label">Training</span>
+        <span class="tabbar__label">Entrainements</span>
         <div class="tabbar__icon">
           <UIcon name="i-solar-calendar-mark-linear" />
         </div>
@@ -22,7 +22,7 @@
     </li>
     <li class="tabbar__item">
       <NuxtLink class="tabbar__link" activeClass="tabbar__link--active" :to="{ name: 'program' }">
-        <span class="tabbar__label">Program</span>
+        <span class="tabbar__label">Programme</span>
         <div class="tabbar__icon">
           <UIcon name="i-solar-settings-outline" />
         </div>
