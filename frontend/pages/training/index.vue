@@ -38,28 +38,41 @@ function getSupersetValue(index: number) {
     <div>
       <training-selector></training-selector>
 
-      <template
-        v-for="(trainingExercice, index) in trainingExerciceList"
-        :key="trainingExercice.id"
-      >
-        <superset-divider
-          v-if="index !== 0"
-         @update:model-value="toggleSuperset(index)"
-         :model-value="getSupersetValue(index)"
-        ></superset-divider>
-        <training-exercice
-          :training-exercice="trainingExercice"
-          :training-index="index"
-          :superset-down="getSupersetValue(index + 1)"
-          :superset-up="getSupersetValue(index)"
-        ></training-exercice>
-      </template>
+      <transition mode="out-in" name="slide-fade">
+        <div :key="programsStore.currentTraining.id">
+          <template
+            v-for="(trainingExercice, index) in trainingExerciceList"
+            :key="trainingExercice.id"
+          >
+            <superset-divider
+              v-if="index !== 0"
+             @update:model-value="toggleSuperset(index)"
+             :model-value="getSupersetValue(index)"
+            ></superset-divider>
+            <training-exercice
+              :training-exercice="trainingExercice"
+              :training-index="index"
+              :superset-down="getSupersetValue(index + 1)"
+              :superset-up="getSupersetValue(index)"
+            ></training-exercice>
+          </template>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.3s ease-out;
+}
 
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
 
 </style>
