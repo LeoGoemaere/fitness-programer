@@ -42,7 +42,7 @@ const selectedTraining = computed(() => programsStore.currentTraining)
     >
       <template #option="{ option, selected }">
         <div
-          class="training-selector__option p-1.5"
+          class="training-selector__option px-1.5 py-3"
           :class="{
             'training-selector__option--selected': selected,
             'training-selector__option--checked': isAllExercicesDoneForTraining(option)
@@ -68,7 +68,7 @@ const selectedTraining = computed(() => programsStore.currentTraining)
           :color="isAllExercicesDoneForTraining(selectedTraining) ? 'primary' : 'gray'"
           variant="outline"
           class="training-selector__label"
-          size="lg"
+          size="xl"
           :ui="{ rounded: 'rounded-full' }"
         >
           <div class="flex items-center mx-auto">
