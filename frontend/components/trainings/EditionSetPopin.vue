@@ -155,15 +155,15 @@ function handleRepetitions(value: ProgramSet['repetitions']) {
 
 function formValidation(state: ProgramSet): FormError[] {
   const errors = []
-  if (!state.repetitions) errors.push({ path: 'perf', message: 'Les répétitions sont requise' })
+  if (!state.repetitions) errors.push({ path: 'perf', message: 'Les répétitions sont requise.' })
   if (!isRepetitionsValid(state.repetitions)) {
-    errors.push({ path: 'perf', message: 'Formats valides : xx, xx-xx ou amrap' })
+    errors.push({ path: 'perf', message: 'Formats valides : xx, xx-xx ou amrap.' })
   }
   if (!isFirstSetTypeValid(props.trainingExercice, state)) {
-    errors.push({ path: 'type', message: `Ce type de série ne peut pas être en 1ère position !!!!!` })
+    errors.push({ path: 'type', message: 'Ce type de série ne peut pas être en 1ère position.' })
   }
   if (showPercentageMaxWeightField.value && !isValidDecimalPercentage(state.exercice_max_weight_percentage)) {
-    errors.push({ path: 'perf', message: `Le ${state.type} % doit être compris entre 0 et 1` })
+    errors.push({ path: 'perf', message: `Le ${state.type} % doit être compris entre 0 et 1.` })
   }
   return errors
 }
@@ -301,7 +301,7 @@ watch(() => props.modelValue, (value) => {
           class="mt-2"
           v-model="computedSet.personal_record"
           name="isPR"
-          label="Personal records"
+          label="Record personnel (PR)"
           :disabled="true"
         />
         <UCheckbox
@@ -309,7 +309,7 @@ watch(() => props.modelValue, (value) => {
           class="mt-2"
           v-model="setBeingEdited.personal_record"
           name="isPR"
-          label="Personal records"
+          label="Record personnel (PR)"
         />
       </div>
       <div>        
