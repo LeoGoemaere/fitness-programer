@@ -237,7 +237,7 @@ function trainingExerciceOptions() {
         <UButton
           type="button"
           icon="i-heroicons-arrow-left"
-          class="mb-5"
+          class="mb-3"
           variant="soft"
           @click="toggleAddExercicePopin(false)"
         >Retour</UButton>
