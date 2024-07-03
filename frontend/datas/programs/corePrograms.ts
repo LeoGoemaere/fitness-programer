@@ -3,6 +3,6 @@ import { programGZCL } from './gzcl/programGZCL'
 import { programNH } from './NH/programNH'
 export default [
   programNH,
-  program531,
-  programGZCL
+  // program531,
+  // programGZCL
 ]

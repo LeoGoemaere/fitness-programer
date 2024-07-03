@@ -1,4 +1,31 @@
-import { EZ_curl, bench, cable_lateral_raises, cannonball_crunches, dips, dumbbell_curl, dumbbell_row, hack_squat, katana_triceps_extension, low_bar_squat, powel_raises, rope_triceps_extension, seated_cable_row, sit_ups } from "~/datas/exercices/coreExercices";
+import {
+  EZ_curl,
+  barbell_overhead_press,
+  barbell_reverse_curl,
+  bench,
+  cable_flies,
+  cable_lateral_raises,
+  cannonball_crunches,
+  dips, dumbbel_fly_press,
+  dumbbell_curl,
+  dumbbell_overhead_press,
+  dumbbell_row,
+  hack_squat,
+  hammer_curl,
+  katana_triceps_extension,
+  leg_curls,
+  leg_extensions,
+  low_bar_squat,
+  neck_curl,
+  neck_extension,
+  neutral_grip_lat_pulldown,
+  neutral_ups,
+  powel_raises,
+  rope_triceps_extension,
+  seated_cable_row,
+  sit_ups,
+  split_squats
+} from "~/datas/exercices/coreExercices";
 import { DisplayableSetInformationTypeEnum } from "~/types/DisplayableSetInformationTypeEnum";
 import type { ProgramVariation, ProgramTemplate } from "~/types/Program.interface";
 import { SetTypeEnum } from "~/types/SetTypeEnum";
@@ -685,18 +712,152 @@ const noviceTemplate: ProgramTemplate = {
           }
         ],
       },
-      // {
-      //   id: 'f1b651e5-6e4a-4794-a0ca-eafab9ebe3a2',
-      //   name: 'Mercredi',
-      //   training_exercices: [
-      //     {
-      //       id: 'b722f924-f6d1-4422-b0d4-739f3c99c9db',
-      //       recommended_training_exercices: [],
-      //       is_done: false,
-      //       sets: []
-      //     }
-      //   ]
-      // }
+      {
+        id: '4590e3c2-b817-4799-947b-80e51f49b0c5',
+        name: 'Mercredi',
+        training_exercices: [
+          {
+            id: 'fe0b2023-b9b5-4b40-9a9d-48079039bed3',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: '6ee1d9dd-066c-40b3-ad8a-b45c4686ae09',
+                exercice_id: barbell_overhead_press.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              },
+              {
+                id: 'b7e01025-66e3-49c7-8b60-c09cecaef561',
+                exercice_id: dumbbell_overhead_press.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+          {
+            id: '7f3fb862-3144-4f38-8fc4-7147b07ed5cc',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: '2073fded-7163-4f0a-9306-e060c9a0f788',
+                exercice_id: hammer_curl.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              },
+              {
+                id: '61938f43-95b3-4396-a4bf-f8a154ecd437',
+                exercice_id: barbell_reverse_curl.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+          {
+            id: '4362c3fd-9989-42d0-aa56-ec60d737ba11',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: '722e4a80-87d3-47de-8acb-2868691646ac',
+                exercice_id: neutral_ups.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              },
+              {
+                id: '8116f1d3-66ee-4b29-aaf3-be1fe9f3b404',
+                exercice_id: neutral_grip_lat_pulldown.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+          {
+            id: '3c91f53b-a701-4825-b62b-6a7961f23f65',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: '9342d4d1-6a20-4e5e-abdd-b98878a696e9',
+                exercice_id: leg_curls.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+          {
+            id: '9017f08b-fc1d-4c9a-ba25-ff8c7054b8e2',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: '092b8bdd-7a12-470d-85f5-0ac5ef2f63a2',
+                exercice_id: split_squats.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              },
+              {
+                id: '2fd430a3-a20e-4e75-a8ce-869f27fbda79',
+                exercice_id: leg_extensions.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+          {
+            id: '9b14193f-4ef6-453a-96b8-e90be2f140e3',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: '44cac3c7-9bc5-4bb5-a4f5-41f544d6c53a',
+                exercice_id: dumbbel_fly_press.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              },
+              {
+                id: 'f2524822-6f41-4eb4-9639-edd99e3a8e8f',
+                exercice_id: cable_flies.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+          {
+            id: 'd556eb03-f804-41ca-8c1a-c9e6f3f28f6b',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: '148d51bb-a323-4743-b516-ed6155d1fcf7',
+                exercice_id: neck_curl.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              },
+              {
+                id: 'a9b5da41-bcc9-4a6d-b945-06dfb07bc972',
+                exercice_id: neck_extension.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+        ]
+      }
     ],
   }]
 }

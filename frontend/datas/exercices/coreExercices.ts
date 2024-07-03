@@ -166,6 +166,138 @@ export const cannonball_crunches: Exercice = {
   tag_ids: []
 }
 
+export const barbell_overhead_press: Exercice = {
+  id: '8104bef4-f0c5-4cf2-8713-b31641d94b82',
+  name: 'Développé militaire barre',
+  primary_muscle: MusclesEnum.Shoulders,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const dumbbell_overhead_press: Exercice = {
+  id: 'f410a49c-5257-4c48-a05c-7d5e5d6c0420',
+  name: 'Développé militaire haltères',
+  primary_muscle: MusclesEnum.Shoulders,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+
+export const hammer_curl: Exercice = {
+  id: '1616fbb6-9a45-4b59-8836-44dc8e1bcce7',
+  name: 'Curl marteau',
+  primary_muscle: MusclesEnum.Biceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const barbell_reverse_curl: Exercice = {
+  id: '357b9e06-efa9-426b-8528-cc1c2a1e0f28',
+  name: 'Curl inversé barre',
+  primary_muscle: MusclesEnum.Biceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const neutral_ups: Exercice = {
+  id: '35f52c80-2879-41f0-94a2-4a1fe51d63d6',
+  name: 'Tractions prise serrée',
+  primary_muscle: MusclesEnum.Back,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const neutral_grip_lat_pulldown: Exercice = {
+  id: 'edb40bb6-f02c-4147-b67c-1d21b982c8d5',
+  name: 'Tirage poulie prise serrée',
+  primary_muscle: MusclesEnum.Back,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const leg_curls: Exercice = {
+  id: 'f87e7ace-1c89-42f3-b24b-36b1ca4e4d3d',
+  name: 'Curl jambes',
+  primary_muscle: MusclesEnum.Hamstrings,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const split_squats: Exercice = {
+  id: 'fc05b12f-d628-4bfa-9f6a-06a939068ae7',
+  name: 'Split squat',
+  primary_muscle: MusclesEnum.Quads,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const leg_extensions: Exercice = {
+  id: '25b83329-5d18-446d-b2ef-15e27886c071',
+  name: 'Leg extensions',
+  primary_muscle: MusclesEnum.Quads,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const dumbbel_fly_press: Exercice = {
+  id: '1d836b06-d22f-4fb8-9b9d-81399ffd9e5b',
+  name: 'Développé écarté haltères',
+  primary_muscle: MusclesEnum.Chest,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const cable_flies: Exercice = {
+  id: '15e7c6ac-3821-4191-887b-c3a2dbbf0083',
+  name: 'Ecarté poulie',
+  primary_muscle: MusclesEnum.Chest,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const neck_curl: Exercice = {
+  id: '3511fbc7-fc46-468a-8645-e3bd1d83cb6a',
+  name: 'Curl du cou',
+  primary_muscle: MusclesEnum.Neck,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const neck_extension: Exercice = {
+  id: '7a610dfb-8e77-488a-bade-9b2e983bbe90',
+  name: 'Extension du cou',
+  primary_muscle: MusclesEnum.Neck,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+
 export default [
   low_bar_squat,
   high_bar_squat,
@@ -181,5 +313,18 @@ export default [
   cable_lateral_raises,
   powel_raises,
   sit_ups,
-  cannonball_crunches
+  cannonball_crunches,
+  barbell_overhead_press,
+  dumbbell_overhead_press,
+  hammer_curl,
+  barbell_reverse_curl,
+  neutral_ups,
+  neutral_grip_lat_pulldown,
+  leg_curls,
+  split_squats,
+  leg_extensions,
+  dumbbel_fly_press,
+  cable_flies,
+  neck_curl,
+  neck_extension
 ]
