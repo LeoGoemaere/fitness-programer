@@ -2,47 +2,23 @@ import type { ProgramVariation } from "~/types/Program.interface";
 import { SetTypeEnum } from "~/types/SetTypeEnum";
 
 export const BBBVariation: ProgramVariation = {
-  id: crypto.randomUUID(),
+  id: '7d1a3cf4-1513-4139-9009-d310f7d5f876',
   name: 'Boring But Big',
   description: 'La variation Boring But Big du programme 531',
   templates: [
     {
-      id: crypto.randomUUID(),
+      id: '21182e7f-df85-43cd-a2c9-611481751cc5',
       name: 'Template light',
-      description: 'Le template light du Boring But Big',
+      description: null,
       weeks: [
         {
-          id: crypto.randomUUID(),
+          id: '6d46c8f2-9faa-4460-b64b-71ed5d606a2d',
           name: 'Semaine 1',
           trainings: [
             {
-              id: crypto.randomUUID(),
-              name: 'Lundi',
-              training_exercices: [
-                {
-                  id: crypto.randomUUID(),
-                  exercice_id: undefined,
-                  alternative_exercice_ids: [],
-                  superset_exercice_ids: [],
-                  is_done: false,
-                  sets: [
-                    {
-                      id: crypto.randomUUID(),
-                      type: SetTypeEnum.Custom,
-                      repetitions: 5,
-                      weight: 50,
-                      exercice_max_weight_percentage: 0.6, // Si renseigné alors le poids sera calculé avec le tm de l'exercice
-                      personal_record: false,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: crypto.randomUUID(),
-                        type: 'label',
-                        value: 'Coucou'
-                      }
-                    }
-                  ]
-                }
-              ]
+              id: '7f6bb6ad-2e9c-4e89-9080-ed020fe680f2',
+              name: 'Training 1',
+              training_exercices: []
             }
           ]
         }

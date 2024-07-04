@@ -56,6 +56,7 @@ onMounted(() => {
 
 .header__right {
   text-align: right;
+  font-size: 14px;
 }
 
 .header__info {

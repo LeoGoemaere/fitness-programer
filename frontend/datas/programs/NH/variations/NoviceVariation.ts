@@ -2,28 +2,41 @@ import {
   EZ_curl,
   barbell_overhead_press,
   barbell_reverse_curl,
-  bench,
+  barbell_row,
+  bayesian_curls,
+  bench_press,
   cable_flies,
   cable_lateral_raises,
   cannonball_crunches,
   dips, dumbbel_fly_press,
   dumbbell_curl,
   dumbbell_overhead_press,
+  dumbbell_preacher_curls,
   dumbbell_row,
+  french_press,
   hack_squat,
   hammer_curl,
+  hanging_knee_raises,
+  incline_press,
   katana_triceps_extension,
   leg_curls,
   leg_extensions,
+  leg_press,
+  leg_raises,
   low_bar_squat,
   neck_curl,
   neck_extension,
   neutral_grip_lat_pulldown,
   neutral_ups,
   powel_raises,
+  ring_push_ups,
+  romanian_deadlift,
   rope_triceps_extension,
   seated_cable_row,
+  seated_calf_raise,
   sit_ups,
+  skull_crushers,
+  smith_machine_squats,
   split_squats
 } from "~/datas/exercices/coreExercices";
 import { DisplayableSetInformationTypeEnum } from "~/types/DisplayableSetInformationTypeEnum";
@@ -45,7 +58,6 @@ const noviceTemplate: ProgramTemplate = {
         training_exercices: [
           {
             id: '50bc9c65-9870-4348-83a4-89a1378a3668',
-            exercice_id: '',
             is_done: false,
             sets: [],
             recommended_training_exercices: [
@@ -141,7 +153,6 @@ const noviceTemplate: ProgramTemplate = {
           },
           {
             id: '12bc0e71-f31a-4cb9-a536-60b611db7f2b',
-            exercice_id: '',
             is_done: false,
             sets: [],
             recommended_training_exercices: [
@@ -286,7 +297,7 @@ const noviceTemplate: ProgramTemplate = {
               },
               {
                 id: 'e3e9e023-8e97-4c13-ba5e-ebd3df0b5bdf',
-                exercice_id: bench.id,
+                exercice_id: bench_press.id,
                 is_done: false,
                 recommended_training_exercices: [],
                 sets: [
@@ -850,6 +861,152 @@ const noviceTemplate: ProgramTemplate = {
               {
                 id: 'a9b5da41-bcc9-4a6d-b945-06dfb07bc972',
                 exercice_id: neck_extension.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+        ]
+      },
+      {
+        id: '06d4597f-3180-4b84-99d3-4f045e703d5d',
+        name: 'Vendredi',
+        training_exercices: [
+          {
+            id: 'c3a0ee8e-c8c5-4c5c-bc67-fc2b335abe66',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: '5f6d98bc-5a9e-4955-9a38-5d9be72ffc10',
+                exercice_id: romanian_deadlift.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              },
+              {
+                id: 'c569a98e-0d31-464a-bd83-659c1beab67d',
+                exercice_id: barbell_row.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+          {
+            id: '050f3b1c-2bf0-4160-a317-24bfcbc9e5f3',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: '5a014128-536f-428d-ae42-eebb16045ce1',
+                exercice_id: seated_calf_raise.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+          {
+            id: '4dda926f-0ecb-4127-ac66-8d744980fc4d',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: 'b5744229-2903-40c5-a87a-a9935cfc5944',
+                exercice_id: incline_press.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              },
+              {
+                id: '6968ad2e-0da9-475f-ad7f-7eb92bc5118c',
+                exercice_id: ring_push_ups.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+          {
+            id: '8b02489d-e7b4-4f4f-b542-bf5a665a321f',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: '40b2e176-7fc9-4f60-9b93-980ea75a9134',
+                exercice_id: dumbbell_preacher_curls.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              },
+              {
+                id: '6c2601ac-a985-43fa-a002-60047b3fb812',
+                exercice_id: bayesian_curls.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+          {
+            id: 'b3f5fde2-f576-439f-bdc6-d8b23e080045',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: '6a31a5b1-f839-4c28-89c1-f90a48addc8b',
+                exercice_id: leg_press.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              },
+              {
+                id: 'a2bcdd25-791d-4186-86f8-af1737b010f3',
+                exercice_id: smith_machine_squats.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+          {
+            id: 'f2987426-b702-4dbd-a534-9d135486edac',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: '1d17b050-acbe-4702-ac4c-1531aea24676',
+                exercice_id: skull_crushers.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              },
+              {
+                id: 'a050d2e6-d9d3-4450-a3e1-589354a60c73',
+                exercice_id: french_press.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              }
+            ],
+          },
+          {
+            id: 'dff2bf56-e932-4d98-9dfa-728281c878d8',
+            is_done: false,
+            sets: [],
+            recommended_training_exercices: [
+              {
+                id: '93ab3ff6-4f9a-4cdd-8e5a-c4fdd41826e8',
+                exercice_id: hanging_knee_raises.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [/** TODO */],
+              },
+              {
+                id: '6f0af189-035f-479b-b86d-904efd836744',
+                exercice_id: leg_raises.id,
                 is_done: false,
                 recommended_training_exercices: [],
                 sets: [/** TODO */],

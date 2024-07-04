@@ -67,7 +67,7 @@ export const dips: Exercice = {
   tag_ids: []
 }
 
-export const bench: Exercice = {
+export const bench_press: Exercice = {
   id: '196e4bc8-b9ef-42e2-80ed-5155541598a3',
   name: 'Développé couché',
   primary_muscle: MusclesEnum.Chest,
@@ -297,6 +297,146 @@ export const neck_extension: Exercice = {
   reference_max_progression: MaxType.tm,
   tag_ids: []
 }
+export const romanian_deadlift: Exercice = {
+  id: 'f12f815f-09f9-4478-99f4-06ffab8f46b7',
+  name: 'Soulevé de terre roumain',
+  primary_muscle: MusclesEnum.Lumbars,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const sumo_deadlift: Exercice = {
+  id: '81a5541a-4e5c-4a1d-9649-a0112e0f37ca',
+  name: 'Soulevé de terre sumo',
+  primary_muscle: MusclesEnum.Hamstrings,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const barbell_row: Exercice = {
+  id: 'd8233f20-6fc3-41bb-a628-ba67250c0d6b',
+  name: 'Rowing barre',
+  primary_muscle: MusclesEnum.Back,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const seated_calf_raise: Exercice = {
+  id: '7443c04d-edf8-4ba7-bf4e-a689edc77fc4',
+  name: 'Mollets assis à la machine',
+  primary_muscle: MusclesEnum.Calves,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const incline_press: Exercice = {
+  id: '4989e583-944d-4123-b0bd-698cde704ffd',
+  name: 'Développé incliné barre',
+  primary_muscle: MusclesEnum.Chest,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const ring_push_ups: Exercice = {
+  id: '90054a70-70f0-47aa-9544-398fedf4b502',
+  name: 'Pompes sur anneaux',
+  primary_muscle: MusclesEnum.Chest,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const dumbbell_preacher_curls: Exercice = {
+  id: '3ca4e5ed-a657-43d6-933c-40a3a3c2cf3e',
+  name: 'Curl pupitre haltères',
+  primary_muscle: MusclesEnum.Biceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const bayesian_curls: Exercice = {
+  id: '1fcfdd27-512c-410e-9065-2a789ed96658',
+  name: 'Bayesian curl',
+  primary_muscle: MusclesEnum.Biceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const leg_press: Exercice = {
+  id: '5e42e81a-9dff-4c80-8657-680795a5e1f0',
+  name: 'Presse jambes',
+  primary_muscle: MusclesEnum.Quads,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const smith_machine_squats: Exercice = {
+  id: 'b47e089f-9ad6-48fd-8e28-a06953af652f',
+  name: 'Squats smith machine',
+  primary_muscle: MusclesEnum.Quads,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const skull_crushers: Exercice = {
+  id: 'b6bef058-0c22-40ee-b028-0ff2d62f0404',
+  name: 'Skullcrusher',
+  primary_muscle: MusclesEnum.Triceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const french_press: Exercice = {
+  id: '7b97cbee-bf7c-48ba-82a8-b2141cce7a66',
+  name: 'French press',
+  primary_muscle: MusclesEnum.Triceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const hanging_knee_raises: Exercice = {
+  id: 'fce2dde7-336d-462a-8d61-19d951640b5d',
+  name: 'Relevé de jambes pliées suspendu',
+  primary_muscle: MusclesEnum.Abs,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const leg_raises: Exercice = {
+  id: '2cf86174-2c4d-400a-8042-28898ccb1278',
+  name: 'Relevé de jambes',
+  primary_muscle: MusclesEnum.Abs,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
 
 export default [
   low_bar_squat,
@@ -305,7 +445,7 @@ export default [
   EZ_curl,
   dumbbell_curl,
   dips,
-  bench,
+  bench_press,
   dumbbell_row,
   seated_cable_row,
   rope_triceps_extension,
@@ -326,5 +466,19 @@ export default [
   dumbbel_fly_press,
   cable_flies,
   neck_curl,
-  neck_extension
+  neck_extension,
+  romanian_deadlift,
+  sumo_deadlift,
+  barbell_row,
+  seated_calf_raise,
+  incline_press,
+  ring_push_ups,
+  dumbbell_preacher_curls,
+  bayesian_curls,
+  leg_press,
+  smith_machine_squats,
+  skull_crushers,
+  french_press,
+  hanging_knee_raises,
+  leg_raises
 ]
