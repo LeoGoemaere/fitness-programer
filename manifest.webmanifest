@@ -1,1 +1,1 @@
-{"name":"Fitness Programmer App","short_name":"nuxt-app","start_url":"/fitness-programer/","display":"standalone","background_color":"#ffffff","lang":"en","scope":"/fitness-programer/","icons":[{"src":"~/assets/images/appIcons/512.png","type":"image/png","sizes":"512x512"}]}
+{"name":"Fitness Programmer App","short_name":"nuxt-app","start_url":"/fitness-programer/","display":"standalone","background_color":"#ffffff","lang":"en","scope":"/fitness-programer/"}
