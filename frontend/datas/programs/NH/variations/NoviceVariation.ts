@@ -60,57 +60,59 @@ const noviceTemplate: ProgramTemplate = {
             id: '50bc9c65-9870-4348-83a4-89a1378a3668',
             is_done: false,
             sets: [],
+            default_sets: [
+              {
+                id: 'a7bdce86-a838-4bb4-8a11-bf96fe425023',
+                is_done: false,
+                personal_record: false,
+                repetitions: '4-8',
+                type: SetTypeEnum.Custom,
+                displayable_set_information: {
+                  id: 'd17be9e5-7749-41bf-ba59-7c3f91ef6876',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                },
+              },
+              {
+                id: 'ce647efc-871c-4800-a954-24df184d866b',
+                is_done: false,
+                personal_record: false,
+                repetitions: '4-8',
+                type: SetTypeEnum.Custom,
+                displayable_set_information: {
+                  id: 'b47acbbf-019c-452b-b4eb-b076878ca3ce',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                },
+              },
+              {
+                id: 'fb079d75-ef4b-4bc4-905b-ce2f34260ccb',
+                is_done: false,
+                personal_record: false,
+                repetitions: '4-8',
+                type: SetTypeEnum.Custom,
+                displayable_set_information: {
+                  id: 'e9391813-db17-42cd-b86a-ac0dcb83a1c6',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                },
+              }
+            ],
             recommended_training_exercices: [
               {
                 id: '506bb22b-1cd7-4e77-9c18-8a12b47ad6d6',
                 exercice_id: low_bar_squat.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [
-                  {
-                    id: '2a130029-5ba5-4534-90ab-58f828ccd342',
-                    is_done: false,
-                    personal_record: false,
-                    repetitions: '4-8',
-                    type: SetTypeEnum.Custom,
-                    displayable_set_information: {
-                      id: '48bf8377-76e4-44b3-901c-d37c16622d57',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    },
-                  },
-                  {
-                    id: 'd18860c4-df9a-43b6-8995-c76ebe248704',
-                    is_done: false,
-                    personal_record: false,
-                    repetitions: '4-8',
-                    type: SetTypeEnum.Custom,
-                    displayable_set_information: {
-                      id: '9edc0a17-d2cb-4de0-bbb7-5d7c5eb2d881',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    },
-                  },
-                  {
-                    id: '8c40f807-e8cb-4a64-b491-84a2a7d45dcf',
-                    is_done: false,
-                    personal_record: false,
-                    repetitions: '4-8',
-                    type: SetTypeEnum.Custom,
-                    displayable_set_information: {
-                      id: 'aeec1c1d-a41f-4b03-947f-11dc82d94acb',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    },
-                  }
-                ],
+                sets: [],
               },
               {
                 id: '9dff3c1b-bee9-4bc2-96e4-af5d9c6c3b8e',
                 exercice_id: hack_squat.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [
+                sets: [],
+                default_sets: [
                   {
                     id: '23ec2ade-16b0-45ff-81dd-e0a475598f75',
                     is_done: false,
@@ -155,57 +157,59 @@ const noviceTemplate: ProgramTemplate = {
             id: '12bc0e71-f31a-4cb9-a536-60b611db7f2b',
             is_done: false,
             sets: [],
+            default_sets: [
+              {
+                id: 'e2d3ca9c-a068-44f9-9c4c-95f0149d66f1',
+                type: SetTypeEnum.Custom,
+                repetitions: '6-8',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '9a7f2684-d2ba-4d89-9628-e6be9f0d05f3',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '01b91c1b-f062-46d0-85f1-2d54a9878073',
+                type: SetTypeEnum.Custom,
+                repetitions: '6-8',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: 'a3387c21-76d1-4b58-94cf-e830aa797d4e',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '5e417980-d996-4bf4-befd-8f836ab3793c',
+                type: SetTypeEnum.Custom,
+                repetitions: '6-8',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: 'a25b38fe-f276-4eae-9645-129b06002dd2',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              }
+            ],
             recommended_training_exercices: [
               {
                 id: '6a4ec77e-57d2-4e1a-b799-5ca396d6a373',
                 exercice_id: EZ_curl.id,
                 recommended_training_exercices: [],
                 is_done: false,
-                sets: [
-                  {
-                    id: 'e2d3ca9c-a068-44f9-9c4c-95f0149d66f1',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '6-8',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '9a7f2684-d2ba-4d89-9628-e6be9f0d05f3',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: '01b91c1b-f062-46d0-85f1-2d54a9878073',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '6-8',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: 'a3387c21-76d1-4b58-94cf-e830aa797d4e',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: '5e417980-d996-4bf4-befd-8f836ab3793c',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '6-8',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: 'a25b38fe-f276-4eae-9645-129b06002dd2',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  }
-                ]
+                sets: [],
               },
               {
                 id: '0041eec7-aef7-4ba0-858a-7633caf52194',
                 exercice_id: dumbbell_curl.id,
                 recommended_training_exercices: [],
                 is_done: false,
-                sets: [
+                sets: [],
+                default_sets: [
                   {
                     id: 'b5c3ca83-aa25-4484-a61e-5a92f2a08fd7',
                     type: SetTypeEnum.Custom,
@@ -250,94 +254,58 @@ const noviceTemplate: ProgramTemplate = {
             id: 'f8d2b5da-2064-4aeb-b5c8-f9de4049f946',
             is_done: false,
             sets: [],
+            default_sets: [
+              {
+                id: '4b6e727e-5618-498e-915e-385101aedbde',
+                type: SetTypeEnum.Custom,
+                repetitions: '6-8',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '65a5acf2-da96-44a2-bb00-5754c6162c58',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: 'd043c2ca-b3c3-41bf-8197-c7b636d94cfc',
+                type: SetTypeEnum.Custom,
+                repetitions: '6-8',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '6ccd2544-d8b2-4daa-a00e-159895d77204',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: 'fb16b85e-49ef-4c6c-bf1d-65f67b4c6eca',
+                type: SetTypeEnum.Custom,
+                repetitions: '6-8',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: 'eb3b8deb-711f-45e6-b217-0d0900758585',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              }
+            ],
             recommended_training_exercices: [
               {
                 id: 'f21f9daa-70a5-4ec7-b42e-f3325ff6d5de',
                 exercice_id: dips.id,
                 recommended_training_exercices: [],
                 is_done: false,
-                sets: [
-                  {
-                    id: 'ca482163-bc91-4e4e-9683-6ee6a364c199',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '6-8',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: 'bfe19cf7-6515-4267-a0d6-9a484c417f22',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: 'f38619a7-5c76-42fa-b656-7f35aafecedd',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '6-8',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '82085d48-9c05-4ec3-a259-78db1b76f0e6',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: 'f32113cc-c0d9-48d9-9932-3ca59a1b6c51',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '6-8',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '90dc3181-7737-4095-8161-6696a5f527f7',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  }
-                ]
+                sets: [],
               },
               {
                 id: 'e3e9e023-8e97-4c13-ba5e-ebd3df0b5bdf',
                 exercice_id: bench_press.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [
-                  {
-                    id: '4b6e727e-5618-498e-915e-385101aedbde',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '6-8',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '65a5acf2-da96-44a2-bb00-5754c6162c58',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: 'd043c2ca-b3c3-41bf-8197-c7b636d94cfc',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '6-8',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '6ccd2544-d8b2-4daa-a00e-159895d77204',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: 'fb16b85e-49ef-4c6c-bf1d-65f67b4c6eca',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '6-8',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: 'eb3b8deb-711f-45e6-b217-0d0900758585',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  }
-                ]
+                sets: [],
               }
             ],
           },
@@ -345,57 +313,59 @@ const noviceTemplate: ProgramTemplate = {
             id: 'e2329a96-253a-4c85-9082-57dd47d8ec29',
             is_done: false,
             sets: [],
+            default_sets: [
+              {
+                id: '73c2208d-b3c6-4d6a-8523-018b54ea3807',
+                type: SetTypeEnum.Custom,
+                repetitions: '8-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '2bb6a623-2401-4959-bef6-c3064561c875',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '8659660d-2daf-45d3-8cf8-458109377561',
+                type: SetTypeEnum.Custom,
+                repetitions: '8-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: 'b06c335c-efdf-46d5-8b98-da97692c95c8',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '84c9b4ef-e8a2-4319-961c-a01140690f65',
+                type: SetTypeEnum.Custom,
+                repetitions: '8-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: 'eb0429bc-b4a0-4ab6-b7f8-65da5ba5b5c7',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              }
+            ],
             recommended_training_exercices: [
               {
                 id: '7b739bbb-94a6-4fbf-8823-4c22791532e7',
                 exercice_id: dumbbell_row.id,
                 recommended_training_exercices: [],
                 is_done: false,
-                sets: [
-                  {
-                    id: '73c2208d-b3c6-4d6a-8523-018b54ea3807',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '8-12',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '2bb6a623-2401-4959-bef6-c3064561c875',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: '8659660d-2daf-45d3-8cf8-458109377561',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '8-12',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: 'b06c335c-efdf-46d5-8b98-da97692c95c8',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: '84c9b4ef-e8a2-4319-961c-a01140690f65',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '8-12',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: 'eb0429bc-b4a0-4ab6-b7f8-65da5ba5b5c7',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  }
-                ]
+                sets: [],
               },
               {
                 id: '238bdd28-76f1-494c-8110-95ef19153745',
                 exercice_id: seated_cable_row.id,
                 recommended_training_exercices: [],
                 is_done: false,
-                sets: [
+                sets: [],
+                default_sets: [
                   {
                     id: '33494645-cbeb-4556-9dba-dedcacc787aa',
                     type: SetTypeEnum.Custom,
@@ -440,57 +410,59 @@ const noviceTemplate: ProgramTemplate = {
             id: 'e74a285a-1e27-4d3d-9116-c6501768d54a',
             is_done: false,
             sets: [],
+            default_sets: [
+              {
+                id: 'debd0b71-df58-4391-b83d-32d14e4f65ff',
+                type: SetTypeEnum.Custom,
+                repetitions: '10-15',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '80144aca-4a81-4a0c-a294-0d0aa0a7452c',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '578bb093-c80e-4c4c-8208-21feec845067',
+                type: SetTypeEnum.Custom,
+                repetitions: '10-15',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '3283f9c4-c8af-4db0-9e2f-278f5f69e569',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '86ce938d-0e2d-4059-a31d-1743b7028d37',
+                type: SetTypeEnum.Custom,
+                repetitions: '10-15',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '6ea8624c-68ba-415f-852a-26ff430f6427',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              }
+            ],
             recommended_training_exercices: [
               {
                 id: '627e7929-4431-44ec-a3d6-fa4295fc122c',
                 exercice_id: rope_triceps_extension.id,
                 recommended_training_exercices: [],
                 is_done: false,
-                sets: [
-                  {
-                    id: 'debd0b71-df58-4391-b83d-32d14e4f65ff',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '10-15',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '80144aca-4a81-4a0c-a294-0d0aa0a7452c',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: '578bb093-c80e-4c4c-8208-21feec845067',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '10-15',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '3283f9c4-c8af-4db0-9e2f-278f5f69e569',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: '86ce938d-0e2d-4059-a31d-1743b7028d37',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '10-15',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '6ea8624c-68ba-415f-852a-26ff430f6427',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  }
-                ]
+                sets: [],
               },
               {
                 id: 'e51a5dce-9eaa-409b-b9f2-0fbab07290dd',
                 exercice_id: katana_triceps_extension.id,
                 recommended_training_exercices: [],
                 is_done: false,
-                sets: [
+                sets: [],
+                default_sets: [
                   {
                     id: 'feb3b754-72b3-4d15-b647-d4f1c7df9c09',
                     type: SetTypeEnum.Custom,
@@ -535,57 +507,59 @@ const noviceTemplate: ProgramTemplate = {
             id: 'df01e451-f95b-4acf-9a47-df9b51430919',
             is_done: false,
             sets: [],
+            default_sets: [
+              {
+                id: 'afa41d95-6373-4daf-83d0-fb08d8227e01',
+                type: SetTypeEnum.Custom,
+                repetitions: '10-15',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '95de7725-cdb6-4391-9277-82802d51f6c3',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '305010fa-70bd-4226-a80e-b260b226257e',
+                type: SetTypeEnum.Custom,
+                repetitions: '10-15',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '6230de98-f80d-4da8-8a43-7a4db6774d50',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '7d710e05-c279-433e-809e-7ceeee6a713c',
+                type: SetTypeEnum.Custom,
+                repetitions: '10-15',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '137b7580-7a99-44b0-9c4c-98a99c6373d0',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              }
+            ],
             recommended_training_exercices: [
               {
                 id: '903ed6b7-b1af-47f5-ba5d-6d3ccd2b2e9f',
                 exercice_id: cable_lateral_raises.id,
                 recommended_training_exercices: [],
                 is_done: false,
-                sets: [
-                  {
-                    id: 'afa41d95-6373-4daf-83d0-fb08d8227e01',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '10-15',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '95de7725-cdb6-4391-9277-82802d51f6c3',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: '305010fa-70bd-4226-a80e-b260b226257e',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '10-15',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '6230de98-f80d-4da8-8a43-7a4db6774d50',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: '7d710e05-c279-433e-809e-7ceeee6a713c',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '10-15',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '137b7580-7a99-44b0-9c4c-98a99c6373d0',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  }
-                ]
+                sets: [],
               },
               {
                 id: 'd67a2967-fcd5-4034-b453-9b515d7cf90d',
                 exercice_id: powel_raises.id,
                 recommended_training_exercices: [],
                 is_done: false,
-                sets: [
+                sets: [],
+                default_sets: [
                   {
                     id: '2ae1c1ee-691e-4ada-8083-0b87fecf1637',
                     type: SetTypeEnum.Custom,
@@ -630,57 +604,59 @@ const noviceTemplate: ProgramTemplate = {
             id: '8c463ee8-5afa-4ea6-8859-edec226d492c',
             is_done: false,
             sets: [],
+            default_sets: [
+              {
+                id: 'be003b6f-09e8-41be-8b4d-daddd3dca909',
+                type: SetTypeEnum.Custom,
+                repetitions: '10-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '1eecdcfb-c64e-425c-9f69-57001c4cc7aa',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '34977c23-5adf-4581-9998-1035ea0b0bc8',
+                type: SetTypeEnum.Custom,
+                repetitions: '10-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: 'b0f57cab-b68c-44de-a1e1-8c4fb1a45845',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '6fbea833-5e04-4bb4-9133-04d80c308d69',
+                type: SetTypeEnum.Custom,
+                repetitions: '10-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '854877e4-cece-44c4-ba2b-9b7522752010',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              }
+            ],
             recommended_training_exercices: [
               {
                 id: '77dd8ec5-f971-4ef7-b95d-4240128cd222',
                 exercice_id: sit_ups.id,
                 recommended_training_exercices: [],
                 is_done: false,
-                sets: [
-                  {
-                    id: 'be003b6f-09e8-41be-8b4d-daddd3dca909',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '10-12',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '1eecdcfb-c64e-425c-9f69-57001c4cc7aa',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: '34977c23-5adf-4581-9998-1035ea0b0bc8',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '10-12',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: 'b0f57cab-b68c-44de-a1e1-8c4fb1a45845',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  },
-                  {
-                    id: '6fbea833-5e04-4bb4-9133-04d80c308d69',
-                    type: SetTypeEnum.Custom,
-                    repetitions: '10-12',
-                    personal_record: false,
-                    is_done: false,
-                    displayable_set_information: {
-                      id: '854877e4-cece-44c4-ba2b-9b7522752010',
-                      type: DisplayableSetInformationTypeEnum.Label,
-                      value: null
-                    }
-                  }
-                ]
+                sets: [],
               },
               {
                 id: '36dd8095-8e0d-40f9-8633-79cbdf8c2c61',
                 exercice_id: cannonball_crunches.id,
                 recommended_training_exercices: [],
                 is_done: false,
-                sets: [
+                sets: [],
+                default_sets: [
                   {
                     id: 'ac82bd44-9e20-4c77-8e78-0e82d46690b5',
                     type: SetTypeEnum.Custom,
@@ -731,20 +707,96 @@ const noviceTemplate: ProgramTemplate = {
             id: 'fe0b2023-b9b5-4b40-9a9d-48079039bed3',
             is_done: false,
             sets: [],
-            recommended_training_exercices: [
+            default_sets: [
               {
-                id: '6ee1d9dd-066c-40b3-ad8a-b45c4686ae09',
-                exercice_id: barbell_overhead_press.id,
+                id: 'f0835548-322a-483b-a172-de96fd9e8921',
+                type: SetTypeEnum.Custom,
+                repetitions: '8-12',
+                personal_record: false,
                 is_done: false,
-                recommended_training_exercices: [],
-                sets: [/** TODO */],
+                displayable_set_information: {
+                  id: 'a235b5e8-de62-4cd7-b9a3-968a67e012b8',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
               },
+              {
+                id: '66b99748-eb5c-45e1-ae25-3e86b6930afd',
+                type: SetTypeEnum.Custom,
+                repetitions: '8-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '62ce90d6-20b7-4056-8e9b-366d63cb6b05',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '27811ad9-252f-4add-830d-96315d9ece1a',
+                type: SetTypeEnum.Custom,
+                repetitions: '8-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '4b6fa3be-cb64-466a-a67b-0777ed747906',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              }
+            ],
+            recommended_training_exercices: [
               {
                 id: 'b7e01025-66e3-49c7-8b60-c09cecaef561',
                 exercice_id: dumbbell_overhead_press.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [/** TODO */],
+                sets: [],
+              },
+              {
+                id: '6ee1d9dd-066c-40b3-ad8a-b45c4686ae09',
+                exercice_id: barbell_overhead_press.id,
+                is_done: false,
+                recommended_training_exercices: [],
+                sets: [],
+                default_sets: [
+                  {
+                    id: 'c2ed5199-14a6-458a-a0fe-f3f3aa5fe025',
+                    type: SetTypeEnum.Custom,
+                    repetitions: '6-10',
+                    personal_record: false,
+                    is_done: false,
+                    displayable_set_information: {
+                      id: 'aaf3f833-dd0c-461f-9660-faf4dac45a24',
+                      type: DisplayableSetInformationTypeEnum.Label,
+                      value: null
+                    }
+                  },
+                  {
+                    id: 'b152c4f1-422d-4d43-8312-b542b59ad5ac',
+                    type: SetTypeEnum.Custom,
+                    repetitions: '6-10',
+                    personal_record: false,
+                    is_done: false,
+                    displayable_set_information: {
+                      id: '98ba9fd2-8ec5-49d1-b8b0-d1787c3985c7',
+                      type: DisplayableSetInformationTypeEnum.Label,
+                      value: null
+                    }
+                  },
+                  {
+                    id: 'a013065b-39ff-447a-a81b-e03bf2cbdba8',
+                    type: SetTypeEnum.Custom,
+                    repetitions: '6-10',
+                    personal_record: false,
+                    is_done: false,
+                    displayable_set_information: {
+                      id: 'ee42fcd3-3d82-4fab-ae12-73ab10f4d877',
+                      type: DisplayableSetInformationTypeEnum.Label,
+                      value: null
+                    }
+                  }
+                ]
               }
             ],
           },
@@ -752,41 +804,155 @@ const noviceTemplate: ProgramTemplate = {
             id: '7f3fb862-3144-4f38-8fc4-7147b07ed5cc',
             is_done: false,
             sets: [],
+            default_sets: [
+              {
+                id: '8df4a69c-fd2d-4fac-abe6-9506e080f902',
+                type: SetTypeEnum.Custom,
+                repetitions: '6-10',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '7ecf234b-97bd-442d-9106-06b85e1dfae5',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '808de6fd-9707-4fa5-90ce-799522baacb2',
+                type: SetTypeEnum.Custom,
+                repetitions: '6-10',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '2dc2737d-1969-45be-9220-4383cd6cec19',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '775e8563-3fba-49af-8c61-d35b1cd6d3cd',
+                type: SetTypeEnum.Custom,
+                repetitions: '6-10',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '5d06bcdd-ed2c-4953-b6df-b2155b5d23be',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              }
+            ],
             recommended_training_exercices: [
               {
                 id: '2073fded-7163-4f0a-9306-e060c9a0f788',
                 exercice_id: hammer_curl.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [/** TODO */],
+                sets: [],
               },
               {
                 id: '61938f43-95b3-4396-a4bf-f8a154ecd437',
                 exercice_id: barbell_reverse_curl.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [/** TODO */],
+                sets: [],
               }
             ],
           },
           {
-            id: '4362c3fd-9989-42d0-aa56-ec60d737ba11',
+            id: '727cdaf3-5cb2-4442-bc86-3213c9e7a600',
             is_done: false,
             sets: [],
+            default_sets: [
+              {
+                id: '2ce7bfbe-bed7-4b94-9c9e-fd4d7ab7814b',
+                type: SetTypeEnum.Custom,
+                repetitions: '8-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '75247585-2856-49fb-b526-55a0f689646b',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '09c2811e-3b37-44ad-ae5f-99b8b056c6f3',
+                type: SetTypeEnum.Custom,
+                repetitions: '8-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '223f7552-1cc0-4d32-a52e-43953d0f1fcf',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: 'b438805e-a334-45bd-91e4-c602835ddb46',
+                type: SetTypeEnum.Custom,
+                repetitions: '8-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '1ad2898e-c328-4e94-b27d-81c3b6a6c400',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              }
+            ],
             recommended_training_exercices: [
               {
-                id: '722e4a80-87d3-47de-8acb-2868691646ac',
+                id: '7629afc4-4566-43c3-b470-52e2bdb13e38',
                 exercice_id: neutral_ups.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [/** TODO */],
+                sets: [],
+                default_sets: [
+                  {
+                    id: '29b3935c-f8f0-4331-be25-bcf0fe7003de',
+                    type: SetTypeEnum.Custom,
+                    repetitions: '4-6',
+                    personal_record: false,
+                    is_done: false,
+                    displayable_set_information: {
+                      id: '773c538f-366f-45ef-b2e4-acfa892dec46',
+                      type: DisplayableSetInformationTypeEnum.Label,
+                      value: null
+                    }
+                  },
+                  {
+                    id: '808d6edc-0555-4bf1-a04e-48158a5b4cf6',
+                    type: SetTypeEnum.Custom,
+                    repetitions: '4-6',
+                    personal_record: false,
+                    is_done: false,
+                    displayable_set_information: {
+                      id: '131e7799-8ed3-4520-9371-52316d8c13b2',
+                      type: DisplayableSetInformationTypeEnum.Label,
+                      value: null
+                    }
+                  },
+                  {
+                    id: 'da6fa123-ceaa-4ac0-b272-a7776b1637ce',
+                    type: SetTypeEnum.Custom,
+                    repetitions: '4-6',
+                    personal_record: false,
+                    is_done: false,
+                    displayable_set_information: {
+                      id: '2955bcd8-1bc0-4e01-b467-4a27282b9ee3',
+                      type: DisplayableSetInformationTypeEnum.Label,
+                      value: null
+                    }
+                  }
+                ]
               },
               {
                 id: '8116f1d3-66ee-4b29-aaf3-be1fe9f3b404',
                 exercice_id: neutral_grip_lat_pulldown.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [/** TODO */],
+                sets: [],
               }
             ],
           },
@@ -794,13 +960,51 @@ const noviceTemplate: ProgramTemplate = {
             id: '3c91f53b-a701-4825-b62b-6a7961f23f65',
             is_done: false,
             sets: [],
+            default_sets: [
+              {
+                id: 'd899aa77-1497-48ae-9bf2-0bb3329d278d',
+                type: SetTypeEnum.Custom,
+                repetitions: '12-15',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '4a512e80-3273-4997-99e6-139a52a58c61',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '0975c22d-ed63-4636-9ef4-eb3807a5a90b',
+                type: SetTypeEnum.Custom,
+                repetitions: '12-15',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: 'ff65422e-f822-4dd7-8a95-f85c19ed28c4',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: 'f7b431bf-0cd2-4584-a8e0-57477fc7dc58',
+                type: SetTypeEnum.Custom,
+                repetitions: '12-15',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '81154c95-c2c8-47dc-8f20-cdc0da3ac68b',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              }
+            ],
             recommended_training_exercices: [
               {
                 id: '9342d4d1-6a20-4e5e-abdd-b98878a696e9',
                 exercice_id: leg_curls.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [/** TODO */],
+                sets: [],
               }
             ],
           },
@@ -808,20 +1012,96 @@ const noviceTemplate: ProgramTemplate = {
             id: '9017f08b-fc1d-4c9a-ba25-ff8c7054b8e2',
             is_done: false,
             sets: [],
+            default_sets: [
+              {
+                id: 'e4d70ac4-c1c6-443f-b736-f3c972c1dd55',
+                type: SetTypeEnum.Custom,
+                repetitions: '8-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '38197071-2678-43c1-8ffc-39eb6bcfc963',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: 'f65897ff-0839-4eed-b846-9e483902073a',
+                type: SetTypeEnum.Custom,
+                repetitions: '8-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: 'b695879d-bd14-42df-bc71-5568483da8f0',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: 'e678c0ed-77b5-4725-ad12-7d24e49a439a',
+                type: SetTypeEnum.Custom,
+                repetitions: '8-12',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '85c5c6b0-601e-4aeb-af7c-a9cb5ede5d89',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              }
+            ],
             recommended_training_exercices: [
               {
                 id: '092b8bdd-7a12-470d-85f5-0ac5ef2f63a2',
                 exercice_id: split_squats.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [/** TODO */],
+                sets: [],
               },
               {
                 id: '2fd430a3-a20e-4e75-a8ce-869f27fbda79',
                 exercice_id: leg_extensions.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [/** TODO */],
+                sets: [],
+                default_sets: [
+                  {
+                    id: '5754a504-5074-4c27-9ccb-9c235dd74ce1',
+                    type: SetTypeEnum.Custom,
+                    repetitions: '10-15',
+                    personal_record: false,
+                    is_done: false,
+                    displayable_set_information: {
+                      id: 'ac2c27b4-537e-4463-9fca-956836a8e406',
+                      type: DisplayableSetInformationTypeEnum.Label,
+                      value: null
+                    }
+                  },
+                  {
+                    id: 'b0835b5b-42ca-4b7c-b2d4-e1411b33857f',
+                    type: SetTypeEnum.Custom,
+                    repetitions: '10-15',
+                    personal_record: false,
+                    is_done: false,
+                    displayable_set_information: {
+                      id: 'aaeb5717-2403-455f-a287-27cc6f2edd3a',
+                      type: DisplayableSetInformationTypeEnum.Label,
+                      value: null
+                    }
+                  },
+                  {
+                    id: '44d9094a-5c50-418a-b9fe-a014909e47e5',
+                    type: SetTypeEnum.Custom,
+                    repetitions: '10-15',
+                    personal_record: false,
+                    is_done: false,
+                    displayable_set_information: {
+                      id: 'bee16bf7-9d8e-4c10-9fa6-eeb2f1dc5775',
+                      type: DisplayableSetInformationTypeEnum.Label,
+                      value: null
+                    }
+                  }
+                ]
               }
             ],
           },
@@ -829,20 +1109,58 @@ const noviceTemplate: ProgramTemplate = {
             id: '9b14193f-4ef6-453a-96b8-e90be2f140e3',
             is_done: false,
             sets: [],
+            default_sets: [
+              {
+                id: 'a8f985f2-4d8e-4070-81be-1318e95419aa',
+                type: SetTypeEnum.Custom,
+                repetitions: '12-15',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: 'c841fcfc-83a2-4011-ba0e-1e361bbf3196',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '45368bbf-ed87-4716-95aa-8e66574cbc45',
+                type: SetTypeEnum.Custom,
+                repetitions: '12-15',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: 'fdc35041-7931-4870-9721-e2e040651eca',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: 'd73d5b4b-4935-4904-a269-2eca625261aa',
+                type: SetTypeEnum.Custom,
+                repetitions: '12-15',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: 'c99cb95a-5a5f-4bcb-a9a0-3108b029d4d4',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              }
+            ],
             recommended_training_exercices: [
               {
                 id: '44cac3c7-9bc5-4bb5-a4f5-41f544d6c53a',
                 exercice_id: dumbbel_fly_press.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [/** TODO */],
+                sets: [],
               },
               {
                 id: 'f2524822-6f41-4eb4-9639-edd99e3a8e8f',
                 exercice_id: cable_flies.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [/** TODO */],
+                sets: [],
               }
             ],
           },
@@ -850,20 +1168,58 @@ const noviceTemplate: ProgramTemplate = {
             id: 'd556eb03-f804-41ca-8c1a-c9e6f3f28f6b',
             is_done: false,
             sets: [],
+            default_sets: [
+              {
+                id: '00a782d6-2826-477b-b3a0-07b111c0c974',
+                type: SetTypeEnum.Custom,
+                repetitions: '15-20',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: 'b9b51462-9ff5-4d5d-a5fa-577a35aa199f',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '8fe2cf78-f9ea-40f6-b521-46c58f2e8ff3',
+                type: SetTypeEnum.Custom,
+                repetitions: '15-20',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: '858aa148-5315-4971-8377-f802b50d8e74',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              },
+              {
+                id: '1e953934-56b3-42aa-97fb-2281cd3ff3bd',
+                type: SetTypeEnum.Custom,
+                repetitions: '15-20',
+                personal_record: false,
+                is_done: false,
+                displayable_set_information: {
+                  id: 'dc85ac2d-da01-490f-8817-57812c56bbc0',
+                  type: DisplayableSetInformationTypeEnum.Label,
+                  value: null
+                }
+              }
+            ],
             recommended_training_exercices: [
               {
                 id: '148d51bb-a323-4743-b516-ed6155d1fcf7',
                 exercice_id: neck_curl.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [/** TODO */],
+                sets: [],
               },
               {
                 id: 'a9b5da41-bcc9-4a6d-b945-06dfb07bc972',
                 exercice_id: neck_extension.id,
                 is_done: false,
                 recommended_training_exercices: [],
-                sets: [/** TODO */],
+                sets: [],
               }
             ],
           },
