@@ -32,11 +32,14 @@ function onClose() {
 function onValidate() {
   let newTrainingExercice: ProgramTrainingExercice = JSON.parse(JSON.stringify(props.trainingExercice))
   newTrainingExercice.exercice_id = selectedExercice.value?.id
+  newTrainingExercice.sets = [ ...newTrainingExercice?.default_sets || [] ]
   if (props.isRecommendation) {
     // Get the trainingExercice by the selectedExercice id => not ideal, but in fact we shouldn't recommend 2 sames exercices
     const recommendedTrainingExercice = newTrainingExercice.recommended_training_exercices.find(trainingExercice => trainingExercice.exercice_id === selectedExercice.value?.id)
-    // Add the sets from the recommended training exercice
-    newTrainingExercice.sets = recommendedTrainingExercice?.sets || []
+    if (recommendedTrainingExercice?.default_sets) {
+      // Add the default sets from the recommended training exercice
+      newTrainingExercice.sets = [ ...recommendedTrainingExercice?.default_sets || [] ]
+    }
   }
   newTrainingExercice.is_done = false
   programsStore.updateTrainingExercice(newTrainingExercice)

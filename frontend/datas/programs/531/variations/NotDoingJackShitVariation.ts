@@ -24,53 +24,75 @@ const lightTemplate: ProgramTemplate = {
               id: 'fc51a272-7829-492a-b3ae-f640892229a2',
               is_done: false,
               sets: [],
+              default_sets: [
+                {
+                  id: 'a87ec2d2-24aa-47fa-ba5a-f2332dca5917',
+                  type: SetTypeEnum.TM,
+                  repetitions: 5,
+                  exercice_max_weight_percentage: 0.65,
+                  personal_record: false,
+                  is_done: false,
+                  displayable_set_information: {
+                    id: 'c7677739-b066-4f52-be42-ed4520160a24',
+                    type: DisplayableSetInformationTypeEnum.TM,
+                    value: null
+                  }
+                },
+                {
+                  id: 'dab81407-8634-4d49-ba02-f7ee571d8723',
+                  type: SetTypeEnum.TM,
+                  repetitions: 5,
+                  exercice_max_weight_percentage: 0.75,
+                  personal_record: false,
+                  is_done: false,
+                  displayable_set_information: {
+                    id: '30a6f0b0-b9d3-4dc1-88f8-0d23ba82d56a',
+                    type: DisplayableSetInformationTypeEnum.TM,
+                    value: null
+                  }
+                },
+                {
+                  id: 'd2826ee5-0d51-438e-bf68-15f51649608c',
+                  type: SetTypeEnum.TM,
+                  repetitions: 5,
+                  exercice_max_weight_percentage: 0.85,
+                  personal_record: true,
+                  is_done: false,
+                  displayable_set_information: {
+                    id: '59376f56-9cf8-4adc-81b5-6069a236e84a',
+                    type: DisplayableSetInformationTypeEnum.TM,
+                    value: null
+                  }
+                }
+              ],
               recommended_training_exercices: [
                 {
                   id: 'ca0e7557-8c78-4644-bf66-dae510c7a3e1',
                   exercice_id: barbell_overhead_press.id,
                   recommended_training_exercices: [],
                   is_done: false,
-                  sets: [
-                    {
-                      id: 'a87ec2d2-24aa-47fa-ba5a-f2332dca5917',
-                      type: SetTypeEnum.TM,
-                      repetitions: 5,
-                      exercice_max_weight_percentage: 0.65,
-                      personal_record: false,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: 'c7677739-b066-4f52-be42-ed4520160a24',
-                        type: DisplayableSetInformationTypeEnum.TM,
-                        value: null
-                      }
-                    },
-                    {
-                      id: 'dab81407-8634-4d49-ba02-f7ee571d8723',
-                      type: SetTypeEnum.TM,
-                      repetitions: 5,
-                      exercice_max_weight_percentage: 0.75,
-                      personal_record: false,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: '30a6f0b0-b9d3-4dc1-88f8-0d23ba82d56a',
-                        type: DisplayableSetInformationTypeEnum.TM,
-                        value: null
-                      }
-                    },
-                    {
-                      id: 'd2826ee5-0d51-438e-bf68-15f51649608c',
-                      type: SetTypeEnum.TM,
-                      repetitions: 5,
-                      exercice_max_weight_percentage: 0.85,
-                      personal_record: true,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: '59376f56-9cf8-4adc-81b5-6069a236e84a',
-                        type: DisplayableSetInformationTypeEnum.TM,
-                        value: null
-                      }
-                    }
-                  ]
+                  sets: [],
+                },
+                {
+                  id: 'edce835e-4e70-47f2-b51f-6979b51953f3',
+                  exercice_id: low_bar_squat.id,
+                  recommended_training_exercices: [],
+                  is_done: false,
+                  sets: []
+                },
+                {
+                  id: '50d48427-8389-4ab6-9eef-32d87c9e74fa',
+                  exercice_id: bench_press.id,
+                  recommended_training_exercices: [],
+                  is_done: false,
+                  sets: []
+                },
+                {
+                  id: 'a1452a77-8e55-4402-a915-759789c405b5',
+                  exercice_id: sumo_deadlift.id,
+                  recommended_training_exercices: [],
+                  is_done: false,
+                  sets: []
                 }
               ],
             },
@@ -84,54 +106,76 @@ const lightTemplate: ProgramTemplate = {
               id: 'ce671915-d75d-40b4-a2d4-9ea21fda8d40',
               is_done: false,
               sets: [],
+              default_sets: [
+                {
+                  id: '922ddc9c-21a5-4a6e-a1cc-de018ff0b463',
+                  type: SetTypeEnum.TM,
+                  repetitions: 5,
+                  exercice_max_weight_percentage: 0.65,
+                  personal_record: false,
+                  is_done: false,
+                  displayable_set_information: {
+                    id: '45f67ecf-9db6-4338-ae1c-0ddbcc8bcdfb',
+                    type: DisplayableSetInformationTypeEnum.TM,
+                    value: null
+                  }
+                },
+                {
+                  id: 'a631ba81-105d-4114-9924-2a9e3397dea3',
+                  type: SetTypeEnum.TM,
+                  repetitions: 5,
+                  exercice_max_weight_percentage: 0.75,
+                  personal_record: false,
+                  is_done: false,
+                  displayable_set_information: {
+                    id: '7c627087-1226-43d4-a31b-50db9cf335ec',
+                    type: DisplayableSetInformationTypeEnum.TM,
+                    value: null
+                  }
+                },
+                {
+                  id: '8c28662c-0d98-46d8-835f-caacf75ced74',
+                  type: SetTypeEnum.TM,
+                  repetitions: 5,
+                  exercice_max_weight_percentage: 0.85,
+                  personal_record: true,
+                  is_done: false,
+                  displayable_set_information: {
+                    id: 'b9c284cc-925b-4a11-922d-f74279d3e393',
+                    type: DisplayableSetInformationTypeEnum.TM,
+                    value: null
+                  }
+                }
+              ],
               recommended_training_exercices: [
                 {
                   id: '60a83572-bcf5-4ec2-bcdb-7585b5e1539c',
+                  exercice_id: barbell_overhead_press.id,
+                  is_done: false,
+                  sets: [],
+                  recommended_training_exercices: []
+                },
+                {
+                  id: 'd264d716-528e-41e3-97d0-8688d653b2c6',
+                  exercice_id: low_bar_squat.id,
+                  is_done: false,
+                  sets: [],
+                  recommended_training_exercices: []
+                },
+                {
+                  id: 'ab8571e5-6f1f-4f77-afb7-18dd5e78f341',
+                  exercice_id: bench_press.id,
+                  is_done: false,
+                  sets: [],
+                  recommended_training_exercices: []
+                },
+                {
+                  id: '258f4c6f-fa78-4633-9929-13ae948b2575',
                   exercice_id: sumo_deadlift.id,
                   is_done: false,
-                  sets: [
-                    {
-                      id: '922ddc9c-21a5-4a6e-a1cc-de018ff0b463',
-                      type: SetTypeEnum.TM,
-                      repetitions: 5,
-                      exercice_max_weight_percentage: 0.65,
-                      personal_record: false,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: '45f67ecf-9db6-4338-ae1c-0ddbcc8bcdfb',
-                        type: DisplayableSetInformationTypeEnum.TM,
-                        value: null
-                      }
-                    },
-                    {
-                      id: 'a631ba81-105d-4114-9924-2a9e3397dea3',
-                      type: SetTypeEnum.TM,
-                      repetitions: 5,
-                      exercice_max_weight_percentage: 0.75,
-                      personal_record: false,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: '7c627087-1226-43d4-a31b-50db9cf335ec',
-                        type: DisplayableSetInformationTypeEnum.TM,
-                        value: null
-                      }
-                    },
-                    {
-                      id: '8c28662c-0d98-46d8-835f-caacf75ced74',
-                      type: SetTypeEnum.TM,
-                      repetitions: 5,
-                      exercice_max_weight_percentage: 0.85,
-                      personal_record: true,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: 'b9c284cc-925b-4a11-922d-f74279d3e393',
-                        type: DisplayableSetInformationTypeEnum.TM,
-                        value: null
-                      }
-                    }
-                  ],
+                  sets: [],
                   recommended_training_exercices: []
-                }
+                },
               ],
             },
           ]
@@ -144,54 +188,76 @@ const lightTemplate: ProgramTemplate = {
               id: '9893dd26-3b63-4746-88a2-cd3b8e63dbfc',
               is_done: false,
               sets: [],
+              default_sets: [
+                {
+                  id: 'ce567691-0dbb-41cb-a64d-008ed0e08e1c',
+                  type: SetTypeEnum.TM,
+                  repetitions: 5,
+                  exercice_max_weight_percentage: 0.65,
+                  personal_record: false,
+                  is_done: false,
+                  displayable_set_information: {
+                    id: 'fb366f74-4350-4b9e-9dcf-ddd890891b17',
+                    type: DisplayableSetInformationTypeEnum.TM,
+                    value: null
+                  }
+                },
+                {
+                  id: '26b7f165-8a1f-47b6-9c8d-03f0c7a69547',
+                  type: SetTypeEnum.TM,
+                  repetitions: 5,
+                  exercice_max_weight_percentage: 0.75,
+                  personal_record: false,
+                  is_done: false,
+                  displayable_set_information: {
+                    id: 'da75b727-a60a-478d-b7fc-fab13ec4f5d4',
+                    type: DisplayableSetInformationTypeEnum.TM,
+                    value: null
+                  }
+                },
+                {
+                  id: 'b70952b7-1573-4c73-b68b-0708fc65d676',
+                  type: SetTypeEnum.TM,
+                  repetitions: 5,
+                  exercice_max_weight_percentage: 0.85,
+                  personal_record: true,
+                  is_done: false,
+                  displayable_set_information: {
+                    id: 'd9ef14d0-a86b-4645-95c5-553ade65f02a',
+                    type: DisplayableSetInformationTypeEnum.TM,
+                    value: null
+                  }
+                }
+              ],
               recommended_training_exercices: [
                 {
                   id: '967fee62-a95e-4dde-b430-b6dc65ea56ab',
+                  exercice_id: barbell_overhead_press.id,
+                  is_done: false,
+                  sets: [],
+                  recommended_training_exercices: []
+                },
+                {
+                  id: '0af89e19-b37a-4601-bcd7-a8cbfd6a75de',
+                  exercice_id: low_bar_squat.id,
+                  is_done: false,
+                  sets: [],
+                  recommended_training_exercices: []
+                },
+                {
+                  id: '36680af0-75ed-4717-9b81-bcb60b363ce8',
                   exercice_id: bench_press.id,
                   is_done: false,
-                  sets: [
-                    {
-                      id: 'ce567691-0dbb-41cb-a64d-008ed0e08e1c',
-                      type: SetTypeEnum.TM,
-                      repetitions: 5,
-                      exercice_max_weight_percentage: 0.65,
-                      personal_record: false,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: 'fb366f74-4350-4b9e-9dcf-ddd890891b17',
-                        type: DisplayableSetInformationTypeEnum.TM,
-                        value: null
-                      }
-                    },
-                    {
-                      id: '26b7f165-8a1f-47b6-9c8d-03f0c7a69547',
-                      type: SetTypeEnum.TM,
-                      repetitions: 5,
-                      exercice_max_weight_percentage: 0.75,
-                      personal_record: false,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: 'da75b727-a60a-478d-b7fc-fab13ec4f5d4',
-                        type: DisplayableSetInformationTypeEnum.TM,
-                        value: null
-                      }
-                    },
-                    {
-                      id: 'b70952b7-1573-4c73-b68b-0708fc65d676',
-                      type: SetTypeEnum.TM,
-                      repetitions: 5,
-                      exercice_max_weight_percentage: 0.85,
-                      personal_record: true,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: 'd9ef14d0-a86b-4645-95c5-553ade65f02a',
-                        type: DisplayableSetInformationTypeEnum.TM,
-                        value: null
-                      }
-                    }
-                  ],
+                  sets: [],
                   recommended_training_exercices: []
-                }
+                },
+                {
+                  id: 'c22801d9-22bc-46cb-aca6-942c62f9930b',
+                  exercice_id: sumo_deadlift.id,
+                  is_done: false,
+                  sets: [],
+                  recommended_training_exercices: []
+                },
               ],
             },
           ]
@@ -204,54 +270,76 @@ const lightTemplate: ProgramTemplate = {
               id: '9a50c776-fef1-4db6-b5c2-c5710d16742c',
               is_done: false,
               sets: [],
+              default_sets: [
+                {
+                  id: '94cb715a-0240-4a56-9c93-f9db174ad1b5',
+                  type: SetTypeEnum.TM,
+                  repetitions: 5,
+                  exercice_max_weight_percentage: 0.65,
+                  personal_record: false,
+                  is_done: false,
+                  displayable_set_information: {
+                    id: 'faa09344-5134-487c-9faf-5845478319f3',
+                    type: DisplayableSetInformationTypeEnum.TM,
+                    value: null
+                  }
+                },
+                {
+                  id: '4d0f2f11-b69e-402f-9301-cbde7910dd3e',
+                  type: SetTypeEnum.TM,
+                  repetitions: 5,
+                  exercice_max_weight_percentage: 0.75,
+                  personal_record: false,
+                  is_done: false,
+                  displayable_set_information: {
+                    id: '5129803b-d701-442b-b487-2936d04af1d5',
+                    type: DisplayableSetInformationTypeEnum.TM,
+                    value: null
+                  }
+                },
+                {
+                  id: '7aa78a2c-d229-42e7-b16e-9e56848d603a',
+                  type: SetTypeEnum.TM,
+                  repetitions: 5,
+                  exercice_max_weight_percentage: 0.85,
+                  personal_record: true,
+                  is_done: false,
+                  displayable_set_information: {
+                    id: '0e32cb98-b722-4f72-baab-44141ca9c2f9',
+                    type: DisplayableSetInformationTypeEnum.TM,
+                    value: null
+                  }
+                }
+              ],
               recommended_training_exercices: [
                 {
-                  id: '685b08be-ca52-432f-a338-e8ad912b315c',
+                  id: '81142c12-0f3c-4255-9235-971e0f8e990a',
+                  exercice_id: barbell_overhead_press.id,
+                  is_done: false,
+                  sets: [],
+                  recommended_training_exercices: []
+                },
+                {
+                  id: 'e4bfb826-89e1-4bc4-ae0b-6e34b2132768',
                   exercice_id: low_bar_squat.id,
                   is_done: false,
-                  sets: [
-                    {
-                      id: '4415081a-032a-4229-8247-ef48f0988a31',
-                      type: SetTypeEnum.TM,
-                      repetitions: 5,
-                      exercice_max_weight_percentage: 0.65,
-                      personal_record: false,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: '4520712f-436b-47e4-bdd2-9052ce97e0e3',
-                        type: DisplayableSetInformationTypeEnum.TM,
-                        value: null
-                      }
-                    },
-                    {
-                      id: '466c1c03-acc1-4c7a-a7b1-d55d60aa00e5',
-                      type: SetTypeEnum.TM,
-                      repetitions: 5,
-                      exercice_max_weight_percentage: 0.75,
-                      personal_record: false,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: '783990e5-b849-4044-b37c-ea5db693391f',
-                        type: DisplayableSetInformationTypeEnum.TM,
-                        value: null
-                      }
-                    },
-                    {
-                      id: '491de28d-d303-492d-96d2-b432b77aad2d',
-                      type: SetTypeEnum.TM,
-                      repetitions: 5,
-                      exercice_max_weight_percentage: 0.85,
-                      personal_record: true,
-                      is_done: false,
-                      displayable_set_information: {
-                        id: 'cd75b278-fd6c-4894-9b45-92ba8883a2b8',
-                        type: DisplayableSetInformationTypeEnum.TM,
-                        value: null
-                      }
-                    }
-                  ],
+                  sets: [],
                   recommended_training_exercices: []
-                }
+                },
+                {
+                  id: '6123e630-f98a-401c-8f40-8294a373336a',
+                  exercice_id: bench_press.id,
+                  is_done: false,
+                  sets: [],
+                  recommended_training_exercices: []
+                },
+                {
+                  id: 'bae8d16d-4fbf-474a-b067-d11734bdfbff',
+                  exercice_id: sumo_deadlift.id,
+                  is_done: false,
+                  sets: [],
+                  recommended_training_exercices: []
+                },
               ],
             },
           ]

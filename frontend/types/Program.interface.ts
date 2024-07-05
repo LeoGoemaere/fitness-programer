@@ -42,6 +42,7 @@ export interface ProgramTrainingExercice {
   id: string
   exercice_id?: Exercice['id'] | null
   recommended_training_exercices: ProgramTrainingExercice[]
+  default_sets?: ProgramSet[]
   is_done: boolean
   sets: ProgramSet[]
 }
