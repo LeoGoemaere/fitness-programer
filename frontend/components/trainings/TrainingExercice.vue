@@ -44,7 +44,7 @@ const exercicesExceptRecommendedAndCurrent = computed(() => {
   })
 })
 
-const shouldShowRecommendedExercicePopin = computed(() => props.trainingExercice.recommended_training_exercices.length)
+const shouldShowRecommendedExercicePopin = computed(() => !!recommendedExercices.value.length)
 
 const isSuperset = computed(() => props.supersetDown || props.supersetUp)
 
@@ -233,15 +233,6 @@ function trainingExerciceOptions() {
       :training-exercice="props.trainingExercice"
       :exercices-list="exercicesExceptRecommendedAndCurrent"
     >
-      <template #header-action v-if="shouldShowRecommendedExercicePopin">
-        <UButton
-          type="button"
-          icon="i-heroicons-arrow-left"
-          class="mb-3"
-          variant="soft"
-          @click="toggleAddExercicePopin(false)"
-        >Retour</UButton>
-      </template>
       <template #footer-action v-if="shouldShowRecommendedExercicePopin">
         <UButton
           type="button"

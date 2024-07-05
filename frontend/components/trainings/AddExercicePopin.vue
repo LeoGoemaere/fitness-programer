@@ -78,7 +78,7 @@ const modalUi = computed(() => {
     @update:modelValue="onClose"
     :ui="modalUi"
   >
-    <UCard :ui="{ base: 'h-full flex flex-col', body: { base: 'border-solid flex-1 border-b-none' } }">
+    <UCard :ui="{ base: 'h-full flex flex-col', body: { base: 'border-solid flex-1 border-b-none' }, footer: { base: 'sticky bottom-0 bg-white shadow-md shadow-black' } }">
       <template #header>
         <div class="flex items-center justify-between">
           <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
@@ -92,7 +92,6 @@ const modalUi = computed(() => {
           />
         </div>
       </template>
-      <slot name="header-action" />
       <ExercicesList
         muscle="All"
         :selectable="true"
@@ -104,7 +103,7 @@ const modalUi = computed(() => {
       ></ExercicesList>
       <slot name="default" />
       <template #footer>
-        <div class="justify-center flex">
+        <div class="footer-action justify-center flex">
           <slot name="footer-action" />
           <UButton
             type="button"
