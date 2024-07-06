@@ -8,7 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy": "pnpm run generate && gh-pages --nojekyll -d dist"
+    "deploy": "pnpm run generate && gh-pages --nojekyll -d dist",
+    "replaceids": "node --import=tsx scripts/replace-ids.ts"
   },
   "dependencies": {
     "@iconify-json/solar": "^1.1.9",
@@ -19,6 +20,7 @@
     "nuxt": "^3.11.2",
     "pinia": "^2.1.7",
     "sass": "^1.77.2",
+    "tsx": "^4.16.2",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"
   },
