@@ -17,6 +17,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const exercicesStore = useExercicesStore()
 const programsStore = useProgramsStore();
+const { dbExercices } = useExercice()
 
 const isEditionSetPopinOpen = ref(false)
 const isAddExercicePopinOpen = ref(false)
@@ -37,7 +38,7 @@ const recommendedExercices = computed(() => {
 })
 
 const exercicesExceptRecommendedAndCurrent = computed(() => {
-  return exercicesStore.exercices.filter(exercice => {
+  return dbExercices.value.filter(exercice => {
     const recommendedExercices = props.trainingExercice.recommended_training_exercices
     const ids = recommendedExercices.map(trainingExercices => trainingExercices.exercice_id)
     return !ids.includes(exercice.id) && exercice.id !== props.trainingExercice.exercice_id

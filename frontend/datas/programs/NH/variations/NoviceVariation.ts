@@ -1756,10 +1756,12 @@ const noviceTemplate: ProgramTemplate = {
 }
 
 export const NoviceVariation: ProgramVariation = {
-  id: '1e73fd3a-ce8d-45a3-83ea-638e4bc297d2',
+  // id: '1e73fd3a-ce8d-45a3-83ea-638e4bc297d2',
+  id: 1,
+  program_id: 1,
   name: 'Variation par défaut',
   description: null,
-  templates: [
-    noviceTemplate
-  ]
+  // templates: [
+  //   noviceTemplate
+  // ]
 }

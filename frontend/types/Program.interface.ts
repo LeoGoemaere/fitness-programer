@@ -3,19 +3,19 @@ import type { Exercice } from "./Exercice.interface"
 import type { SetTypeEnum } from "./SetTypeEnum"
 
 export interface Program {
-  id: string
+  id?: string | number
   tm_percentage: number
   name: string
   description?: string | null
-  variations: ProgramVariation[]
+  // variations: ProgramVariation[]
 }
 
 export interface ProgramVariation {
-  id: string
-  // program_id: string
+  id: string | number
+  program_id: string | number
   name: string
   description?: string | null
-  templates: ProgramTemplate[]
+  // templates: ProgramTemplate[]
 }
 
 export interface ProgramTemplate {
