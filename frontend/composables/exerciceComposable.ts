@@ -1,16 +1,54 @@
 import { MaxType, type Exercice } from "~/types/Exercice.interface"
 import { roundValue } from "~/utils/utils"
 
-function getEmptyExercice(): Exercice {
+import { useObservable, from } from '@vueuse/rxjs'
+import { liveQuery, Dexie } from "dexie";
+import ExercicesRepository from "~/db/repository/ExercicesRepository";
+
+// TODO: Put old function in composable function
+export function useExercice() {
+  const exercicesRepository = new ExercicesRepository()
+
+  const dbExercices = useObservable(
+    from(
+      liveQuery(async () => await exercicesRepository.getAll())
+    ),
+    { initialValue: []}
+  );
+
+  // Update or create a new one if no exist
+  function addOrUpdateExercice(exercice: Exercice) {
+    const clone = Dexie.deepClone(exercice)
+    return exercicesRepository.putExercice(clone)
+  }
+
+  function addExercices(exercices: Exercice[]) {
+    const clone = Dexie.deepClone(exercices)
+    return exercicesRepository.addExercices(clone)
+  }
+
+  function deleteExercice(exercice: Exercice) {
+    return exercicesRepository.deleteExercice(exercice.id)
+  }
+
+  function getEmptyExercice(): Exercice {
+    return {
+      name: '',
+      primary_muscle: '',
+      RM: 0,
+      TM: 0,
+      weight_progression: 0,
+      reference_max_progression: MaxType.tm,
+      tag_ids: []
+    }
+  }
+
   return {
-    id: crypto.randomUUID(),
-    name: '',
-    primary_muscle: '',
-    RM: 0,
-    TM: 0,
-    weight_progression: 0,
-    reference_max_progression: MaxType.tm,
-    tag_ids: []
+    dbExercices,
+    addOrUpdateExercice,
+    addExercices,
+    deleteExercice,
+    getEmptyExercice
   }
 }
 

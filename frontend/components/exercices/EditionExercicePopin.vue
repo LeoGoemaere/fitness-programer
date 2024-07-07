@@ -2,13 +2,20 @@
 import type { FormError } from '#ui/types'
 import { MaxType, type Exercice } from '~/types/Exercice.interface';
 import { blockInvalidChar } from '~/utils/utils';
-import { updateExerciceMax, getEmptyExercice } from '~/composables/exerciceComposable';
+import { updateExerciceMax } from '~/composables/exerciceComposable';
 import type { MusclesEnum } from '~/types/MusclesEnum';
 import { useMuscles } from '~/composables/musclesComposable';
+import { useExercice } from '~/composables/exerciceComposable'
 
 const exercicesStore = useExercicesStore();
 const programsStore = useProgramsStore();
 const { muscleListSorts } = useMuscles()
+
+const {
+  dbExercices,
+  getEmptyExercice,
+  addOrUpdateExercice
+} = useExercice()
 
 interface Props {
   modelValue: boolean
@@ -60,9 +67,11 @@ function formValidation(state: Exercice): FormError[] {
   return errors
 }
 
-function onSubmit() {
+async function onSubmit() {
   // Create or edit exercice
-  exercicesStore.addOrUpdateExercice(exerciceItem.value)
+  // TODO: Try / catch
+  await addOrUpdateExercice(exerciceItem.value)
+  
   emit('update:modelValue', false)
   emit('exerciceCreated', exerciceItem.value.primary_muscle)
   exerciceItem.value = getEmptyExercice()

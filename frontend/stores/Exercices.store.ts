@@ -5,7 +5,8 @@ import { type Tag } from '~/types/Tag.interface'
 import coreExercices from '~/datas/exercices/coreExercices'
 
 export const useExercicesStore = defineStore('exercicesStore', () => {
-  const exercices: Ref<Exercice[]> = ref(coreExercices);
+  // const exercices: Ref<Exercice[]> = ref(coreExercices);
+  const exercices: Ref<Exercice[]> = ref([]);
   const exerciceTags: Ref<Tag[]> = ref([]);
 
   function updateExercice(exercice: Exercice) {

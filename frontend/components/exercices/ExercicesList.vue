@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import { type Exercice, MaxType } from '~/types/Exercice.interface';
-import { getMaxColor, updateExerciceMax, getEmptyExercice } from '~/composables/exerciceComposable';
+import { getMaxColor, updateExerciceMax } from '~/composables/exerciceComposable';
 import { roundValue, removeDiacritics } from '~/utils/utils';
 import type { MusclesEnum } from '~/types/MusclesEnum';
 import type { Tag } from '~/types/Tag.interface';
+import { useExercice } from '~/composables/exerciceComposable'
+
+const {
+  dbExercices,
+  getEmptyExercice,
+  deleteExercice
+} = useExercice()
 
 const exercicesStore = useExercicesStore();
 const programsStore = useProgramsStore();
@@ -126,9 +133,11 @@ function exerciceOptions(exercice: Exercice, index: number) {
         icon: 'i-heroicons-trash',
         iconClass: isDeleting ? 'text-red-400' : null,
         labelClass: isDeleting ? 'text-red-400' : null,
-        click: (event: Event) => {
+        click: async (event: Event) => {
           if (confirmDelete.value) {
-            exercicesStore.removeExercice(exercice)
+            // TODO: Try / catch
+            await deleteExercice(exercice)
+            // exercicesStore.removeExercice(exercice)
             return
           }
           event.preventDefault()
@@ -162,7 +171,7 @@ const exercicesList = computed(() => {
   if (typeof props.exercicesList !== 'undefined' && props.exercicesList !== null) {
     return props.exercicesList
   }
-  return exercicesStore.exercices
+  return dbExercices.value
 })
 
 const exercicesListByMuscle = computed(() => {

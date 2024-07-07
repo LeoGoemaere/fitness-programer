@@ -5,12 +5,12 @@ export enum MaxType {
   tm = 'TM'
 }
 export interface Exercice {
-  id: string
+  id?: string | number
   name: string
   primary_muscle: MusclesEnum | string
   RM: number
   TM: number
   weight_progression: number
   reference_max_progression: MaxType
-  tag_ids: string[]
+  tag_ids: string[],
 }

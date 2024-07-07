@@ -19,8 +19,12 @@ import adductors from '~/assets/images/muscles/adductors.png'
 import lumbars from '~/assets/images/muscles/lumbars.png'
 import type { MusclesEnum } from '~/types/MusclesEnum'
 import type { Exercice } from '~/types/Exercice.interface'
+import { useExercice } from '~/composables/exerciceComposable'
 
 const { t } = useI18n()
+const {
+  getEmptyExercice,
+} = useExercice()
 
 const muscleListSorts = coreMuscles.sort((a, b) => t(`muscles.${a}`).localeCompare(t(`muscles.${b}`)))
 const activeLv1Index = ref(-1)

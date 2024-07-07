@@ -51,7 +51,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/i18n',
     '@pinia-plugin-persistedstate/nuxt',
-    "@vite-pwa/nuxt"
+    "@vite-pwa/nuxt",
+    '@vueuse/nuxt'
   ],
   piniaPersistedstate: {
     storage: 'localStorage'
