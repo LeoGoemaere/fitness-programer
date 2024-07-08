@@ -189,6 +189,8 @@ export const useProgramsStore = defineStore('programsStore', () => {
     selectedProgramId,
     selectedVariationId,
     selectedTemplateId,
+    selectedWeekId,
+    selectedTrainingId,
     setSelectedProgramId,
     setSelectedVariationId,
     setSelectedTemplateId,

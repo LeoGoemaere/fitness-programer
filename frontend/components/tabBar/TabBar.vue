@@ -24,6 +24,14 @@
       <NuxtLink class="tabbar__link" activeClass="tabbar__link--active" :to="{ name: 'program' }">
         <span class="tabbar__label">Programme</span>
         <div class="tabbar__icon">
+          <UIcon name="i-solar-notebook-outline" />
+        </div>
+      </NuxtLink>
+    </li>
+    <li class="tabbar__item">
+      <NuxtLink class="tabbar__link" activeClass="tabbar__link--active" :to="{ name: 'settings' }">
+        <span class="tabbar__label">Paramètres</span>
+        <div class="tabbar__icon">
           <UIcon name="i-solar-settings-outline" />
         </div>
       </NuxtLink>

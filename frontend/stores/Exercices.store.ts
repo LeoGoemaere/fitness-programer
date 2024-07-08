@@ -21,6 +21,16 @@ export const useExercicesStore = defineStore('exercicesStore', () => {
       exercices.value.push(exercice)
     }
   }
+  
+  function addExercicesList(exercicesList: Exercice[]) {
+    const newExercices = exercicesList.filter(exercice => !exercices.value.some(storeExercice => exercice.id === storeExercice.id))
+    if (newExercices.length) {
+      exercices.value.push(...newExercices)
+    }
+    return newExercices // to know how many exercices have been added
+  }
+
+
 
   function addOrUpdateExercice(exercice: Exercice) {
     const isExerciceExist = exercices.value.some(exerciceElement => exerciceElement.id === exercice.id)
@@ -72,6 +82,7 @@ export const useExercicesStore = defineStore('exercicesStore', () => {
     addExercice,
     addOrUpdateExercice,
     removeExercice,
+    addExercicesList,
     addExerciceTag,
     updateExerciceTag,
     removeExerciceTag,

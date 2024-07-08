@@ -1,0 +1,78 @@
+<script setup lang="ts">
+import corePrograms from '~/datas/programs/corePrograms'
+import coreExercices from '~/datas/exercices/coreExercices'
+
+const programsStore = useProgramsStore();
+const exercicesStore = useExercicesStore();
+const toast = useToast()
+const { t } = useI18n()
+
+function reinitProgram() {
+  const firstProgramId = corePrograms[0]?.id
+  programsStore.programs = JSON.parse(JSON.stringify(corePrograms))
+  programsStore.setSelectedProgramId(firstProgramId)
+  importNewExercices(false)
+  toast.add({
+    title: 'Les programmes ont été réinitialisés',
+    timeout: 3000
+  })
+}
+
+function importNewExercices(showToast: boolean) {
+  const exercicesAdded = exercicesStore.addExercicesList(coreExercices)
+  if (showToast) {
+    toast.add({
+      title: t('exercices.import', exercicesAdded.length),
+      timeout: 3000
+    })
+  }
+}
+
+</script>
+
+<template>
+  <div class="settings">
+    <app-header
+      title="Paramètres"
+    ></app-header>
+
+    <div class="settings">
+      <UAlert
+        class="mb-3"
+        title="Importer les derniers exercices"
+        :actions="[{
+          label: 'Importer les exercices',
+          variant: 'solid',
+          icon: 'i-heroicons-arrow-down-on-square',
+          click: () => {
+            importNewExercices(true)
+          }
+        }]"
+      >
+        <template #description>
+          <p>Importe les derniers exercices sans modifier les existants.</p>
+        </template>
+      </UAlert>
+      <UAlert
+        title="Reinitialisation des programmes"
+        :actions="[{
+          label: 'Réinitialiser les programmes',
+          icon: 'i-heroicons-arrow-path',
+          variant: 'solid',
+          color: 'red',
+          click: () => {
+            reinitProgram()
+          }
+        }]"
+      >
+        <template #description>
+          <p>Toutes les séries modifiées et exercices associés à des trainings seront réinitialisés.</p>
+          <p>Si des exercices natifs ont été supprimés ils seront réimportés car des programmes peuvent en utiliser.</p>
+        </template>
+      </UAlert>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+</style>
