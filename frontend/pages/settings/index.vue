@@ -28,6 +28,40 @@ function importNewExercices(showToast: boolean) {
   }
 }
 
+const confirmDelete = ref(false)
+function reinitAction() {
+  const isDeleting = confirmDelete.value
+  const cancelReinitAction = {
+    label: 'Annuler',
+    icon: 'i-heroicons-x-mark',
+    variant: 'solid',
+    color: 'gray',
+    click: (event: Event) => {
+      confirmDelete.value = false
+    }
+  }
+  const actions = [
+    {
+      label: isDeleting ? 'Confirmer la réinitialisation' : 'Réinitialiser les programmes',
+      icon: isDeleting ? 'i-heroicons-exclamation-triangle' : 'i-heroicons-arrow-path',
+      variant: isDeleting ? 'solid' : 'outline',
+      color: 'red',
+      click: (event: Event) => {
+        if (confirmDelete.value) {
+          reinitProgram()
+          confirmDelete.value = false
+          return
+        }
+        confirmDelete.value = true
+      }
+    }
+  ]
+  if (isDeleting) {
+    actions.push(cancelReinitAction)
+  }
+  return actions
+}
+
 </script>
 
 <template>
@@ -55,15 +89,7 @@ function importNewExercices(showToast: boolean) {
       </UAlert>
       <UAlert
         title="Reinitialisation des programmes"
-        :actions="[{
-          label: 'Réinitialiser les programmes',
-          icon: 'i-heroicons-arrow-path',
-          variant: 'solid',
-          color: 'red',
-          click: () => {
-            reinitProgram()
-          }
-        }]"
+        :actions="reinitAction()"
       >
         <template #description>
           <p>Toutes les séries modifiées et exercices associés à des trainings seront réinitialisés.</p>
