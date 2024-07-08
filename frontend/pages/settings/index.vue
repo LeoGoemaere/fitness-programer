@@ -4,13 +4,18 @@ import coreExercices from '~/datas/exercices/coreExercices'
 
 const programsStore = useProgramsStore();
 const exercicesStore = useExercicesStore();
+const supersetsStore = useSupersetsStore();
 const toast = useToast()
 const { t } = useI18n()
 
 function reinitProgram() {
   const firstProgramId = corePrograms[0]?.id
   programsStore.programs = JSON.parse(JSON.stringify(corePrograms))
+  // Reinit program
   programsStore.setSelectedProgramId(firstProgramId)
+  // Reinit supersets
+  supersetsStore.supersetExercices = []
+  // Import exercices
   importNewExercices(false)
   toast.add({
     title: 'Les programmes ont été réinitialisés',
@@ -36,15 +41,17 @@ function reinitAction() {
     icon: 'i-heroicons-x-mark',
     variant: 'solid',
     color: 'gray',
+    size: 'lg',
     click: (event: Event) => {
       confirmDelete.value = false
     }
   }
   const actions = [
     {
-      label: isDeleting ? 'Confirmer la réinitialisation' : 'Réinitialiser les programmes',
+      label: isDeleting ? 'Confirmer' : 'Réinitialiser les programmes',
       icon: isDeleting ? 'i-heroicons-exclamation-triangle' : 'i-heroicons-arrow-path',
       variant: isDeleting ? 'solid' : 'outline',
+      size: 'lg',
       color: 'red',
       click: (event: Event) => {
         if (confirmDelete.value) {
@@ -78,6 +85,7 @@ function reinitAction() {
           label: 'Importer les exercices',
           variant: 'solid',
           icon: 'i-heroicons-arrow-down-on-square',
+          size: 'lg',
           click: () => {
             importNewExercices(true)
           }
