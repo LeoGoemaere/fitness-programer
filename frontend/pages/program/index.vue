@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import type { ProgramTrainingExercice } from '~/types/Program.interface';
+
 const programsStore = useProgramsStore();
+const toast = useToast()
 
 function updateProgram(programId: string) {
   programsStore.setSelectedProgramId(programId)
@@ -12,6 +15,18 @@ function updateTemplate(templateId: string | null) {
 }
 function updateWeek(weekId: string | null) {
   programsStore.setSelectedWeekId(weekId)
+}
+
+function resetAllIsDoneExercices() {
+  programsStore.currentTraining.training_exercices.forEach(trainingExercice => {
+    const newTrainingExercice: ProgramTrainingExercice = JSON.parse(JSON.stringify(trainingExercice))
+    newTrainingExercice.is_done = false
+    programsStore.updateTrainingExercice(newTrainingExercice)
+  });
+  toast.add({
+    title: 'Les exercices terminés ont été réinitialisés',
+    timeout: 3000
+  })
 }
 
 const programDescription = computed(() => programsStore.currentProgram?.description)
@@ -34,33 +49,33 @@ const tmPercentageValue = computed(() => {
     ></app-header>
 
     <div class="program__form">
-        <UButtonGroup class="program__form-row" orientation="horizontal">
-          <UFormGroup class="flex-1" label="Mon programme" :ui="{ label: { base: 'text-primary-500' } }">
-            <USelect
+      <UButtonGroup class="program__form-row" orientation="horizontal">
+        <UFormGroup class="flex-1" label="Mon programme" :ui="{ label: { base: 'text-primary-500' } }">
+          <USelect
+            color="primary"
+            :options="programsStore.programs"
+            option-attribute="name"
+            value-attribute="id"
+            @update:modelValue="updateProgram"
+            :modelValue="programsStore.currentProgram?.id"
+            ></USelect>
+        </UFormGroup>
+        <UFormGroup
+          class="program__tm"
+          label="Training Max %"
+          :ui="{ label: { base: 'text-primary-500' } }">
+            <UInput
               color="primary"
-              :options="programsStore.programs"
-              option-attribute="name"
-              value-attribute="id"
-              @update:modelValue="updateProgram"
-              :modelValue="programsStore.currentProgram?.id"
-              ></USelect>
-          </UFormGroup>
-          <UFormGroup
-            class="program__tm"
-            label="Training Max %"
-            :ui="{ label: { base: 'text-primary-500' } }">
-              <UInput
-                color="primary"
-                disabled
-                readonly="readonly"
-                :modelValue="tmPercentageValue"
-              >
-                <template #trailing>
-                  <span class="tm__hint">% de la RM</span>
-                </template>
-              </UInput>
-          </UFormGroup>
-        </UButtonGroup>
+              disabled
+              readonly="readonly"
+              :modelValue="tmPercentageValue"
+            >
+              <template #trailing>
+                <span class="tm__hint">% de la RM</span>
+              </template>
+            </UInput>
+        </UFormGroup>
+      </UButtonGroup>
       <!-- Only display if there is more than 1 variation -->
       <UFormGroup v-if="programsStore.currentProgram && programsStore.hasMultipleVariations" class="program__form-row" label="Variation">
         <USelect
@@ -91,6 +106,14 @@ const tmPercentageValue = computed(() => {
           :modelValue="programsStore.currentWeek?.id"
         ></USelect>
       </UFormGroup>
+      <UButton
+        label="Action"
+        class="mt-5"
+        variant="outline"
+        @click="resetAllIsDoneExercices"
+      >
+        Réinitialiser les exercices terminés
+      </UButton>
     </div>
 
     <UAlert v-if="programDescription || variationDescription || templateDescription" class="program__description">
