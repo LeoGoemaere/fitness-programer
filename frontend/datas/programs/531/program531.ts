@@ -1,5 +1,3 @@
-import { TriumvirateVariation } from './variations/TriumvirateVariation'
-import { BBBVariation } from './variations/BBBVariation'
 import { notDoingJackShit } from './variations/NotDoingJackShitVariation'
 import type { Program, ProgramTemplate } from '~/types/Program.interface'
 
@@ -12,8 +10,6 @@ export const program531: Program = {
     Ce programme de musculation extrêmement populaire est basé sur les schémas 5, 3, 1, comme son nom l'indique. Tout au long du programme, vous travaillerez avec des pourcentages basés sur votre maximum et vous vous efforcerez d'atteindre des PR à chaque séance d'entraînement.
   `,
   variations: [
-    notDoingJackShit,
-    // TriumvirateVariation,
-    BBBVariation
+    notDoingJackShit
   ]
 }
