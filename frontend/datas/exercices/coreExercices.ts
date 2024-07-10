@@ -437,6 +437,68 @@ export const leg_raises: Exercice = {
   reference_max_progression: MaxType.tm,
   tag_ids: []
 }
+export const machine_rows: Exercice = {
+  id: '8dec7568-458d-4d83-8152-537cbe861eb6',
+  name: 'Tirage machine',
+  primary_muscle: MusclesEnum.Back,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const incline_rows: Exercice = {
+  id: 'af4c79a1-4312-41f6-8518-f3a3261d4d3b',
+  name: 'Tirage incliné sur banc',
+  primary_muscle: MusclesEnum.Back,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+
+export const dumbbell_pullover: Exercice = {
+  id: 'b9f73d74-17c3-4695-bdb9-6e7b1f8650e1',
+  name: 'Pullover haltère',
+  primary_muscle: MusclesEnum.Chest,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const machine_pullover: Exercice = {
+  id: '5241506e-f289-4146-a312-64b410ce99ac',
+  name: 'Pullover machine',
+  primary_muscle: MusclesEnum.Chest,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+
+export const upright_row: Exercice = {
+  id: 'f8532dbf-f51a-4db2-b2bf-ddca9fb589f1',
+  name: 'Tirage menton',
+  primary_muscle: MusclesEnum.Trapezius,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const face_pull: Exercice = {
+  id: '665c8410-ef9b-4da1-a4e9-83632eb580f5',
+  name: 'Face pull',
+  primary_muscle: MusclesEnum.Trapezius,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
 
 export default [
   low_bar_squat,
@@ -480,5 +542,11 @@ export default [
   skull_crushers,
   french_press,
   hanging_knee_raises,
-  leg_raises
+  leg_raises,
+  machine_rows,
+  incline_rows,
+  dumbbell_pullover,
+  machine_pullover,
+  upright_row,
+  face_pull
 ]
