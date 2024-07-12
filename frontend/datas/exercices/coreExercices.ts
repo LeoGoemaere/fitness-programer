@@ -499,6 +499,137 @@ export const face_pull: Exercice = {
   reference_max_progression: MaxType.tm,
   tag_ids: []
 }
+export const clean_pull: Exercice = {
+  id: 'c6cbb2e0-9ca1-47ca-8ed2-1eda5094b400',
+  name: 'Clean pull',
+  primary_muscle: MusclesEnum.Trapezius,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+
+export const barbell_power_shrug: Exercice = {
+  id: '52ac05a4-b9cc-4e71-b238-ab16eb68a404',
+  name: 'Shrug avec barre',
+  primary_muscle: MusclesEnum.Trapezius,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const close_grip_bench: Exercice = {
+  id: 'e585e942-23b0-4d74-8510-f2360e8f070f',
+  name: 'Développé couché prise serrée',
+  primary_muscle: MusclesEnum.Triceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const jm_press: Exercice = {
+  id: '4d9362bc-bd80-4a38-a770-74e15a630793',
+  name: 'JM press',
+  primary_muscle: MusclesEnum.Triceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const windshield_wiper: Exercice = {
+  id: '2f595a3a-478c-41fa-9b0b-21fc2b456a84',
+  name: 'Essuie-glace',
+  primary_muscle: MusclesEnum.Abs,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const russian_twists: Exercice = {
+  id: 'cf34aa8c-0936-4f9c-a505-d7f0c38372c5',
+  name: 'Russian twists',
+  primary_muscle: MusclesEnum.Abs,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const ad_press: Exercice = {
+  id: '6463496b-0f53-4088-be32-dd325c0756df',
+  name: 'AD Press',
+  primary_muscle: MusclesEnum.Shoulders,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const meadows_rows: Exercice = {
+  id: '440bcc1c-f91a-4675-8858-dbeaf61c60d3',
+  name: 'Rowing unilatérale à la landmine',
+  primary_muscle: MusclesEnum.Back,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const chin_ups: Exercice = {
+  id: 'a218d39b-1d53-40bc-b6f2-212f10708270',
+  name: 'Tractions supination',
+  primary_muscle: MusclesEnum.Back,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const triceps_pushdown: Exercice = {
+  id: 'ab171013-1819-4a9b-a241-ef521e61ef74',
+  name: 'Extension triceps poulie barre V',
+  primary_muscle: MusclesEnum.Triceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const cross_body_triceps_extension: Exercice = {
+  id: 'aebdb3c8-0abc-4b8c-811c-4a62c7d17e1b',
+  name: 'Extension triceps croisée à la poulie',
+  primary_muscle: MusclesEnum.Triceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const ez_bar_preacher_curl: Exercice = {
+  id: 'ee795647-7070-4858-92d5-49d37a95267a',
+  name: 'Curl barre EZ pupitre',
+  primary_muscle: MusclesEnum.Biceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const spider_curl: Exercice = {
+  id: '68f6c82d-4281-47ff-82ef-aa6b5c0d6510',
+  name: 'Curl spider',
+  primary_muscle: MusclesEnum.Biceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
 
 export default [
   low_bar_squat,
@@ -548,5 +679,18 @@ export default [
   dumbbell_pullover,
   machine_pullover,
   upright_row,
-  face_pull
+  face_pull,
+  clean_pull,
+  barbell_power_shrug,
+  close_grip_bench,
+  jm_press,
+  windshield_wiper,
+  russian_twists,
+  ad_press,
+  meadows_rows,
+  chin_ups,
+  triceps_pushdown,
+  cross_body_triceps_extension,
+  ez_bar_preacher_curl,
+  spider_curl
 ]
