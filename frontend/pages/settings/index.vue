@@ -14,7 +14,7 @@ function reinitProgram() {
   // Reinit program
   programsStore.setSelectedProgramId(firstProgramId)
   // Reinit supersets
-  supersetsStore.supersetExercices = []
+  // supersetsStore.supersetExercices = []
   // Import exercices
   importNewExercices(false)
   toast.add({

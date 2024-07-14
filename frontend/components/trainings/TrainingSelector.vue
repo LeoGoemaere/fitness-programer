@@ -87,7 +87,7 @@ const selectedTraining = computed(() => programsStore.currentTraining)
 
 <style lang="scss" scoped>
 .training-selector {
-  max-width: 200px;
+  max-width: 220px;
 }
 .training-selector__option {
   width: 100%;

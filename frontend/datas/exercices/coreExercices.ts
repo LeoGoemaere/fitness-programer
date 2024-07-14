@@ -630,6 +630,56 @@ export const spider_curl: Exercice = {
   reference_max_progression: MaxType.tm,
   tag_ids: []
 }
+export const good_morning: Exercice = {
+  id: 'f1027837-264d-4ef8-8638-288670a7e1e0',
+  name: 'Good morning',
+  primary_muscle: MusclesEnum.Lumbars,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const farmers_carries: Exercice = {
+  id: 'd3d79869-825e-4c14-8bfd-2acc45d4ba4e',
+  name: 'Marche du fermier',
+  primary_muscle: MusclesEnum.Forearms,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const suitcase_deadlift: Exercice = {
+  id: '2be95a23-16cd-4589-8b33-e11d8e26f357',
+  name: 'Soulevé de terre valise',
+  primary_muscle: MusclesEnum.Back,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const cable_crunch: Exercice = {
+  id: 'f3c719c8-86df-4432-92ba-2d3c25e16972',
+  name: 'Crunch à la poulie',
+  primary_muscle: MusclesEnum.Abs,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const dragon_flag: Exercice = {
+  id: '8007987a-bb0e-40d0-9f00-f1f151f0fb2b',
+  name: 'Dragon flag',
+  primary_muscle: MusclesEnum.Abs,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
 
 export default [
   low_bar_squat,
@@ -692,5 +742,10 @@ export default [
   triceps_pushdown,
   cross_body_triceps_extension,
   ez_bar_preacher_curl,
-  spider_curl
+  spider_curl,
+  good_morning,
+  farmers_carries,
+  suitcase_deadlift,
+  cable_crunch,
+  dragon_flag
 ]
