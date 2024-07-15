@@ -124,9 +124,7 @@ const tmPercentageValue = computed(() => {
           </p>
         </div>
         <div v-if="variationDescription" class="description__row">
-          <p>
-            <span v-if="programsStore.hasMultipleVariations" class="font-bold">Variation:</span> {{ variationDescription }}
-          </p>
+          <p v-html="variationDescription" />
         </div>
         <div v-if="templateDescription" class="description__row">
           <p>

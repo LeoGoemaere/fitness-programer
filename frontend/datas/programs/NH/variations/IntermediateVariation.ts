@@ -3170,7 +3170,32 @@ const intermediateTemplate: ProgramTemplate = {
 export const IntermediateVariation: ProgramVariation = {
   id: '{uuid}',
   name: 'Intermédiaire',
-  description: 'Programme de 5 trainings / semaine. 2 uppers / lowers + bras',
+  description: `
+    La variation "intermédiaire" est conçue pour les haltérophiles qui ont dépassé le stade débutant et qui recherchent une approche structurée pour gagner de la masse musculaire de manière efficace.<br>
+    Ce programme met l'accent sur un équilibre entre une haute fréquence, un volume moyen et une intensité moyenne à élevée pour stimuler la croissance musculaire sans entraver la récupération.<br>
+    Voici un aperçu de la structure du programme et de ce à quoi les participants peuvent s'attendre :<br><br>
+    <b>Fréquence et structure :</b> Le programme fonctionne sur un emploi du temps d'entraînement de 5 jours, utilisant une répartition haut-bas, répétée deux fois avec une journée supplémentaire dédiée à l'entraînement des bras. Cette configuration garantit que chaque groupe musculaire majeur est ciblé deux fois par semaine pour une stimulation optimale de la croissance.<br><br>
+    <b>Durée et efficacité :</b> Chaque session d'entraînement est conçue pour être efficace, durant entre 60 et 80 minutes. L'incorporation de supersets joue un rôle crucial en maintenant l'intensité de l'entraînement tout en assurant une efficacité temporelle.<br><br>
+    <b>Structure de l'entraînement :</b><br>
+    <ul class="list">
+      <li class="list__item">Lundi - Upper 1</li>
+      <li class="list__item">Mardi - Lower 1</li>
+      <li class="list__item">Mercredi - Bras</li>
+      <li class="list__item">Vendredi - Upper 2</li>
+      <li class="list__item">Samedi - Lower 2</li>
+    </ul><br>
+    <b>Composantes de l'entraînement :</b><br>
+    <ul class="list">
+      <li class="list__item"><b>Entraînements upper :</b> Concentrés sur des mouvements composés et isolés, avec des variations de volume et d'intensité. L'inclusion d'exercices comme le développé couché, les tirages haltères, les développés militaires et le travail d'isolation pour les bras assure un entraînement complet du haut du corps.</li>
+      <li class="list__item"><b>Entraînements lower :</b> Mettent l'accent sur les muscles des jambes à travers une variété d'exercices ciblant différents aspects des jambes, y compris les squats, les presses à jambes et les extensions de mollets. Les journées du bas du corps sont légèrement moins volumineuses par rapport aux journées du haut du corps, en accord avec la distribution stratégique de l'énergie et de l'attention du programme.</li>
+      <li class="list__item"><b>Entraînement bras :</b> Spécifiquement dédiée au développement des bras, incorporant des exercices comme les développés couchés croisés, les pull-overs avec haltères et diverses variations de curls pour cibler les biceps, triceps et muscles de l'avant-bras.</li>
+    </ul><br>
+    <b>Volume et progression :</b> Le programme commence avec 3-4 séries par exercice, permettant une progression en volume et en intensité. La dernière partie de la semaine réduit légèrement le volume à 3 séries par exercice pour gérer la fatigue et préparer les stades avancés de l'entraînement.<br><br>
+    <b>Récupération et adaptation :</b> La répartition est conçue pour prévenir le surentraînement et la fatigue excessive en alternant les groupes musculaires et en assurant une récupération adéquate, ce qui est vital pour un progrès continu et la croissance musculaire.<br><br>
+    <b>Préparation avancée :</b> Au fur et à mesure que les participants progressent, le programme fournit une base pour passer à des stades d'entraînement plus avancés, en soulignant l'importance de ne pas se précipiter à travers les phases et de se concentrer sur une croissance cohérente et durable.<br><br>
+    <b>Approche holistique :</b> En plus de l'hypertrophie musculaire, le programme inclut également des exercices pour la force fonctionnelle et la stabilité du tronc, améliorant la performance physique globale et l'esthétique.<br><br>
+    Les haltérophiles sont encouragés à suivre le programme avec diligence et patience, en se concentrant sur une forme correcte, une surcharge progressive et une récupération pour maximiser les gains. La variation "intermediaire" ne consiste pas seulement à soulever des poids ; il s'agit de stimuler stratégiquement la croissance musculaire, d'améliorer la force et d'améliorer la composition corporelle grâce à un schéma d'entraînement bien structuré.
+  `,
   templates: [
     intermediateTemplate,
   ]

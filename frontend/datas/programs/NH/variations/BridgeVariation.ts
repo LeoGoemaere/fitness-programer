@@ -2431,7 +2431,19 @@ const bridgeTemplate: ProgramTemplate = {
 export const BridgeVariation: ProgramVariation = {
   id: '8cf6259c-43a5-417c-a443-ec86eff4c60b',
   name: 'Bridge',
-  description: 'Programme de 4 trainings / semaine. Programme de transition entre le novice et intermédiaire.',
+  description: `
+    La variation "Bridge" est conçu pour faire passer les utilisateurs de la variation "Novice" à "Intermédiaire". Voici ce qu'il comprend :<br><br>
+    <b>Fréquence :</b> Vous vous entraînerez quatre fois par semaine, en introduisant une journée dédiée au haut du corps et en incorporant des exercices d'isolation des bras tout au long de la semaine.<br><br>
+    <b>Augmentation du volume :</b> Le nombre de séries passera de trois à quatre, ce qui se traduit par 21 séries supplémentaires par semaine. Cependant, cette augmentation ne s'applique qu'à la première moitié de la semaine, afin de ne pas vous épuiser.<br><br>
+    <b>Ajustements des plages de répétitions :</b> À mesure que le nombre de séries augmente, les plages de répétitions doivent être modifiées pour assurer la compatibilité.<br><br>
+    <b>Objectif :</b> Le principal objectif de ce programme est de développer votre volume de travail, c'est-à-dire que vous devriez être capable de faire plus de travail plus souvent sans compromettre l'intensité.<br><br>
+    <b>Cohérence :</b> Les lundis et mercredis maintiennent une répartition similaire à celle que vous connaissez peut-être, mais maintenant avec l'option de trois ou quatre séries.<br><br>
+    <b>Nouvelles additions le vendredi :</b> L'accent est mis sur le haut du dos avec l'introduction de tirages à la machine et de tirages inclinés. Le muscle du dos nécessite un volume élevé.<br><br>
+    <b>Samedi - Upper :</b> Cette journée comprend quatre exercices - développé incliné/pompes aux anneaux, pull-overs avec haltères/pull-overs à la machine, curls au pupitre/Bayesian curl et extensions triceps/French press.<br><br>
+    <b>Jours de repos :</b> Les mardis, jeudis et dimanches.<br><br>
+    Quand devez-vous passer à la variation "Intermédiaire" ?<br><br>
+    Quand vous vous sentez régulièrement énergique après vos entraînements et que vous trouvez nécessaire de faire quatre séries par groupe musculaire quotidiennement pour sentir la croissance, c'est le signe qu'il est temps de passer au programme intermédiaire.
+  `,
   templates: [
     bridgeTemplate,
   ]
