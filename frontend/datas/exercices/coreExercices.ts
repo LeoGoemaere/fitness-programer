@@ -209,7 +209,7 @@ export const barbell_reverse_curl: Exercice = {
 }
 export const neutral_ups: Exercice = {
   id: '35f52c80-2879-41f0-94a2-4a1fe51d63d6',
-  name: 'Tractions prise serrée',
+  name: 'Tractions prise neutre',
   primary_muscle: MusclesEnum.Back,
   RM: 0,
   TM: 0,
@@ -681,6 +681,207 @@ export const dragon_flag: Exercice = {
   tag_ids: []
 }
 
+export const decline_sit_up: Exercice = {
+  id: 'd7a00d55-d686-453d-9986-04c370a00885',
+  name: 'Sit-up banc incliné',
+  primary_muscle: MusclesEnum.Abs,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const abs_rollout: Exercice = {
+  id: '450a8a5c-3754-4aab-ab85-4c6daafb726a',
+  name: 'Roue abdominale',
+  primary_muscle: MusclesEnum.Abs,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const incline_cable_flies: Exercice = {
+  id: '2bd53a44-8137-439a-b160-d0700747d0f3',
+  name: 'Ecarté poulie incliné',
+  primary_muscle: MusclesEnum.Chest,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const converging_chest_press: Exercice = {
+  id: '78b2d6e7-89d4-4e81-afab-8b6062e05923',
+  name: 'Développé machine convergente',
+  primary_muscle: MusclesEnum.Chest,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const supinated_grip_lats_cable: Exercice = {
+  id: 'c76e6618-73a1-4f6b-b247-97fbcb2852b1',
+  name: 'Tirage supination poulie haute',
+  primary_muscle: MusclesEnum.Back,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const reverse_crunches: Exercice = {
+  id: 'ef957af0-6eac-4340-8afd-db230d4c5be2',
+  name: 'Crunchs inversé',
+  primary_muscle: MusclesEnum.Abs,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const incline_y_raises: Exercice = {
+  id: '33e13699-b474-401b-a7ac-4a08fee1fb5e',
+  name: 'Elévation haltères en Y sur banc incliné',
+  primary_muscle: MusclesEnum.Shoulders,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const lying_triceps_extension: Exercice = {
+  id: 'a7199491-29fe-48d0-acbd-c52963a72324',
+  name: 'Lying triceps extension',
+  primary_muscle: MusclesEnum.Triceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const heel_elevated_pause_squat: Exercice = {
+  id: 'ba9c27e2-2d68-437c-9f12-6eff7adf9afa',
+  name: 'Squat pausé talons élevés',
+  primary_muscle: MusclesEnum.Quads,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const serratus_push_ups: Exercice = {
+  id: '8599f342-6782-4f4a-85df-a8afb46c3a6e',
+  name: 'Pompes Serratus',
+  primary_muscle: MusclesEnum.Chest,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const serratus_punch: Exercice = {
+  id: '6d28e8ee-8d8d-430a-ad59-fd59328aca18',
+  name: 'Poing Serratus',
+  primary_muscle: MusclesEnum.Shoulders,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const reverse_lunges: Exercice = {
+  id: '6c7f2257-4a64-4b33-b755-54f75b13852c',
+  name: 'Fentes arrière',
+  primary_muscle: MusclesEnum.Quads,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const glutes_ham_raises: Exercice = {
+  id: '45b6144a-92d1-4529-a0a0-a398e998b120',
+  name: 'Elevation fessiers',
+  primary_muscle: MusclesEnum.Glutes,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const triceps_dips: Exercice = {
+  id: 'b3eaaad2-87fa-464f-a25f-2c0c8ad9d172',
+  name: 'Dips triceps',
+  primary_muscle: MusclesEnum.Triceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const cable_skull_crushers: Exercice = {
+  id: '66aacb86-c43e-40c6-885b-c77cdd184381',
+  name: 'Skullcrusher à la poulie',
+  primary_muscle: MusclesEnum.Triceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const pelican_curl: Exercice = {
+  id: '9aba08b2-305c-473a-b140-e3bfe2280389',
+  name: 'Curl pélican',
+  primary_muscle: MusclesEnum.Biceps,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const rear_delt_swing_dumbbell: Exercice = {
+  id: '98b0e0bc-6203-438a-ad1c-97e1c39bb6e2',
+  name: 'Balancement arrière épaule haltères',
+  primary_muscle: MusclesEnum.Shoulders,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const pendulum_hack_squat: Exercice = {
+  id: 'b0b06230-87fe-4d9b-b0d7-ab58f3c0c40a',
+  name: 'Hack squat pendule',
+  primary_muscle: MusclesEnum.Quads,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const kelso_shrugs: Exercice = {
+  id: 'ed9d766d-7b43-43a5-a4eb-5450b581d3dc',
+  name: 'Haussements d\'épaules Kelso',
+  primary_muscle: MusclesEnum.Trapezius,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const single_leg_romanian_deadlift: Exercice = {
+  id: '81792d40-e5ff-48d0-b334-e1cd4e7d61f7',
+  name: 'Soulevé de terre roumain sur 1 jambe',
+  primary_muscle: MusclesEnum.Lumbars,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+
 export default [
   low_bar_squat,
   high_bar_squat,
@@ -747,5 +948,25 @@ export default [
   farmers_carries,
   suitcase_deadlift,
   cable_crunch,
-  dragon_flag
+  dragon_flag,
+  decline_sit_up,
+  abs_rollout,
+  incline_cable_flies,
+  converging_chest_press,
+  supinated_grip_lats_cable,
+  reverse_crunches,
+  incline_y_raises,
+  lying_triceps_extension,
+  heel_elevated_pause_squat,
+  serratus_push_ups,
+  serratus_punch,
+  reverse_lunges,
+  glutes_ham_raises,
+  triceps_dips,
+  cable_skull_crushers,
+  pelican_curl,
+  rear_delt_swing_dumbbell,
+  pendulum_hack_squat,
+  kelso_shrugs,
+  single_leg_romanian_deadlift
 ]
