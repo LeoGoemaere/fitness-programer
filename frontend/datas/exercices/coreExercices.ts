@@ -219,7 +219,7 @@ export const neutral_ups: Exercice = {
 }
 export const neutral_grip_lat_pulldown: Exercice = {
   id: 'edb40bb6-f02c-4147-b67c-1d21b982c8d5',
-  name: 'Tirage poulie prise serrée',
+  name: 'Tirage poulie prise neutre',
   primary_muscle: MusclesEnum.Back,
   RM: 0,
   TM: 0,
@@ -881,6 +881,36 @@ export const single_leg_romanian_deadlift: Exercice = {
   reference_max_progression: MaxType.tm,
   tag_ids: []
 }
+export const seated_lateral_raises: Exercice = {
+  id: '38bb79d8-a5ad-4b5b-aac0-9c759e81b3ea',
+  name: 'Elevations latérale assis',
+  primary_muscle: MusclesEnum.Shoulders,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const lateral_raises: Exercice = {
+  id: '952b4d4f-476a-4149-bd42-685d1aaac80e',
+  name: 'Elevations latérale',
+  primary_muscle: MusclesEnum.Shoulders,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const pronation_grip_lat_cable: Exercice = {
+  id: 'adb27d57-bcff-4c76-b36a-fc3ce1e35bfc',
+  name: 'Tirage pronation poulie haute',
+  primary_muscle: MusclesEnum.Back,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
 
 export default [
   low_bar_squat,
@@ -968,5 +998,8 @@ export default [
   rear_delt_swing_dumbbell,
   pendulum_hack_squat,
   kelso_shrugs,
-  single_leg_romanian_deadlift
+  single_leg_romanian_deadlift,
+  seated_lateral_raises,
+  lateral_raises,
+  pronation_grip_lat_cable
 ]
