@@ -911,6 +911,16 @@ export const pronation_grip_lat_cable: Exercice = {
   reference_max_progression: MaxType.tm,
   tag_ids: []
 }
+export const close_stance_dumbbell_seated_calf_raises: Exercice = {
+  id: 'bbdfe1aa-dea2-4719-93f9-77b6fd873907',
+  name: 'Mollets assis jambes serrées haltères',
+  primary_muscle: MusclesEnum.Calves,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
 
 export default [
   low_bar_squat,
@@ -1001,5 +1011,6 @@ export default [
   single_leg_romanian_deadlift,
   seated_lateral_raises,
   lateral_raises,
-  pronation_grip_lat_cable
+  pronation_grip_lat_cable,
+  close_stance_dumbbell_seated_calf_raises
 ]
