@@ -377,6 +377,16 @@ export const dumbbell_preacher_curls: Exercice = {
   reference_max_progression: MaxType.tm,
   tag_ids: []
 }
+export const dumbbell_preacher_hammer_curls: Exercice = {
+  id: '0554dea2-3485-4107-84d6-e9f8b21b3637',
+  name: 'Curl marteau pupitre haltères',
+  primary_muscle: MusclesEnum.Forearms,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
 export const bayesian_curls: Exercice = {
   id: '1fcfdd27-512c-410e-9065-2a789ed96658',
   name: 'Bayesian curl',
@@ -564,6 +574,16 @@ export const russian_twists: Exercice = {
   id: 'cf34aa8c-0936-4f9c-a505-d7f0c38372c5',
   name: 'Russian twists',
   primary_muscle: MusclesEnum.Abs,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
+export const pronation_twist: Exercice = {
+  id: 'f896df81-ecd6-4042-979d-3fd2ce216e31',
+  name: 'Rotation du poignet',
+  primary_muscle: MusclesEnum.Forearms,
   RM: 0,
   TM: 0,
   weight_progression: 0,
@@ -969,6 +989,7 @@ export default [
   incline_press,
   ring_push_ups,
   dumbbell_preacher_curls,
+  dumbbell_preacher_hammer_curls,
   bayesian_curls,
   leg_press,
   smith_machine_squats,
@@ -988,6 +1009,7 @@ export default [
   jm_press,
   windshield_wiper,
   russian_twists,
+  pronation_twist,
   ad_press,
   meadows_rows,
   chin_ups,
