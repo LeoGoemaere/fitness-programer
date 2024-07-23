@@ -119,9 +119,7 @@ const tmPercentageValue = computed(() => {
     <UAlert v-if="programDescription || variationDescription || templateDescription" class="program__description">
       <template #description>
         <div v-if="programDescription" class="description__row">
-          <p>
-            <span class="font-bold">Programme:</span> {{ programDescription }}
-          </p>
+          <p v-html="programDescription" />
         </div>
         <div v-if="variationDescription" class="description__row">
           <p v-html="variationDescription" />
