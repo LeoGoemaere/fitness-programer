@@ -29,6 +29,7 @@ const selectedTraining = computed(() => programsStore.currentTraining)
       option-attribute="name"
       value-attribute="id"
       :uiMenu="{
+        height: 'max-h-70',
         option: {
           padding: 'p-0 w-full',
           container: 'w-full',

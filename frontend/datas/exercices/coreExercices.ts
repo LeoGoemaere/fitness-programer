@@ -337,6 +337,16 @@ export const seated_calf_raise: Exercice = {
   reference_max_progression: MaxType.tm,
   tag_ids: []
 }
+export const standing_calf_raise: Exercice = {
+  id: '6e114311-bc88-4cd3-8a44-930c6ae43c80',
+  name: 'Mollets debout à la machine',
+  primary_muscle: MusclesEnum.Calves,
+  RM: 0,
+  TM: 0,
+  weight_progression: 0,
+  reference_max_progression: MaxType.tm,
+  tag_ids: []
+}
 export const incline_press: Exercice = {
   id: '4989e583-944d-4123-b0bd-698cde704ffd',
   name: 'Développé incliné barre',
@@ -803,7 +813,7 @@ export const reverse_lunges: Exercice = {
 }
 export const glutes_ham_raises: Exercice = {
   id: '45b6144a-92d1-4529-a0a0-a398e998b120',
-  name: 'Elevation fessiers',
+  name: 'Elevation fessiers (GHR)',
   primary_muscle: MusclesEnum.Glutes,
   RM: 0,
   TM: 0,
@@ -955,6 +965,7 @@ export default [
   sumo_deadlift,
   barbell_row,
   seated_calf_raise,
+  standing_calf_raise,
   incline_press,
   ring_push_ups,
   dumbbell_preacher_curls,
